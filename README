@@ -1,0 +1,20 @@
+Esto es el archivo README de la Practica 3 de Programacion Web.
+
+Autor: Djidjelly Siclait        Matricula: 2011-2319
+Autor: Eduardo Veras            Matricula: 2012-
+
+Facultad: Ingenieria
+Carrera: ISC
+Profesor: Carlos Camacho
+Fecha de Entrega: 3-6-2016
+
+Esta practica simula una sitio web tipo blog, que brinda a los
+usuarios la creacion de cuentas. Con una cuenta, cada persona/autor
+puede publicar una serie de articulos, los cuales es disponible
+a todos los demas usuarios.
+
+Lenguajes: Java, SQL, HTML, CSS
+Framework: SparkJava, Twitter Bootstrap 3
+Librerias: FreeMarker
+IDU:  IntelliJ IDEA (version 2016.1.2)
+Database: H2 (modo servidor)
