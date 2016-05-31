@@ -2,27 +2,28 @@
 <html>
     <head>
         <title>BlogBoutIt Login</title>
-        <link type="text/css" rel="stylesheet" href="css/blogtheme.css" />
+        <link type="text/css" rel="stylesheet" href="css/login.css" />
     </head>
     <body style="background-image: url('img/write.jpg');">
-        <div>
-            <!-- Header -->
-            <div>
-                <h1>${message}</h1>
-            </div>
+        <!-- Header -->
+        <div id="header">
+            <h1>${message}</h1>
+        </div>
 
+        <div id="container">
             <br>
 
             <!-- Login Form -->
-            <div>
+            <div id="login">
                 <fieldset>
                     <legend>Login to Start to Blog</legend>
+                    <br>
                     <form>
-                        Username: <input type="text" name="username" value="Username" required/>
-                        <br>
+                        Username: <input type="text" name="username" required/>
+                        <br><br>
                         Password: <input type="password" name="password" required/>
-                        <br>
-                        <input type="submit" name="submit" value="Login" />
+                        <br><br>
+                        <input id="log" type="submit" name="submit" value="Login" />
                     </form>
                 </fieldset>
             </div>
@@ -32,11 +33,11 @@
             <div>
                 <!-- <img src="img/write.jpg" alt="Image Not Found" /> -->
             </div>
+        </div>
 
-            <!-- Footer -->
-            <div>
-                <h3>Blog all day, Blog all night!</h3>
-            </div>
+        <!-- Footer -->
+        <div id="footer">
+            <h3>Blog all day, Blog all night!</h3>
         </div>
     </body>
 </html>
