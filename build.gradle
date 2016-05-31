@@ -19,4 +19,6 @@ dependencies {
     //Slf4j Library -> Sparkjava extension
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+    compile group: 'com.h2database', name: 'h2', version: '1.3.148'
 }
