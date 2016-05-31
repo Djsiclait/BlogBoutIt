@@ -20,7 +20,7 @@
             <form>
                 Username: <input type="text" name="username" value="Username" required/>
                 <br>
-                Password: <input type="password" name="password" value="Password" required/>
+                Password: <input type="password" name="password" required/>
                 <br>
                 <input type="submit" name="submit" value="Login" />
             </form>
@@ -28,6 +28,10 @@
     </div>
 
     <br>
+
+    <div>
+        <img src="img/write.jpg" alt="Image Not Found" />
+    </div>
 
     <!-- Footer -->
     <div>

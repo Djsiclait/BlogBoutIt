@@ -22,7 +22,7 @@ public class Main {
         // Terminate server connection
         //DatabaseManager.CloseServer();
 
-        get("/login", (req, res) -> {
+        get("/", (req, res) -> {
             res.status(200);
             Map<String, Object> attributes = new HashMap<>();
 
@@ -31,6 +31,5 @@ public class Main {
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
 
-        get("/", (req, res) -> "Yo!");
     }
 }
