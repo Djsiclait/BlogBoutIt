@@ -19,12 +19,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 
-
         staticFileLocation("/public");
-        Class.forName(DB_DRIVER);
-        Connection conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-        createBasicTable(conn);
-        createMainPage(conn);
 
         // Initiate server connection
         //DatabaseManager.StartServer();
@@ -33,37 +28,5 @@ public class Main {
         //DatabaseManager.CloseServer();
 
     }
-
-
-    public static void createBasicTable(Connection conn) throws SQLException {
-        System.out.println("Creating table in given database...");
-        Statement stmt = conn.createStatement();
-
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"( " +
-                "matricula INTEGER NOT NULL, " +
-                "nombre varchar(100) NOT NULL,  " +
-                "apellidos varchar(100) NOT NULL, " +
-                "telefono varchar(50) NOT NULL, " +
-                "PRIMARY KEY (matricula))";
-
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
-    }
-
-
-    public static void createMainPage(Connection conn)
-    {
-        get("/", (req, res) -> {
-            res.status(200);
-            Map<String, Object> attributes = new HashMap<>();
-
-            attributes.put("message", "Welcome to BlogBoutIt! We can't wait to read BoutIt");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
-
-    }
-
-
 
 }
