@@ -1,3 +1,5 @@
+import java.util.Date;
+
 /**
  * Created by Siclait on 30/05/2016.
  */
@@ -5,20 +7,22 @@ public class Comment {
     //Attributes
     private long id;
     private String comment;
-    private User author;
-    private Article article;
+    private int author;
+    private int article;
+    private Date pubDate;
 
     // Constructor
     public Comment(){
 
     }
 
-    public Comment(long id, String comment, User author, Article article){
+    public Comment(long id, String comment, int author, int article, Date pubDate){
 
         this.id =  id;
         this.comment = comment;
         this.author = author;
         this.article = article;
+        this.pubDate = pubDate;
     }
 
     //Getters
@@ -30,11 +34,16 @@ public class Comment {
         return comment;
     }
 
-    public User getAuthor() {
+    public int getAuthor() {
         return author;
     }
 
-    public Article getArticle() {
+    public int getArticle() {
         return article;
     }
+
+    public Date getPubDate() {
+        return pubDate;
+    }
+
 }

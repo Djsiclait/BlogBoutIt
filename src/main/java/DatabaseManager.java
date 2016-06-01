@@ -295,7 +295,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) VALUES (" + user.getUsername() + ", '" +
+                    stat.execute("INSERT INTO USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) VALUES ('" + user.getUsername() + "', '" +
                             user.getName() + "', '" +
                             user.getPassword() + "', " +
                             user.isAdmin() + ", " +
@@ -329,12 +329,11 @@ public class DatabaseManager {
                     archives = new ArrayList<>();
 
                     while(rs.next())
-                        archives.add(new Article(rs.getInt("id"),
-                                rs.getString("titulo"),
-                                rs.getString("cuerpo"),
-                                rs.getString("autor"),
-                                rs.getDate("fecha"),
-                                rs.getDate("modificado")));
+                        archives.add(new User(rs.getString("username"),
+                                rs.getString("nombre"),
+                                rs.getString("password"),
+                                rs.getBoolean("amin"),
+                                rs.getBoolean("author")));
 
                     return archives.size(); // flse is 0
 
@@ -346,12 +345,11 @@ public class DatabaseManager {
                     archives = new ArrayList<>();
 
                     while(rs.next())
-                        archives.add(new Article(rs.getInt("id"),
-                                rs.getString("titulo"),
-                                rs.getString("cuerpo"),
-                                rs.getString("autor"),
-                                rs.getDate("fecha"),
-                                rs.getDate("modificado")));
+                        archives.add(new User(rs.getString("username"),
+                                rs.getString("nombre"),
+                                rs.getString("password"),
+                                rs.getBoolean("amin"),
+                                rs.getBoolean("author")));
 
                     return archives.size(); // false if 0
 
@@ -408,5 +406,70 @@ public class DatabaseManager {
         User user = new User(username);
 
         return (boolean)UserQuery(user, "isAdmin");
+    }
+
+    // Commet Query
+    private static Object CommentQuery(Comment comment, String query){
+
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO, FECHA) VALUES (" + comment.getId() + ", '" +
+                            comment.getComment() + "', '" +
+                            comment.getAuthor() + "', " +
+                            comment.getArticle() + ", " +
+                            comment.getPubDate() + ")");
+
+                    return null;
+
+                case "delete":
+
+                    stat.execute("DELETE FROM COMENTARIO WHERE ID=" +
+                            comment.getId());
+
+                    return null;
+
+                case "comments": // search query
+
+                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICLE=" +
+                            comment.getArticle());
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Comment(rs.getInt("id"),
+                                rs.getString("comment"),
+                                rs.getInt("autor"),
+                                rs.getInt("articulo"),
+                                rs.getDate("fecha")));
+
+                    return archives;
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
     }
 }
