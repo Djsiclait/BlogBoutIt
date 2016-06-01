@@ -411,7 +411,6 @@ public class DatabaseManager {
     // Commet Query
     private static Object CommentQuery(Comment comment, String query){
 
-
         try
         {
             // Preparing to execute query
@@ -492,6 +491,114 @@ public class DatabaseManager {
         Comment comment = new Comment(id, article);
 
         return (ArrayList<Comment>) CommentQuery(comment, "comments");
+    }
+
+    // Tag Query
+    private static Object TagQuery(Tag tag, String query){
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO ETIQUETA (ID, TAG) VALUES (" + tag.getId() + ", '" +
+                            tag.getTag() + "')");
+
+                    return null;
+
+                case "isNew": // search query
+
+                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
+                            tag.getTag() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Tag(rs.getInt("id"),
+                                rs.getString("tag")));
+
+                    return archives.size();
+
+                case "id": // search query
+
+                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
+                            tag.getTag() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Tag(rs.getInt("id"),
+                                rs.getString("tag")));
+
+                    Tag t = (Tag)archives.remove(0);
+
+                    return t.getId();
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
+    }
+
+    // TAG ARTICEL CROSS TABLE
+    public static void ProcessTagsOnArticlea(Tag tag, Article article){
+
+        int count = 0;
+
+        if((boolean)TagQuery(tag, "isNew"))
+            TagQuery(tag, "insert");
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            rs = stat.executeQuery("SELECT * FROM HASTAG WHERE ETIQUETA=" +
+                    tag.getId() + " AND ARTICULO=" +
+                    article.getId());
+
+            while(rs.next())
+                count++;
+
+            if(count == 0)
+                stat.executeUpdate("Insert Into HASTAG (ETIQUETA, ARTICULO) Values(" +
+                        tag.getId() + ", " +
+                        article.getId() + ")");
+
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
     }
 
 }
