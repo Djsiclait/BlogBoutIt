@@ -24,7 +24,7 @@ public class DatabaseManager {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
 
-    private static ArrayList<Article> archives;
+    private static ArrayList<Object> archives;
 
     private DatabaseManager(){
 
@@ -260,6 +260,101 @@ public class DatabaseManager {
     public static Object SearchArchivesBy(String category){
 
         return ArticleQuery(new Article(), category);
+    }
+
+    // User Queries
+    public static Object UserQuery(User user, String query) {
+
+        try
+        {
+            StartServerConnection();
+
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) VALUES (" + user.getUsername() + ", '" +
+                            user.getName() + "', '" +
+                            user.getPassword() + "', " +
+                            user.isAdmin() + ", " +
+                            user.isAuthor() + ")");
+
+                    return null;
+
+                case "delete":
+
+                    stat.execute("DELETE FROM USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "' AND ADMIN=0");
+
+                    return null;
+
+                case "edit":
+
+                    stat.execute("UPDATE USUARIO SET NOMBRE='" +
+                            user.getName() + "' , PASSWORD='" +
+                            user.getPassword() + "', ADMIN="  +
+                            user.isAdmin() + ", AUTOR="  +
+                            user.isAuthor()  + " WHERE USERNAME=" +
+                            user.getUsername());
+
+                    return null;
+
+                case "isAdmin": // search query
+
+                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "' AND ADMIN=1");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Article(rs.getInt("id"),
+                                rs.getString("titulo"),
+                                rs.getString("cuerpo"),
+                                rs.getString("autor"),
+                                rs.getDate("fecha"),
+                                rs.getDate("modificado")));
+
+                    return archives.size(); // flse is 0
+
+                case "taken": // search query
+
+                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Article(rs.getInt("id"),
+                                rs.getString("titulo"),
+                                rs.getString("cuerpo"),
+                                rs.getString("autor"),
+                                rs.getDate("fecha"),
+                                rs.getDate("modificado")));
+
+                    return archives.size(); // false if 0
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
     }
 
 /*
