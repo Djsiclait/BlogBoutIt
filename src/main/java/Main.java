@@ -1,7 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import org.h2.tools.Server;
 import spark.ModelAndView;
 import spark.Spark.*;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -18,7 +17,7 @@ import static spark.Spark.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args){
 
         staticFileLocation("/public");
 
