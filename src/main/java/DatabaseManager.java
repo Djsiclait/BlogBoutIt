@@ -70,7 +70,7 @@ public class DatabaseManager {
                 System.out.println("General ERROR! --> " + exp.getMessage());
             }
     }
-    
+
     public static Connection getConn() {
         return conn;
     }
@@ -283,7 +283,7 @@ public class DatabaseManager {
     }
 
     // User Queries
-    public static Object UserQuery(User user, String query) {
+    private static Object UserQuery(User user, String query) {
 
         try
         {
@@ -375,65 +375,38 @@ public class DatabaseManager {
         return null;
     }
 
-/*
-    public static void createBasicTable(Connection conn) throws SQLException {
-        System.out.println("Creating table in given database...");
-        Statement stmt = conn.createStatement();
+    public static void CreateUser(String username, String name, String password, boolean admin, boolean author){
 
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"( " +
-                "matricula INTEGER NOT NULL, " +
-                "nombre varchar(100) NOT NULL,  " +
-                "apellidos varchar(100) NOT NULL, " +
-                "telefono varchar(50) NOT NULL, " +
-                "PRIMARY KEY (matricula))";
+        User user = new User(username, name, password, admin, author);
 
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
+        UserQuery(user, "insert");
     }
 
+    public static void DeleteUser(String username){
 
-    public static void createMainPage(Connection conn)
-    {
-        get("/", (req, res) -> {
-            res.status(200);
-            Map<String, Object> attributes = new HashMap<>();
+        User user = new User(username);
 
-            attributes.put("message", "Welcome to BlogBoutIt! We can't wait to read BoutIt");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
-
+        UserQuery(user, "delete");
     }
 
+    public static void MakeAdmin(String username, String name, String password){
 
+        User user = new User(username, name, password, true, true);
 
-    public static void createBasicTable(Connection conn) throws SQLException {
-        System.out.println("Creating table in given database...");
-        Statement stmt = conn.createStatement();
-
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"( " +
-                "matricula INTEGER NOT NULL, " +
-                "nombre varchar(100) NOT NULL,  " +
-                "apellidos varchar(100) NOT NULL, " +
-                "telefono varchar(50) NOT NULL, " +
-                "PRIMARY KEY (matricula))";
-
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
+        UserQuery(user, "edit");
     }
 
+    public static void EditUser(String username, String name, String password, boolean admin, boolean author){
 
-    public static void createMainPage(Connection conn)
-    {
-        get("/", (req, res) -> {
-            res.status(200);
-            Map<String, Object> attributes = new HashMap<>();
+        User user = new User(username, name, password, admin, author);
 
-            attributes.put("message", "Welcome to BlogBoutIt! We can't wait to read BoutIt");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
-
+        UserQuery(user, "edit");
     }
-    */
+
+    public static boolean isAdmin(String username){
+
+        User user = new User(username);
+
+        return (boolean)UserQuery(user, "isAdmin");
+    }
 }
