@@ -26,13 +26,31 @@ public class DatabaseManager {
 
     private static ArrayList<Article> archives;
 
-    private DatabaseManager(){
+    public DatabaseManager() throws ClassNotFoundException, SQLException {
+        try {
+            Class.forName(DB_DRIVER);
+            conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+            System.out.println("Connection Successful!");
+        }
+        catch(ClassNotFoundException exp)
+        {
+            System.out.println("Class ERROR --> " + exp.getMessage());
+        }
+        catch(SQLException exp)
+        {
+            System.out.println("Sql ERROR --> " + exp.getMessage());
+        }
+        catch(Exception exp)
+        {
+            System.out.println("General ERROR --> " + exp.getMessage());
+        }
 
     }
 
+
     public static void BootUP() throws Exception
     {
-        if(StartServerConnection() != null)
+
             try {
                 Statement stat = conn.createStatement();
 
@@ -53,30 +71,28 @@ public class DatabaseManager {
             }
     }
 
-    public static Connection StartServerConnection()
+    public static void PrintData()
     {
         try {
-            Class.forName(DB_DRIVER);
-            conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            System.out.println("Connection Successful!");
+            Statement stat = conn.createStatement();
 
-            return conn;
-        }
-        catch(ClassNotFoundException exp)
-        {
-            System.out.println("Class ERROR --> " + exp.getMessage());
-        }
-        catch(SQLException exp)
-        {
-            System.out.println("Sql ERROR --> " + exp.getMessage());
-        }
-        catch(Exception exp)
-        {
-            System.out.println("General ERROR --> " + exp.getMessage());
-        }
+            System.out.println(stat.toString());
+            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
+             while (rs.next())
+             {
+                System.out.println(rs.getString("USERNAME")+rs.getString("NOMBRE"));
+             }
 
-        return null;
+        } catch (SQLDataException exp) {
+            System.out.println("Data ERROR! --> " + exp.getMessage());
+        } catch (SQLException exp) {
+            System.out.println("SQL ERROR! --> " + exp.getMessage());
+        } catch (Exception exp) {
+            System.out.println("General ERROR! --> " + exp.getMessage());
+        }
     }
+
+
 
     public static void CloseServerConnection(){
 
@@ -99,7 +115,7 @@ public class DatabaseManager {
     {
         try
         {
-            StartServerConnection();
+
 
             // Preparing to execute query
             Statement stat = conn.createStatement();

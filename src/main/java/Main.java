@@ -17,9 +17,12 @@ import static spark.Spark.*;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
 
         staticFileLocation("/public");
+        DatabaseManager DBmanager = new DatabaseManager();
+        DBmanager.BootUP();
+        DBmanager.PrintData();
 
         // Initiate server connection
         //DatabaseManager.StartServer();
