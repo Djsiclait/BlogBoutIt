@@ -10,6 +10,10 @@ public class DatabaseManager {
 
     // Attributes
     private static Connection conn;
+    private static final String DB_DRIVER = "org.h2.Driver";
+    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost/~/Blog;IFEXISTS=TRUE";
+    private static final String DB_USER = "sa";
+    private static final String DB_PASSWORD = "";
 
     private DatabaseManager(){
 
@@ -18,8 +22,8 @@ public class DatabaseManager {
     public static void StartServer()
     {
         try {
-            Class.forName("org.h2.Driver");
-            conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/Blog;IFEXISTS=TRUE", "sa", "");
+            Class.forName(DB_DRIVER);
+            conn = DriverManager.getConnection(DB_CONNECTION, Db, "");
             System.out.println("Connection Successful!");
         }
         catch(ClassNotFoundException exp)

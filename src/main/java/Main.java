@@ -17,13 +17,6 @@ import static spark.Spark.*;
 
 public class Main {
 
-
-    private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:~/test";
-    private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "";
-    private static final String TABLE_NAME= " estudiantes ";
-
     public static void main(String[] args) throws Exception{
 
 
