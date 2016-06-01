@@ -23,6 +23,7 @@ public class Main {
         DatabaseManager DBmanager = new DatabaseManager();
         DBmanager.BootUP();
         DBmanager.PrintData();
+        PageCreator pages = new PageCreator();
 
         // Initiate server connection
         //DatabaseManager.StartServer();
