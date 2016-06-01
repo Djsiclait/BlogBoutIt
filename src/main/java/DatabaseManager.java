@@ -2,10 +2,10 @@ import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.rmi.ConnectException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import org.h2.tools.Server;
 import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class DatabaseManager {
     // Attributes
     private static Connection conn;
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost/~/Blog;IFEXISTS=TRUE";
+    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost:9092/~/Blog;IFEXISTS=TRUE";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
 
@@ -27,12 +27,37 @@ public class DatabaseManager {
 
     }
 
-    public static void StartServer()
+    public static void BootUP() throws Exception
+    {
+        if(StartServerConnection() != null)
+            try {
+                Statement stat = conn.createStatement();
+
+                System.out.println(stat.toString());
+                ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
+
+                if (rs.getFetchSize() == 0) {
+                    stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
+                    System.out.println("Admin created");
+                }
+
+            } catch (SQLDataException exp) {
+                System.out.println("Data ERROR! --> " + exp.getMessage());
+            } catch (SQLException exp) {
+                System.out.println("SQL ERROR! --> " + exp.getMessage());
+            } catch (Exception exp) {
+                System.out.println("General ERROR! --> " + exp.getMessage());
+            }
+    }
+
+    public static Connection StartServerConnection()
     {
         try {
             Class.forName(DB_DRIVER);
             conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
             System.out.println("Connection Successful!");
+
+            return conn;
         }
         catch(ClassNotFoundException exp)
         {
@@ -46,9 +71,11 @@ public class DatabaseManager {
         {
             System.out.println("General ERROR --> " + exp.getMessage());
         }
+
+        return null;
     }
 
-    public static void CloseServer(){
+    public static void CloseServerConnection(){
 
         try {
             conn.close();

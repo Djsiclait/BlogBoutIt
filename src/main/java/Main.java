@@ -1,7 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import org.h2.tools.Server;
 import spark.ModelAndView;
 import spark.Spark.*;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -27,6 +26,7 @@ public class Main {
 
         // Terminate server connection
         //DatabaseManager.CloseServer();
+        DatabaseManager.BootUP();
 
     }
 }
