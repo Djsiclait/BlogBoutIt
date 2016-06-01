@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>BlogBoutIt Login</title>
-        <link type="text/css" rel="stylesheet" href="css/login.css" />
-    </head>
-    <body style="background-image: url('img/write.jpg');">
+<#include "/siteHeader.ftl">
+<body">
         <!-- Header -->
         <div id="header">
             <h1>${message}</h1>
@@ -18,12 +13,35 @@
                 <fieldset>
                     <legend>Login to Start to Blog</legend>
                     <br>
-                    <form>
-                        Username: <input type="text" name="username" required/>
-                        <br><br>
-                        Password: <input type="password" name="password" required/>
-                        <br><br>
-                        <input id="log" type="submit" name="submit" value="Login" />
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="pass" type="password" class="validate">
+                                <label for="pass">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">Remember me</label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="col m12">
+                                <p class="right-align">
+                                    <button class="btn btn-large waves-effect waves-light" type="button" name="action">Login</button>
+                                </p>
+                            </div>
+                        </div>
                     </form>
                 </fieldset>
             </div>
