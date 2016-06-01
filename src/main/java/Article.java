@@ -10,24 +10,33 @@ public class Article {
     private String title;
     private String body;
     private Date pubDate;
-    private User author;
-    private ArrayList<Comment> comments;
-    private ArrayList<Tag> tags;
+    private String author;
+    private Date lastEdit;
 
     //Constuctors
     public Article(){
 
     }
 
-    public Article(long id, String title, String body, User author, Date pubDate, ArrayList<Comment> comments, ArrayList<Tag> tags){
+    public Article(int id){
+        this.id = id;
+    }
+
+    public Article(int id, String title, String body, Date lastEdit){
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.lastEdit = lastEdit;
+    }
+
+    public Article(long id, String title, String body, String author, Date pubDate, Date lastEdit){
 
         this.id = id;
         this.title = title;
         this.body = body;
         this.author = author;
         this.pubDate = pubDate;
-        this.comments = comments;
-        this.tags = tags;
+        this.lastEdit = lastEdit;
     }
 
     // Getters
@@ -43,7 +52,7 @@ public class Article {
         return body;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
@@ -51,11 +60,7 @@ public class Article {
         return pubDate;
     }
 
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
-    public ArrayList<Tag> getTags() {
-        return tags;
+    public Date getLastEdit() {
+        return lastEdit;
     }
 }

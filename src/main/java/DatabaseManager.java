@@ -6,6 +6,7 @@ import java.sql.*;
 import org.h2.tools.Server;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,8 @@ public class DatabaseManager {
     private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost:9092/~/Blog;IFEXISTS=TRUE";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
+
+    private static ArrayList<Article> archives;
 
     private DatabaseManager(){
 
@@ -90,6 +93,174 @@ public class DatabaseManager {
         }
     }
 
+
+    // Basic Query Functions
+    private static Object ArticleQuery(Article article, String query)
+    {
+        try
+        {
+            StartServerConnection();
+
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO ARTICULO (ID, TITULO, CUERPO, AUTOR, FECHA, MODIFICADO) VALUES (" + article.getId() + ", '" +
+                            article.getTitle() + "', '" +
+                            article.getBody() + "', '" +
+                            article.getAuthor() + "', '" +
+                            article.getPubDate() + "', '" +
+                            article.getLastEdit() +"')");
+
+                    return null;
+
+                case "delete":
+
+                    stat.execute("DELETE FROM ARTICULO WHERE ID=" + article.getId());
+
+                    return null;
+
+                case "edit":
+
+                    stat.execute("UPDATE ARTICULO SET TITULO='" +
+                            article.getTitle() + "' , CUERPO='" +
+                            article.getBody() + "', MODIFICADO='"  +
+                            article.getLastEdit() + "' WHERE ID=" +
+                            article.getId());
+
+                    return null;
+
+                case "list": // search query
+
+                    rs = stat.executeQuery("Select * From ARTICULO");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Article(rs.getInt("id"),
+                                rs.getString("titulo"),
+                                rs.getString("cuerpo"),
+                                rs.getString("autor"),
+                                rs.getDate("fecha"),
+                                rs.getDate("modificado")));
+
+                    return archives;
+                default: // specific search query
+
+                    switch (query)
+                    {
+                        case "id":
+
+                            rs = stat.executeQuery("Select * From ARTICULO Where ID=" + article.getId());
+
+                            archives = new ArrayList<>();
+
+                            while(rs.next())
+                                archives.add(new Article(rs.getInt("id"),
+                                        rs.getString("titulo"),
+                                        rs.getString("cuerpo"),
+                                        rs.getString("autor"),
+                                        rs.getDate("fecha"),
+                                        rs.getDate("modificado")));
+
+                            return archives.remove(0);
+
+                        case "title":
+
+                            rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getTitle() + "'");
+
+                            archives = new ArrayList<>();
+
+                            while(rs.next())
+                                archives.add(new Article(rs.getInt("id"),
+                                        rs.getString("titulo"),
+                                        rs.getString("cuerpo"),
+                                        rs.getString("autor"),
+                                        rs.getDate("fecha"),
+                                        rs.getDate("modificado")));
+
+                            return archives;
+
+                        case "author":
+
+                            rs = stat.executeQuery("Select * From ARTICULO Where AUTOR='" + article.getAuthor() + "'");
+
+                            archives = new ArrayList<>();
+
+                            while(rs.next())
+                                archives.add(new Article(rs.getInt("id"),
+                                        rs.getString("titulo"),
+                                        rs.getString("cuerpo"),
+                                        rs.getString("autor"),
+                                        rs.getDate("fecha"),
+                                        rs.getDate("modificado")));
+
+                            return archives;
+
+                        case "pubDate":
+
+                            rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getPubDate() + "'");
+
+                            archives = new ArrayList<>();
+
+                            while(rs.next())
+                                archives.add(new Article(rs.getInt("id"),
+                                        rs.getString("titulo"),
+                                        rs.getString("cuerpo"),
+                                        rs.getString("autor"),
+                                        rs.getDate("fecha"),
+                                        rs.getDate("modificado")));
+
+                            return archives;
+
+                        default:
+                            return null;
+                    }
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
+    }
+
+    public static void CreateArticle(int id, String title, String body, String author, Date pubDate, Date lastEdit){
+
+        Article article = new Article(id, title, body, author, pubDate, lastEdit);
+
+        ArticleQuery(article, "insert");
+    }
+
+    public static void DeleteArticle(int id){
+        Article article = new Article(id);
+        ArticleQuery(article, "delete");
+    }
+
+    public static void EditArticle(int id, String title, String body, Date lastEdit){
+
+        Article article = new Article(id, title, body, lastEdit);
+
+        ArticleQuery(article, "edit");
+    }
+
+    public static Object SearchArchivesBy(String category){
+
+        return ArticleQuery(new Article(), category);
+    }
 
 /*
     public static void createBasicTable(Connection conn) throws SQLException {
