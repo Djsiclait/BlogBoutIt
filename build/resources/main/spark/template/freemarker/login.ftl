@@ -2,17 +2,7 @@
 <body>
 <!-- Header -->
 
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#!" class="brand-logo">Logo</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/login" class="active">Login</a></li>
-                <li><a href="/">Home</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<#include "/navbar.ftl">
 <div id="header">
     <h1>${message}</h1>
 </div>
@@ -21,7 +11,10 @@
     <br>
 
     <!-- Login Form -->
+    <div class="row">
+    <div class="col s16 m4">
     <div id="login">
+
         <fieldset>
             <legend>Login to Start to Blog</legend>
             <br>
@@ -34,8 +27,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="pass" type="password" class="validate">
-                        <label for="pass">Password</label>
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
                     </div>
                 </div>
                 <div class="row">
@@ -57,17 +50,19 @@
             </form>
         </fieldset>
     </div>
+        </div>
+    </div>
+    </div>
 
     <br>
 
     <div>
         <!-- <img src="img/write.jpg" alt="Image Not Found" /> -->
     </div>
-</div>
+
 
 <!-- Footer -->
-<div id="footer">
-    <h3>Blog all day, Blog all night!</h3>
-</div>
+<#include "/footer.ftl">
+
 </body>
 </html>

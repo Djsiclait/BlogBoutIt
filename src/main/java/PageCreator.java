@@ -28,5 +28,11 @@ public class PageCreator {
             return new ModelAndView(attributes, "login.ftl");
 
         }, new FreeMarkerEngine());
+
+        get("/register", (request, response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("message", "Welcome.");
+            return new ModelAndView(attributes, "registerPage.ftl");
+        }, new FreeMarkerEngine());
     }
 }

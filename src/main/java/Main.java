@@ -25,6 +25,7 @@ public class Main {
         DBmanager.PrintData();
         PageCreator pages = new PageCreator();
 
+
         // Initiate server connection
         //DatabaseManager.StartServer();
 
