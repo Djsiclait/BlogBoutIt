@@ -9,7 +9,7 @@
 
 
 
-<div class="row">
+<div class="row" id="mainContent">
     <div class="col s12 m6">
         <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
@@ -72,7 +72,7 @@
 
 
 <!-- Footer -->
-<#include "/navbar.ftl">
+<#include "/footer.ftl">
 
 
     </body>
