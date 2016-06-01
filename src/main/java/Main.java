@@ -26,6 +26,6 @@ public class Main {
 
         // Terminate server connection
         //DatabaseManager.CloseServer();
-
+        
     }
 }
