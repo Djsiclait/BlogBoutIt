@@ -7,16 +7,20 @@ public class Comment {
     //Attributes
     private long id;
     private String comment;
-    private int author;
+    private String author;
     private int article;
     private Date pubDate;
 
     // Constructor
-    public Comment(){
-
+    public Comment(int id){
+        this.id = id;
+    }
+    public Comment(int id, int article){
+        this.id = id;
+        this.article = article;
     }
 
-    public Comment(long id, String comment, int author, int article, Date pubDate){
+    public Comment(long id, String comment, String author, int article, Date pubDate){
 
         this.id =  id;
         this.comment = comment;
@@ -34,7 +38,7 @@ public class Comment {
         return comment;
     }
 
-    public int getAuthor() {
+    public String getAuthor() {
         return author;
     }
 

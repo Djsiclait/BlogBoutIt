@@ -277,9 +277,9 @@ public class DatabaseManager {
         ArticleQuery(article, "edit");
     }
 
-    public static Object SearchArchivesBy(String category){
+    public static ArrayList<Article> SearchArchivesBy(String category){
 
-        return ArticleQuery(new Article(), category);
+        return (ArrayList<Article>) ArticleQuery(new Article(), category);
     }
 
     // User Queries
@@ -447,7 +447,7 @@ public class DatabaseManager {
                     while(rs.next())
                         archives.add(new Comment(rs.getInt("id"),
                                 rs.getString("comment"),
-                                rs.getInt("autor"),
+                                rs.getString("autor"),
                                 rs.getInt("articulo"),
                                 rs.getDate("fecha")));
 
@@ -472,4 +472,26 @@ public class DatabaseManager {
 
         return null;
     }
+
+    public static void CreatedComment(int id, String comment, String author, int article, Date date){
+
+        Comment com = new Comment(id, comment, author, article, date);
+
+        CommentQuery(com, "insert");
+    }
+
+    public static void DeleteComment(int id){
+
+        Comment comment = new Comment(id);
+
+        CommentQuery(comment, "delete");
+    }
+
+    public static ArrayList<Comment> GetArticleComments(int id, int article){
+
+        Comment comment = new Comment(id, article);
+
+        return (ArrayList<Comment>) CommentQuery(comment, "comments");
+    }
+
 }
