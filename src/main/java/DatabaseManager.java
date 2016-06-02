@@ -169,6 +169,7 @@ public class DatabaseManager {
                                 rs.getDate("modificado")));
 
                     return archives;
+
                 default: // specific search query
 
                     switch (query)
@@ -187,7 +188,7 @@ public class DatabaseManager {
                                         rs.getDate("fecha"),
                                         rs.getDate("modificado")));
 
-                            return archives.remove(0);
+                            return archives;
 
                         case "title":
 
@@ -277,9 +278,13 @@ public class DatabaseManager {
         ArticleQuery(article, "edit");
     }
 
-    public static ArrayList<Article> SearchArchivesBy(String category){
+    public static ArrayList<Article> SearchArchivesBy(Article article, String category){
 
-        return (ArrayList<Article>) ArticleQuery(new Article(), category);
+        return (ArrayList<Article>) ArticleQuery(article, category);
+    }
+    public static ArrayList<Article> GetAllArticles(){
+
+        return (ArrayList<Article>) ArticleQuery(new Article(), "list");
     }
 
     // User Queries

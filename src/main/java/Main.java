@@ -6,13 +6,9 @@ import spark.ModelAndView;
 import spark.Spark.*;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;
+import java.sql.Date;
+import java.util.*;
 
 import static spark.Spark.*;
 
@@ -25,8 +21,17 @@ public class Main {
         DBmanager.BootUP();
         DBmanager.PrintData();
         PageCreator pages = new PageCreator();
-        //DBmanager.DeleteUser("yolo");
-        System.out.println(DBmanager.isUsernameTaken("yolo"));
+
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date time = new java.sql.Date(utilDate.getTime());
+
+        DBmanager.DeleteArticle(3);
+        ArrayList<Article> catalog = DBmanager.GetAllArticles();
+        for (Article a:
+             catalog) {
+            System.out.println(a.getId() + " " + a.getTitle() + " " + a.getPubDate());
+        }
+        //System.out.println(DBmanager.isUsernameTaken("yolo"));
         // Initiate server connection
         //DatabaseManager.StartServer();
 
