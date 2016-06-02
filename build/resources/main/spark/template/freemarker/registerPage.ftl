@@ -40,6 +40,15 @@
                             </div>
                         </div>
                         <div class="divider"></div>
+                        <p>
+                            <input type="checkbox" id="admin" name="admin"/>
+                            <label for="admin">Admin</label>
+                        </p>
+                        <p>
+                        <input type="checkbox" id="author" name="author"/>
+                        <label for="author">Author</label>
+                    </p>
+                        <div class="divider"></div>
                         <div class="row">
                             <div class="col m12">
                                 <p class="right-align">

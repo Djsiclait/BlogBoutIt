@@ -14,10 +14,11 @@ import static spark.Spark.post;
  * Created by Eduardo veras on 01-Jun-16.
  */
 public class PageCreator {
-    DatabaseManager dbManager;
+
+    DatabaseManager DBmanager = new DatabaseManager();
 
     public PageCreator() throws Exception {
-        DatabaseManager DBmanager = new DatabaseManager();
+
         DBmanager.BootUP();
         DBmanager.PrintData();
 
@@ -58,14 +59,27 @@ public class PageCreator {
     private static void generatePost()
     {
         post("/register", (request, response) -> {
-
+            boolean author=false;
+            boolean admin =false;
             String username = request.queryParams("username");
             String name = request.queryParams("name");
             String pass = request.queryParams("password");
+            if (request.queryParams("author").equals("on"))
+            {
+                author=true;
+            }
+            if (request.queryParams("admin").equals("on"))
+            {
+                admin=true;
+            }
             response.redirect("./");
             System.out.println("Username:"+username);
             System.out.println("Name:"+name);
             System.out.println("Pass:"+pass);
+            System.out.println("admin:"+admin);
+            System.out.println("author:"+author);
+            User newUser = new User(username,name,pass,admin,author);
+
             //TODO: Add to the database into users
             return name;
         });
@@ -78,6 +92,7 @@ public class PageCreator {
             response.redirect("./");
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
+
             //TODO: Make the login function with cookies and stuff
             return username;
         });
