@@ -1,15 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import spark.ModelAndView;
-import spark.Spark.*;
-import spark.template.freemarker.FreeMarkerEngine;
-
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
-
 import static spark.Spark.*;
 
 public class Main {
