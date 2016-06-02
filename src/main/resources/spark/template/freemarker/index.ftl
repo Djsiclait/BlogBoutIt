@@ -32,28 +32,14 @@
                         </div>
                     </div>
 
-                    <div class="col s12 m6">
-                        <div class="card-panel teal">
-                          <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                          </span>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m6">
-                        <div class="card-panel teal">
-                          <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                          </span>
-                        </div>
-                    </div>
                 </div>
                 <!--End Comments-->
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" action="" method="POST" id="commentForm">
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                <input type="hidden" name="postID" value="12345">
+                                <textarea id="textarea1" form="commentForm"  name="comment" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Textarea</label>
                             </div>
                         </div>

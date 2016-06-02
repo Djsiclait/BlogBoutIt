@@ -17,24 +17,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
-        DatabaseManager DBmanager = new DatabaseManager();
-        DBmanager.BootUP();
-        DBmanager.PrintData();
+
         PageCreator pages = new PageCreator();
-
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Date time = new java.sql.Date(utilDate.getTime());
-
-        DBmanager.DeleteArticle(3);
-        ArrayList<Article> catalog = DBmanager.GetAllArticles();
-        for (Article a:
-             catalog) {
-            System.out.println(a.getId() + " " + a.getTitle() + " " + a.getPubDate());
-        }
-        //System.out.println(DBmanager.isUsernameTaken("yolo"));
         // Initiate server connection
         //DatabaseManager.StartServer();
-
+        //java.util.Date utilDate = new java.util.Date();
+        //java.sql.Date time = new java.sql.Date(utilDate.getTime());
         // Terminate server connection
         //DatabaseManager.CloseServer();
         
