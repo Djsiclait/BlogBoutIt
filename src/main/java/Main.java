@@ -21,12 +21,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
-        DatabaseManager DBmanager = new DatabaseManager();
-        DBmanager.BootUP();
-        DBmanager.PrintData();
+
         PageCreator pages = new PageCreator();
-        //DBmanager.DeleteUser("yolo");
-        System.out.println(DBmanager.isUsernameTaken("yolo"));
         // Initiate server connection
         //DatabaseManager.StartServer();
 

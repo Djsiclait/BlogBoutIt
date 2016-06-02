@@ -1,6 +1,8 @@
+import com.sun.org.apache.regexp.internal.RE;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +14,13 @@ import static spark.Spark.post;
  * Created by Eduardo veras on 01-Jun-16.
  */
 public class PageCreator {
+    DatabaseManager dbManager;
 
-    public PageCreator()
-    {
+    public PageCreator() throws Exception {
+        DatabaseManager DBmanager = new DatabaseManager();
+        DBmanager.BootUP();
+        DBmanager.PrintData();
+
         generateGets();
         generatePost();
     }
@@ -58,6 +64,8 @@ public class PageCreator {
             String pass = request.queryParams("password");
             response.redirect("./");
             System.out.println("Username:"+username);
+            System.out.println("Name:"+name);
+            System.out.println("Pass:"+pass);
             //TODO: Add to the database into users
             return name;
         });
@@ -75,12 +83,14 @@ public class PageCreator {
         });
 
 
-        post("/home", (request, response) -> {
+        post("/", (request, response) -> {
             //TODO:Make this post work
-            String username = request.queryParams("username");
+            String comment = request.queryParams("comment");
+            String postID = request.queryParams("postID");
 
             response.redirect("./");
-            System.out.println("Username:"+username);
+            System.out.println("Comment:"+comment);
+            System.out.println("Post ID:"+postID);
             return "lol";
         });
     }
