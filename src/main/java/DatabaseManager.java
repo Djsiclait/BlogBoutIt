@@ -612,13 +612,13 @@ public class DatabaseManager {
             //stat.execute("DROP TABLE COMENTARIO");
             //System.out.println("Drop Created");
 
-            stat.executeUpdate("INSERT into USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) Values ('wardo', 'Eduardo Veras', '1234', false, true)");
-            stat.executeUpdate("INSERT into USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) Values ('yiyi', 'Djidjelly Siclait', '1234', false, true)");
+            //stat.executeUpdate("INSERT into ETIQUETA (ID, TAG) Values (0, 'YOLO')");
+            //stat.executeUpdate("INSERT into ETIQUETA (ID, TAG) Values (1, 'WAZZAP')");
 
-            rs = stat.executeQuery("SELECT * FROM USUARIO");
+            rs = stat.executeQuery("SELECT * FROM ETIQUETA");
 
             while(rs.next())
-                System.out.println(rs.getString("USERNAME") + " " + rs.getBoolean("ADMIN"));
+                System.out.println(rs.getInt("id") + " " + rs.getString("tag"));
 
         }
         catch (SQLDataException exp)
