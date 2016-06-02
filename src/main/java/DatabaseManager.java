@@ -612,7 +612,10 @@ public class DatabaseManager {
             //stat.execute("DROP TABLE COMENTARIO");
             //System.out.println("Drop Created");
 
-            rs = stat.executeQuery("SELECT * FROM USUARIO WHERE USERNAME='admin'");
+            stat.executeUpdate("INSERT into USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) Values ('wardo', 'Eduardo Veras', '1234', false, true)");
+            stat.executeUpdate("INSERT into USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) Values ('yiyi', 'Djidjelly Siclait', '1234', false, true)");
+
+            rs = stat.executeQuery("SELECT * FROM USUARIO");
 
             while(rs.next())
                 System.out.println(rs.getString("USERNAME") + " " + rs.getBoolean("ADMIN"));
