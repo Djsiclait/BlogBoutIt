@@ -10,8 +10,8 @@ public class User {
     private boolean author;
 
     // Constructors
-    public User() {
-
+    public User(String username) {
+        this.username = username;
     }
 
     public User(String username, String name, String password, boolean admin, boolean author){

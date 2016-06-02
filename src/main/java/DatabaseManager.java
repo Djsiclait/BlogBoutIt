@@ -24,7 +24,7 @@ public class DatabaseManager {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
 
-    private static ArrayList<Article> archives;
+    private static ArrayList<Object> archives;
 
     public DatabaseManager() throws ClassNotFoundException, SQLException {
         try {
@@ -69,6 +69,10 @@ public class DatabaseManager {
             } catch (Exception exp) {
                 System.out.println("General ERROR! --> " + exp.getMessage());
             }
+    }
+
+    public static Connection getConn() {
+        return conn;
     }
 
     public static void PrintData()
@@ -273,70 +277,328 @@ public class DatabaseManager {
         ArticleQuery(article, "edit");
     }
 
-    public static Object SearchArchivesBy(String category){
+    public static ArrayList<Article> SearchArchivesBy(String category){
 
-        return ArticleQuery(new Article(), category);
+        return (ArrayList<Article>) ArticleQuery(new Article(), category);
     }
 
-/*
-    public static void createBasicTable(Connection conn) throws SQLException {
-        System.out.println("Creating table in given database...");
-        Statement stmt = conn.createStatement();
+    // User Queries
+    private static Object UserQuery(User user, String query) {
 
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"( " +
-                "matricula INTEGER NOT NULL, " +
-                "nombre varchar(100) NOT NULL,  " +
-                "apellidos varchar(100) NOT NULL, " +
-                "telefono varchar(50) NOT NULL, " +
-                "PRIMARY KEY (matricula))";
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
 
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) VALUES ('" + user.getUsername() + "', '" +
+                            user.getName() + "', '" +
+                            user.getPassword() + "', " +
+                            user.isAdmin() + ", " +
+                            user.isAuthor() + ")");
+
+                    return null;
+
+                case "delete":
+
+                    stat.execute("DELETE FROM USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "' AND ADMIN=0");
+
+                    return null;
+
+                case "edit":
+
+                    stat.execute("UPDATE USUARIO SET NOMBRE='" +
+                            user.getName() + "' , PASSWORD='" +
+                            user.getPassword() + "', ADMIN="  +
+                            user.isAdmin() + ", AUTOR="  +
+                            user.isAuthor()  + " WHERE USERNAME=" +
+                            user.getUsername());
+
+                    return null;
+
+                case "isAdmin": // search query
+
+                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "' AND ADMIN=1");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new User(rs.getString("username"),
+                                rs.getString("nombre"),
+                                rs.getString("password"),
+                                rs.getBoolean("amin"),
+                                rs.getBoolean("author")));
+
+                    return archives.size(); // flse is 0
+
+                case "taken": // search query
+
+                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new User(rs.getString("username"),
+                                rs.getString("nombre"),
+                                rs.getString("password"),
+                                rs.getBoolean("amin"),
+                                rs.getBoolean("author")));
+
+                    return archives.size(); // false if 0
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
     }
 
+    public static void CreateUser(String username, String name, String password, boolean admin, boolean author){
 
-    public static void createMainPage(Connection conn)
-    {
-        get("/", (req, res) -> {
-            res.status(200);
-            Map<String, Object> attributes = new HashMap<>();
+        User user = new User(username, name, password, admin, author);
 
-            attributes.put("message", "Welcome to BlogBoutIt! We can't wait to read BoutIt");
+        UserQuery(user, "insert");
+    }
 
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
+    public static void DeleteUser(String username){
+
+        User user = new User(username);
+
+        UserQuery(user, "delete");
+    }
+
+    public static void MakeAdmin(String username, String name, String password){
+
+        User user = new User(username, name, password, true, true);
+
+        UserQuery(user, "edit");
+    }
+
+    public static void EditUser(String username, String name, String password, boolean admin, boolean author){
+
+        User user = new User(username, name, password, admin, author);
+
+        UserQuery(user, "edit");
+    }
+
+    public static boolean isAdmin(String username){
+
+        User user = new User(username);
+
+        return (boolean)UserQuery(user, "isAdmin");
+    }
+
+    // Commet Query
+    private static Object CommentQuery(Comment comment, String query){
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO, FECHA) VALUES (" + comment.getId() + ", '" +
+                            comment.getComment() + "', '" +
+                            comment.getAuthor() + "', " +
+                            comment.getArticle() + ", " +
+                            comment.getPubDate() + ")");
+
+                    return null;
+
+                case "delete":
+
+                    stat.execute("DELETE FROM COMENTARIO WHERE ID=" +
+                            comment.getId());
+
+                    return null;
+
+                case "comments": // search query
+
+                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICLE=" +
+                            comment.getArticle());
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Comment(rs.getInt("id"),
+                                rs.getString("comment"),
+                                rs.getString("autor"),
+                                rs.getInt("articulo"),
+                                rs.getDate("fecha")));
+
+                    return archives;
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
+    }
+
+    public static void CreatedComment(int id, String comment, String author, int article, Date date){
+
+        Comment com = new Comment(id, comment, author, article, date);
+
+        CommentQuery(com, "insert");
+    }
+
+    public static void DeleteComment(int id){
+
+        Comment comment = new Comment(id);
+
+        CommentQuery(comment, "delete");
+    }
+
+    public static ArrayList<Comment> GetArticleComments(int id, int article){
+
+        Comment comment = new Comment(id, article);
+
+        return (ArrayList<Comment>) CommentQuery(comment, "comments");
+    }
+
+    // Tag Query
+    private static Object TagQuery(Tag tag, String query){
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            switch (query)
+            {
+                case "insert":
+
+                    stat.execute("INSERT INTO ETIQUETA (ID, TAG) VALUES (" + tag.getId() + ", '" +
+                            tag.getTag() + "')");
+
+                    return null;
+
+                case "isNew": // search query
+
+                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
+                            tag.getTag() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Tag(rs.getInt("id"),
+                                rs.getString("tag")));
+
+                    return archives.size();
+
+                case "id": // search query
+
+                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
+                            tag.getTag() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new Tag(rs.getInt("id"),
+                                rs.getString("tag")));
+
+                    Tag t = (Tag)archives.remove(0);
+
+                    return t.getId();
+
+                default:
+                    return null;
+            }
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
+    }
+
+    // TAG ARTICEL CROSS TABLE
+    public static void ProcessTagsOnArticlea(Tag tag, Article article){
+
+        int count = 0;
+
+        if((boolean)TagQuery(tag, "isNew"))
+            TagQuery(tag, "insert");
+
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            rs = stat.executeQuery("SELECT * FROM HASTAG WHERE ETIQUETA=" +
+                    tag.getId() + " AND ARTICULO=" +
+                    article.getId());
+
+            while(rs.next())
+                count++;
+
+            if(count == 0)
+                stat.executeUpdate("Insert Into HASTAG (ETIQUETA, ARTICULO) Values(" +
+                        tag.getId() + ", " +
+                        article.getId() + ")");
+
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
 
     }
 
-
-
-    public static void createBasicTable(Connection conn) throws SQLException {
-        System.out.println("Creating table in given database...");
-        Statement stmt = conn.createStatement();
-
-        String sql = "CREATE TABLE IF NOT EXISTS "+TABLE_NAME+"( " +
-                "matricula INTEGER NOT NULL, " +
-                "nombre varchar(100) NOT NULL,  " +
-                "apellidos varchar(100) NOT NULL, " +
-                "telefono varchar(50) NOT NULL, " +
-                "PRIMARY KEY (matricula))";
-
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
-    }
-
-
-    public static void createMainPage(Connection conn)
-    {
-        get("/", (req, res) -> {
-            res.status(200);
-            Map<String, Object> attributes = new HashMap<>();
-
-            attributes.put("message", "Welcome to BlogBoutIt! We can't wait to read BoutIt");
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
-
-    }
-    */
 }
