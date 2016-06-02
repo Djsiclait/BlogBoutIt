@@ -1,6 +1,7 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import spark.ModelAndView;
 import spark.Spark.*;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -24,8 +25,8 @@ public class Main {
         DBmanager.BootUP();
         DBmanager.PrintData();
         PageCreator pages = new PageCreator();
-
-        DBmanager.TestTatle();
+        //DBmanager.DeleteUser("yolo");
+        System.out.println(DBmanager.isUsernameTaken("yolo"));
         // Initiate server connection
         //DatabaseManager.StartServer();
 

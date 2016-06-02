@@ -316,8 +316,8 @@ public class DatabaseManager {
                             user.getName() + "' , PASSWORD='" +
                             user.getPassword() + "', ADMIN="  +
                             user.isAdmin() + ", AUTOR="  +
-                            user.isAuthor()  + " WHERE USERNAME=" +
-                            user.getUsername());
+                            user.isAuthor()  + " WHERE USERNAME='" +
+                            user.getUsername() + "'");
 
                     return null;
 
@@ -332,8 +332,8 @@ public class DatabaseManager {
                         archives.add(new User(rs.getString("username"),
                                 rs.getString("nombre"),
                                 rs.getString("password"),
-                                rs.getBoolean("amin"),
-                                rs.getBoolean("author")));
+                                rs.getBoolean("admin"),
+                                rs.getBoolean("autor")));
 
                     return archives.size(); // flse is 0
 
@@ -348,8 +348,8 @@ public class DatabaseManager {
                         archives.add(new User(rs.getString("username"),
                                 rs.getString("nombre"),
                                 rs.getString("password"),
-                                rs.getBoolean("amin"),
-                                rs.getBoolean("author")));
+                                rs.getBoolean("admin"),
+                                rs.getBoolean("autor")));
 
                     return archives.size(); // false if 0
 
@@ -377,7 +377,18 @@ public class DatabaseManager {
 
         User user = new User(username, name, password, admin, author);
 
-        UserQuery(user, "insert");
+        if(!isUsernameTaken(username))
+            UserQuery(user, "insert");
+    }
+
+    public static boolean isUsernameTaken(String username) {
+
+        User user = new User(username, "x", "x", false, false);
+
+        if((int)UserQuery(user, "taken") == 0)
+            return false;
+        else
+            return true;
     }
 
     public static void DeleteUser(String username){
@@ -389,14 +400,12 @@ public class DatabaseManager {
 
     public static void MakeAdmin(String username, String name, String password){
 
-        User user = new User(username, name, password, true, true);
-
-        UserQuery(user, "edit");
+        EditUser(username, name, password, true, true);
     }
 
-    public static void EditUser(String username, String name, String password, boolean admin, boolean author){
+    public static void EditUser(String username, String newName, String newPassword, boolean admin, boolean author){
 
-        User user = new User(username, name, password, admin, author);
+        User user = new User(username, newName, newPassword, admin, author);
 
         UserQuery(user, "edit");
     }
@@ -405,7 +414,10 @@ public class DatabaseManager {
 
         User user = new User(username);
 
-        return (boolean)UserQuery(user, "isAdmin");
+        if((int)UserQuery(user, "isAdmin") != 0)
+            return true;
+        else
+            return false;
     }
 
     // Commet Query
@@ -603,6 +615,8 @@ public class DatabaseManager {
 
 
     public static void TestTatle(){
+
+
         try
         {
             // Preparing to execute query
@@ -616,10 +630,10 @@ public class DatabaseManager {
             //stat.executeUpdate("INSERT into Comentario (ID, COMMENT, AUTOR, ARTICULO) Values (1, 'your stoopid', 'yiyi', 0)");
             //stat.executeUpdate("INSERT into Comentario (ID, COMMENT, AUTOR, ARTICULO) Values (2, 'You are', 'wardo', 0)");
 
-            rs = stat.executeQuery("SELECT * FROM comentario");
+            //rs = stat.executeQuery("SELECT * FROM comentario");
 
-            while(rs.next())
-                System.out.println(rs.getInt("id") + " " + rs.getString("comment"));
+            //while(rs.next())
+               // System.out.println(rs.getInt("id") + " " + rs.getString("comment"));
 
         }
         catch (SQLDataException exp)
