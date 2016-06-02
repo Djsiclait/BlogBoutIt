@@ -9,37 +9,49 @@
 
 
 
-<div class="row">
-    <form class="col s12">
-        <div class="row">
-            <div class="input-field col s6">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                <label for="first_name">First Name</label>
+<div id="container">
+    <br>
+
+    <!-- Login Form -->
+    <div class="row someform">
+        <div class="col s12">
+
+
+                <fieldset id="register-form">
+                    <legend><h5>Register to start posting!</h5></legend>
+                    <br>
+                    <form method="POST" action="" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="username" name="username" type="text" class="validate">
+                                <label for="username">User Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="name" name="name" type="text" class="validate">
+                                <label for="name">Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" name="password" type="password" class="validate">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="col m12">
+                                <p class="right-align">
+                                    <button class="btn btn-large waves-effect waves-effect" type="submit"   name="action">Register <i class="material-icons right">send</i></button>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
             </div>
-            <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate">
-                <label for="last_name">Last Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                <label for="disabled">Disabled</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-            </div>
-        </div>
-    </form>
+    </div>
+    <br><br>
 </div>
 
 
