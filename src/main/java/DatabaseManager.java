@@ -601,4 +601,38 @@ public class DatabaseManager {
 
     }
 
+
+    public static void TestTatle(){
+        try
+        {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            //stat.execute("DROP TABLE COMENTARIO");
+            //System.out.println("Drop Created");
+
+            stat.execute("CREATE TABLE HASHTAG (" +
+                    "ETIQUETA INT NOT NULL," +
+                    "ARTICULO INT NOT NULL," +
+                    "FOREIGN KEY (ETIQUETA) REFERENCES ETIQUETA(ID)," +
+                    "FOREIGN KEY (ARTICULO) REFERENCES ARTICULO(ID))");
+                System.out.println("Table Created");
+
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+    }
+
+
 }
