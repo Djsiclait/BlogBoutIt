@@ -612,12 +612,10 @@ public class DatabaseManager {
             //stat.execute("DROP TABLE COMENTARIO");
             //System.out.println("Drop Created");
 
-            stat.execute("CREATE TABLE HASHTAG (" +
-                    "ETIQUETA INT NOT NULL," +
-                    "ARTICULO INT NOT NULL," +
-                    "FOREIGN KEY (ETIQUETA) REFERENCES ETIQUETA(ID)," +
-                    "FOREIGN KEY (ARTICULO) REFERENCES ARTICULO(ID))");
-                System.out.println("Table Created");
+            rs = stat.executeQuery("SELECT * FROM USUARIO WHERE USERNAME='admin'");
+
+            while(rs.next())
+                System.out.println(rs.getString("USERNAME") + " " + rs.getBoolean("ADMIN"));
 
         }
         catch (SQLDataException exp)
