@@ -19,6 +19,8 @@ public class Main {
         // Terminate server connection
         //DatabaseManager.CloseServer();
 
+        pages.DBmanager.DeleteComment(2);
+
         ArrayList<Comment> comments = pages.DBmanager.GetArticleComments(0);
 
         for (Comment comment:
