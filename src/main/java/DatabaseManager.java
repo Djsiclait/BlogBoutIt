@@ -1,20 +1,12 @@
-import spark.ModelAndView;
-import spark.template.freemarker.FreeMarkerEngine;
-
-import java.rmi.ConnectException;
-import java.sql.*;
-import org.h2.tools.Server;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static spark.Spark.get;
 
 /**
  * Created by Siclait on 30/05/2016.
  */
+import java.sql.*;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class DatabaseManager {
 
     // Attributes
@@ -27,6 +19,7 @@ public class DatabaseManager {
     private static ArrayList<Object> archives;
 
     public DatabaseManager() throws ClassNotFoundException, SQLException {
+
         try {
             Class.forName(DB_DRIVER);
             conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
@@ -44,13 +37,10 @@ public class DatabaseManager {
         {
             System.out.println("General ERROR --> " + exp.getMessage());
         }
-
     }
-
 
     public static void BootUP() throws Exception
     {
-
             try {
                 Statement stat = conn.createStatement();
 
@@ -61,7 +51,6 @@ public class DatabaseManager {
                     stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
                     System.out.println("Admin created");
                 }
-
             } catch (SQLDataException exp) {
                 System.out.println("Data ERROR! --> " + exp.getMessage());
             } catch (SQLException exp) {
@@ -119,8 +108,6 @@ public class DatabaseManager {
     {
         try
         {
-
-
             // Preparing to execute query
             Statement stat = conn.createStatement();
             ResultSet rs;
@@ -267,7 +254,9 @@ public class DatabaseManager {
     }
 
     public static void DeleteArticle(int id){
+
         Article article = new Article(id);
+
         ArticleQuery(article, "delete");
     }
 
@@ -425,7 +414,7 @@ public class DatabaseManager {
             return false;
     }
 
-    // Commet Query
+    // Comment Query
     private static Object CommentQuery(Comment comment, String query){
 
         try
