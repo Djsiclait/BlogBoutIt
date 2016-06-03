@@ -42,7 +42,7 @@
                     <form class="col s12" action="" method="POST" id="commentForm">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input type="hidden" name="postID" value="12345">
+                                <input type="hidden" name="postID" value="${articulo.getId()}">
                                 <textarea id="textarea1" form="commentForm"  name="comment" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Textarea</label>
                             </div>
