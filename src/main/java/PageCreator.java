@@ -1,4 +1,5 @@
 import com.sun.org.apache.regexp.internal.RE;
+import com.sun.tracing.dtrace.ArgsAttributes;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -34,6 +35,9 @@ public class PageCreator {
     {
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
+            ArrayList listaArticulos = DBmanager.GetAllArticles();
+            attributes.put("database",DBmanager);
+            attributes.put("listaArticulos",listaArticulos);
             attributes.put("message", "Welcome.");
             return new ModelAndView(attributes, "index.ftl");
 
@@ -109,6 +113,7 @@ public class PageCreator {
 
         post("/", (request, response) -> {
             //TODO:Make this post work
+
             String comment = request.queryParams("comment");
             String postID = request.queryParams("postID");
 
