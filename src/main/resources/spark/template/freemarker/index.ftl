@@ -4,7 +4,7 @@
 <#include "/navbar.ftl">
         <!-- Header -->
         <div id="header">
-            <h1>${message} </h1>
+            <h1>${message}${user} .</h1>
         </div>
 
 

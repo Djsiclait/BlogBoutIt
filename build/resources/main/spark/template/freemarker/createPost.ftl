@@ -36,7 +36,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input placeholder="Tags" id="first_name" type="text" name="tags" class="validate">
+                                <input placeholder="(Separate by commas)" id="first_name" type="text" name="tags" class="validate">
                                 <label for="first_name">Tags</label>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="col m12">
                                 <p class="right-align">
                                     <button class="btn btn-large waves-effect waves-light" type="submit" name="action">
-                                        Login
+                                        Create Post!
                                     </button>
                                 </p>
                             </div>

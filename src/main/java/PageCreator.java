@@ -8,9 +8,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -53,6 +51,9 @@ public class PageCreator {
             return new ModelAndView(attributes, "index.ftl");
 
         }, new FreeMarkerEngine());
+
+
+        //get("/logout", (req, res) -> req.session(true).invalidate()   );
 
 
         get("/login", (request, response) -> {
@@ -113,20 +114,20 @@ public class PageCreator {
 
             String username = request.queryParams("username");
             String pass = request.queryParams("password");
-            response.redirect("./");
+
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
-            Session session=request.session(true);
-
-            if (DBmanager.isUsernameTaken(username))
+            if (DBmanager.CheckCredentials(username,pass))
             {
                 System.out.print("Login Successfull");
+                Session session=request.session(true);
                 request.session().attribute("user", username) ;
             }
             else
             {
                 System.out.print("The user doesnt exist");
             }
+            response.redirect("./");
 
             //TODO: Make the login function with cookies and stuff
             return username;
@@ -147,6 +148,8 @@ public class PageCreator {
         });
 
 
+
+
         post("/create", (request, response) -> {
             String title = request.queryParams("title");
             String body = request.queryParams("body");
@@ -155,6 +158,9 @@ public class PageCreator {
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
+            List<String> items = Arrays.asList(tags.split("\\s*,\\s*"));
+            System.out.print(items);
+
             DBmanager.CreateArticle(title,body,"Eduardo");
 
             response.redirect("./");

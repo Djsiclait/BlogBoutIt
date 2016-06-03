@@ -14,7 +14,7 @@
         <div class="nav-wrapper">
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
-            <a id="navbar-logo" href="#!" class="brand-logo">   BlogBoutIt</a>
+            <a id="navbar-logo" href="/" class="brand-logo">   BlogBoutIt</a>
 
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
