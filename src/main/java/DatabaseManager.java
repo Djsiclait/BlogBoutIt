@@ -483,6 +483,38 @@ public class DatabaseManager {
         return (ArrayList<Comment>) CommentQuery(comment, "comments");
     }
 
+    public static ArrayList<Comment> GetAllComments(){
+
+        try{
+
+            ResultSet rs = conn.createStatement().executeQuery("Select * From COMENTARIO");
+
+            ArrayList<Comment> comments = new ArrayList<>();
+
+            while(rs.next())
+                comments.add(new Comment(rs.getInt("id"),
+                        rs.getString("comment"),
+                        rs.getString("autor"),
+                        rs.getInt("articulo")));
+
+            return comments;
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return null;
+    }
+
     // Tag Query
     private static Object TagQuery(Tag tag, String query){
 

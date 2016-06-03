@@ -133,8 +133,6 @@ public class PageCreator {
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
 
-            DBmanager.CreateArticle(1,title,body,"Eduardoveras94");
-
             response.redirect("./");
             return "lol";
         });
