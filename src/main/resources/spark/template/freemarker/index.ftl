@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <input type="hidden" name="postID" value="${articulo.getId()}">
-                                <textarea id="textarea1" form="commentForm"  name="commentValue" class="materialize-textarea"></textarea>
+                                <textarea type="input" id="textarea1" value="Sample comment" name="thebodyx" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Textarea</label>
                             </div>
                         </div>

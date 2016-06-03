@@ -137,7 +137,7 @@ public class PageCreator {
         post("/", (request, response) -> {
             //TODO:Make this post work
 
-            String comment = request.queryParams("commentValue");
+            String comment = request.queryParams("thebodyx");
             String postID = request.queryParams("postID");
 
 
