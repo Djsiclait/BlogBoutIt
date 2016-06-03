@@ -1,6 +1,7 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import static spark.Spark.*;
@@ -19,14 +20,16 @@ public class Main {
         // Terminate server connection
         //DatabaseManager.CloseServer();
 
-        pages.DBmanager.CreateComment(2, "You*re*", "wardo", 0);
+        Tag tag = new Tag(4, "#Swag");
+        Article article = new Article(0);
 
-        ArrayList<Comment> comments = pages.DBmanager.GetArticleComments(0);
+        pages.DBmanager.ProcessTagsOnArticlea(tag, article);
 
-        for (Comment comment:
-             comments) {
-            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor());
-        }
+        ResultSet rs = pages.DBmanager.getConn().createStatement().executeQuery("SELECT * FROM HASHTAG WHERE ARTICULO=" +
+                article.getId());
+
+        while(rs.next())
+            System.out.println(rs.getInt("etiqueta") + " " + rs.getInt("articulo"));
 
     }
 
