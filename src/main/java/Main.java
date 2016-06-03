@@ -25,7 +25,7 @@ public class Main {
         //java.sql.Date time = new java.sql.Date(utilDate.getTime());
         // Terminate server connection
         //DatabaseManager.CloseServer();
-        
+
     }
 
     static int getHerokuAssignedPort() {
