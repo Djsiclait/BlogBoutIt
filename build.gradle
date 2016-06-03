@@ -5,12 +5,33 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+
+
+apply plugin: 'java'
+//apply plugin: 'jetty'
+apply plugin: 'application'
+
+mainClassName = 'Main'
+applicationName = 'app'
+
+defaultTasks = ['clean', 'jar']
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'hello.MainServer'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } {
+        // remove all signature files
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+}
+task stage(dependsOn: ['clean', 'installApp'])
+
+
 repositories {
     mavenCentral()
-}
-
-task stage {
-    dependsOn build
 }
 
 dependencies {
