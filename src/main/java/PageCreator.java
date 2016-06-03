@@ -53,12 +53,19 @@ public class PageCreator {
         }, new FreeMarkerEngine());
 
 
-        //get("/logout", (req, res) -> req.session(true).invalidate()   );
+        get("/logout", (req, res) -> {
+            req.session().invalidate();
+            return "<h1>You have bee logged out<>";
+        }  );
 
 
         get("/login", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Welcome.");
+            if (request.session().attribute("user")!=null)
+            {
+                attributes.put("user",request.session().attribute("user"));
+            }
             return new ModelAndView(attributes, "login.ftl");
 
         }, new FreeMarkerEngine());

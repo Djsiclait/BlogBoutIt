@@ -11,6 +11,8 @@
     <br>
 
     <!-- Login Form -->
+<#if !user?has_content>
+
     <div class="row someform">
         <div class="col s12">
             <div id="login">
@@ -53,6 +55,9 @@
             </div>
         </div>
     </div>
+<#else>
+    <h1>YOU ARE ALREADY LOGGED IN        <a href="/logout">LOG OUT</a></h1>
+</#if>
 </div>
 
 <br>
