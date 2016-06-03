@@ -9,7 +9,6 @@ public class Comment {
     private String comment;
     private String author;
     private int article;
-    private Date pubDate;
 
     // Constructor
     public Comment(int id){
@@ -20,13 +19,12 @@ public class Comment {
         this.article = article;
     }
 
-    public Comment(long id, String comment, String author, int article, Date pubDate){
+    public Comment(long id, String comment, String author, int article){
 
         this.id =  id;
         this.comment = comment;
         this.author = author;
         this.article = article;
-        this.pubDate = pubDate;
     }
 
     //Getters
@@ -44,10 +42,6 @@ public class Comment {
 
     public int getArticle() {
         return article;
-    }
-
-    public Date getPubDate() {
-        return pubDate;
     }
 
 }

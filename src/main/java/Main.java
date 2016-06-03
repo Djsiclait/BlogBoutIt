@@ -19,7 +19,12 @@ public class Main {
         // Terminate server connection
         //DatabaseManager.CloseServer();
 
-        //ArrayList<Comment> comments = pages.DBmanager
+        ArrayList<Comment> comments = pages.DBmanager.GetArticleComments(0);
+
+        for (Comment comment:
+             comments) {
+            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor());
+        }
 
     }
 
