@@ -427,11 +427,10 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO, FECHA) VALUES (" + comment.getId() + ", '" +
+                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO) VALUES (" + comment.getId() + ", '" +
                             comment.getComment() + "', '" +
                             comment.getAuthor() + "', " +
-                            comment.getArticle() + ", " +
-                            comment.getPubDate() + ")");
+                            comment.getArticle() + ")");
 
                     return null;
 
@@ -444,7 +443,7 @@ public class DatabaseManager {
 
                 case "comments": // search query
 
-                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICLE=" +
+                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICULO=" +
                             comment.getArticle());
 
                     archives = new ArrayList<>();
@@ -453,8 +452,7 @@ public class DatabaseManager {
                         archives.add(new Comment(rs.getInt("id"),
                                 rs.getString("comment"),
                                 rs.getString("autor"),
-                                rs.getInt("articulo"),
-                                rs.getDate("fecha")));
+                                rs.getInt("articulo")));
 
                     return archives;
 
@@ -478,9 +476,9 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreatedComment(int id, String comment, String author, int article, Date date){
+    public static void CreateComment(int id, String comment, String author, int article){
 
-        Comment com = new Comment(id, comment, author, article, date);
+        Comment com = new Comment(id, comment, author, article);
 
         CommentQuery(com, "insert");
     }
@@ -492,9 +490,9 @@ public class DatabaseManager {
         CommentQuery(comment, "delete");
     }
 
-    public static ArrayList<Comment> GetArticleComments(int id, int article){
+    public static ArrayList<Comment> GetArticleComments(int article){
 
-        Comment comment = new Comment(id, article);
+        Comment comment = new Comment(0, article);
 
         return (ArrayList<Comment>) CommentQuery(comment, "comments");
     }

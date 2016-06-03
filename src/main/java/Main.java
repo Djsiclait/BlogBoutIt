@@ -1,6 +1,8 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import java.util.ArrayList;
+
 import static spark.Spark.*;
 
 public class Main {
@@ -16,6 +18,16 @@ public class Main {
         //java.sql.Date time = new java.sql.Date(utilDate.getTime());
         // Terminate server connection
         //DatabaseManager.CloseServer();
+
+        pages.DBmanager.CreateComment(2, "You*re*", "wardo", 0);
+
+        ArrayList<Comment> comments = pages.DBmanager.GetArticleComments(0);
+
+        for (Comment comment:
+             comments) {
+            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor());
+        }
+
     }
 
     static int getHerokuAssignedPort() {
