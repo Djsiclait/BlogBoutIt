@@ -128,7 +128,7 @@ public class PageCreator {
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
 
-            DBmanager.CreateArticle(1,title,body,"Eduardoveras94",new Date(1994,1,7),new Date(1994,1,7));
+            DBmanager.CreateArticle(1,title,body,"Eduardoveras94");
 
             response.redirect("./");
             return "lol";

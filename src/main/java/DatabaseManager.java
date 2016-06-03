@@ -116,12 +116,10 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO ARTICULO (TITULO, CUERPO, AUTOR, FECHA, MODIFICADO) VALUES ('" +
+                    stat.execute("INSERT INTO ARTICULO (ID, TITULO, CUERPO, AUTOR) VALUES (" + article.getId() + ", '" +
                             article.getTitle() + "', '" +
                             article.getBody() + "', '" +
-                            article.getAuthor() + "', '" +
-                            article.getPubDate() + "', '" +
-                            article.getLastEdit() +"')");
+                            article.getAuthor() + "')");
 
                     return null;
 
@@ -135,8 +133,7 @@ public class DatabaseManager {
 
                     stat.execute("UPDATE ARTICULO SET TITULO='" +
                             article.getTitle() + "' , CUERPO='" +
-                            article.getBody() + "', MODIFICADO='"  +
-                            article.getLastEdit() + "' WHERE ID=" +
+                            article.getBody() + "' WHERE ID=" +
                             article.getId());
 
                     return null;
@@ -151,9 +148,7 @@ public class DatabaseManager {
                         archives.add(new Article(rs.getInt("id"),
                                 rs.getString("titulo"),
                                 rs.getString("cuerpo"),
-                                rs.getString("autor"),
-                                rs.getDate("fecha"),
-                                rs.getDate("modificado")));
+                                rs.getString("autor")));
 
                     return archives;
 
@@ -171,9 +166,7 @@ public class DatabaseManager {
                                 archives.add(new Article(rs.getInt("id"),
                                         rs.getString("titulo"),
                                         rs.getString("cuerpo"),
-                                        rs.getString("autor"),
-                                        rs.getDate("fecha"),
-                                        rs.getDate("modificado")));
+                                        rs.getString("autor")));
 
                             return archives;
 
@@ -187,9 +180,7 @@ public class DatabaseManager {
                                 archives.add(new Article(rs.getInt("id"),
                                         rs.getString("titulo"),
                                         rs.getString("cuerpo"),
-                                        rs.getString("autor"),
-                                        rs.getDate("fecha"),
-                                        rs.getDate("modificado")));
+                                        rs.getString("autor")));
 
                             return archives;
 
@@ -203,27 +194,24 @@ public class DatabaseManager {
                                 archives.add(new Article(rs.getInt("id"),
                                         rs.getString("titulo"),
                                         rs.getString("cuerpo"),
-                                        rs.getString("autor"),
-                                        rs.getDate("fecha"),
-                                        rs.getDate("modificado")));
+                                        rs.getString("autor")));
 
                             return archives;
 
-                        case "pubDate":
+                        case "pubDate": // Temporarily shutdown
 
-                            rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getPubDate() + "'");
+                            //rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getPubDate() + "'");
 
-                            archives = new ArrayList<>();
+                            //archives = new ArrayList<>();
 
-                            while(rs.next())
-                                archives.add(new Article(rs.getInt("id"),
-                                        rs.getString("titulo"),
-                                        rs.getString("cuerpo"),
-                                        rs.getString("autor"),
-                                        rs.getDate("fecha"),
-                                        rs.getDate("modificado")));
+                            //while(rs.next())
+                                //archives.add(new Article(rs.getInt("id"),
+                                        //rs.getString("titulo"),
+                                        //rs.getString("cuerpo"),
+                                        //rs.getString("autor")));
 
-                            return archives;
+                            //return archives;
+                            return null;
 
                         default:
                             return null;
@@ -246,9 +234,9 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreateArticle(int id, String title, String body, String author, Date pubDate, Date lastEdit){
+    public static void CreateArticle(int id, String title, String body, String author){
 
-        Article article = new Article(id, title, body, author, pubDate, lastEdit);
+        Article article = new Article(id, title, body, author);
 
         ArticleQuery(article, "insert");
     }
@@ -260,9 +248,9 @@ public class DatabaseManager {
         ArticleQuery(article, "delete");
     }
 
-    public static void EditArticle(int id, String title, String body, Date lastEdit){
+    public static void EditArticle(int id, String title, String body){
 
-        Article article = new Article(id, title, body, lastEdit);
+        Article article = new Article(id, title, body);
 
         ArticleQuery(article, "edit");
     }

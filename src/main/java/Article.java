@@ -9,9 +9,7 @@ public class Article {
     private long id;
     private String title;
     private String body;
-    private Date pubDate;
     private String author;
-    private Date lastEdit;
 
     //Constuctors
     public Article(){
@@ -22,21 +20,18 @@ public class Article {
         this.id = id;
     }
 
-    public Article(int id, String title, String body, Date lastEdit){
+    public Article(int id, String title, String body){
         this.id = id;
         this.title = title;
         this.body = body;
-        this.lastEdit = lastEdit;
     }
 
-    public Article(long id, String title, String body, String author, Date pubDate, Date lastEdit){
+    public Article(long id, String title, String body, String author){
 
         this.id = id;
         this.title = title;
         this.body = body;
         this.author = author;
-        this.pubDate = pubDate;
-        this.lastEdit = lastEdit;
     }
 
     // Getters
@@ -54,13 +49,5 @@ public class Article {
 
     public String getAuthor() {
         return author;
-    }
-
-    public Date getPubDate() {
-        return pubDate;
-    }
-
-    public Date getLastEdit() {
-        return lastEdit;
     }
 }
