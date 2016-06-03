@@ -2,6 +2,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,12 +123,12 @@ public class PageCreator {
             String body = request.queryParams("body");
             String tags = request.queryParams("tags");
 
-
-
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
-            //DBmanager.CreateArticle("1",title,body);
+
+            DBmanager.CreateArticle(1,title,body,"Eduardoveras94",new Date(1994,1,7),new Date(1994,1,7));
+
             response.redirect("./");
             return "lol";
         });

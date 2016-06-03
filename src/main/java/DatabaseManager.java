@@ -116,7 +116,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO ARTICULO (ID, TITULO, CUERPO, AUTOR, FECHA, MODIFICADO) VALUES (" + article.getId() + ", '" +
+                    stat.execute("INSERT INTO ARTICULO (TITULO, CUERPO, AUTOR, FECHA, MODIFICADO) VALUES (" +
                             article.getTitle() + "', '" +
                             article.getBody() + "', '" +
                             article.getAuthor() + "', '" +
