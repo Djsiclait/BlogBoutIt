@@ -137,13 +137,14 @@ public class PageCreator {
         post("/", (request, response) -> {
             //TODO:Make this post work
 
-            String comment = request.queryParams("comment");
+            String comment = request.queryParams("commentValue");
             String postID = request.queryParams("postID");
 
-            response.redirect("./");
+
             System.out.println("Comment:"+comment);
             System.out.println("Post ID:"+postID);
             DBmanager.CreateComment(comment,"Eduardo",Integer.parseInt(postID));
+            response.redirect("./");
             return "lol";
         });
 
@@ -158,10 +159,12 @@ public class PageCreator {
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
-            List<String> items = Arrays.asList(tags.split("\\s*,\\s*"));
-            System.out.print(items);
-
+            ArrayList<String> myList = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
+            System.out.print(myList);
             DBmanager.CreateArticle(title,body,"Eduardo");
+            //DBmanager.ProcessTagsOnArticlea(myList,new Article());
+
+
 
             response.redirect("./");
             return "lol";

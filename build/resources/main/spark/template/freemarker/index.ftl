@@ -10,8 +10,9 @@
 
 
 <div class="row" id="mainContent">
-    <div class="col s12 m6" id="blog-post">
 <#list listaArticulos as articulo>
+    <div class="col s12 m6" id="blog-post">
+
         <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="https://www.visioncritical.com/wp-content/uploads/2014/12/BLG_Andrew-G.-River-Sample_09.13.12.png">
@@ -43,7 +44,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <input type="hidden" name="postID" value="${articulo.getId()}">
-                                <textarea id="textarea1" form="commentForm"  name="comment" class="materialize-textarea"></textarea>
+                                <textarea id="textarea1" form="commentForm"  name="commentValue" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Textarea</label>
                             </div>
                         </div>
@@ -60,8 +61,9 @@
                 Tag
             </div>
         </div>
-    </#list>
+
     </div>
+</#list>
 </div>
 
 <br><br>
