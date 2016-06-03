@@ -1,6 +1,7 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+
 public class Tag {
     // Attributes
     private long id;
