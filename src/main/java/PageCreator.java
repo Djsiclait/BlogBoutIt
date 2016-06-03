@@ -159,8 +159,8 @@ public class PageCreator {
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
-            ArrayList<String> myList = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
-            System.out.print(myList);
+            //ArrayList<String> myList = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
+            //System.out.print(myList);
             DBmanager.CreateArticle(title,body,"Eduardo");
             //DBmanager.ProcessTagsOnArticlea(myList,new Article());
 

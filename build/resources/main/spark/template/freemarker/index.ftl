@@ -4,13 +4,13 @@
 <#include "/navbar.ftl">
         <!-- Header -->
         <div id="header">
-            <h1>${message}${user} .</h1>
+            <h1>${message} ${user} </h1>
         </div>
 
 
 
 <div class="row" id="mainContent">
-<#list listaArticulos as articulo>
+<#list listaArticulos?reverse as articulo>
     <div class="col s12 m6" id="blog-post">
 
         <div class="card">
@@ -26,7 +26,7 @@
                 <!--Commentsss-->
 
                 <div class="row" id="comment-container">
-                    <#list comments as comment>
+                    <#list comments?reverse as comment>
                         <#if comment.getArticle() == articulo.getId()>
                     <div class="col s12 m6">
                         <div class="card-panel teal">
