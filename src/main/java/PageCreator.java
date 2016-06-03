@@ -1,6 +1,7 @@
 import com.sun.org.apache.regexp.internal.RE;
 import com.sun.tracing.dtrace.ArgsAttributes;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
+import org.jsoup.Jsoup;
 import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -53,12 +54,19 @@ public class PageCreator {
         }, new FreeMarkerEngine());
 
 
-        //get("/logout", (req, res) -> req.session(true).invalidate()   );
+        get("/logout", (req, res) -> {
+            req.session().invalidate();
+            return "<h1>You have bee logged out<>";
+        }  );
 
 
         get("/login", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Welcome.");
+            if (request.session().attribute("user")!=null)
+            {
+                attributes.put("user",request.session().attribute("user"));
+            }
             return new ModelAndView(attributes, "login.ftl");
 
         }, new FreeMarkerEngine());
@@ -137,7 +145,7 @@ public class PageCreator {
         post("/", (request, response) -> {
             //TODO:Make this post work
 
-            String comment = request.queryParams("thebodyx");
+            String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
             String postID = request.queryParams("postID");
 
 
@@ -153,7 +161,7 @@ public class PageCreator {
 
         post("/create", (request, response) -> {
             String title = request.queryParams("title");
-            String body = request.queryParams("body");
+            String body = Jsoup.parse(request.queryParams("body")).text();
             String tags = request.queryParams("tags");
 
             System.out.println("Title:"+title);

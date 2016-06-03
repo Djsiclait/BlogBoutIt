@@ -8,6 +8,12 @@
     margin-bottom: 15px;
     margin-left: 15px;
 }
+#parallax-text
+{
+    width: 150px;
+    height: 200px;
+    margin: auto;
+}
 
 .loader {
     position: fixed;

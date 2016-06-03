@@ -8,7 +8,8 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                    <li><!-- Place this tag where you want the button to render. -->
+                        <a class="github-button" href="https://github.com/Djsiclait/BlogBoutIt/fork" data-icon="octicon-repo-forked" data-style="mega" data-count-href="/Djsiclait/BlogBoutIt/network" data-count-api="/repos/Djsiclait/BlogBoutIt#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork Djsiclait/BlogBoutIt on GitHub">Fork</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
