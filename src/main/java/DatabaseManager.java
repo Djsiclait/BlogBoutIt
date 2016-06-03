@@ -18,7 +18,7 @@ public class DatabaseManager {
 
     private static ArrayList<Object> archives;
 
-    public DatabaseManager() throws ClassNotFoundException, SQLException {
+    public DatabaseManager(){
 
         try {
             Class.forName(DB_DRIVER);
@@ -39,33 +39,33 @@ public class DatabaseManager {
         }
     }
 
-    public static void BootUP() throws Exception
-    {
-            try {
-                Statement stat = conn.createStatement();
+    public static void BootUP(){
 
-                System.out.println(stat.toString());
-                ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
+        try {
+            Statement stat = conn.createStatement();
 
-                if (rs.getFetchSize() == 0) {
-                    stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
-                    System.out.println("Admin created");
-                }
-            } catch (SQLDataException exp) {
-                System.out.println("Data ERROR! --> " + exp.getMessage());
-            } catch (SQLException exp) {
-                System.out.println("SQL ERROR! --> " + exp.getMessage());
-            } catch (Exception exp) {
-                System.out.println("General ERROR! --> " + exp.getMessage());
+            System.out.println(stat.toString());
+            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
+
+            if (rs.getFetchSize() == 0) {
+                stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
+                System.out.println("Admin created");
             }
+        } catch (SQLDataException exp) {
+            System.out.println("Data ERROR! --> " + exp.getMessage());
+        } catch (SQLException exp) {
+            System.out.println("SQL ERROR! --> " + exp.getMessage());
+        } catch (Exception exp) {
+            System.out.println("General ERROR! --> " + exp.getMessage());
+        }
     }
 
-    public static Connection getConn() {
+    public static Connection getConn(){
         return conn;
     }
 
-    public static void PrintData()
-    {
+    public static void PrintData(){
+
         try {
             Statement stat = conn.createStatement();
 
@@ -73,7 +73,7 @@ public class DatabaseManager {
             ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
              while (rs.next())
              {
-                System.out.println(rs.getString("USERNAME")+rs.getString("NOMBRE"));
+                System.out.println(rs.getString("USERNAME")+ " " + rs.getString("NOMBRE"));
              }
 
         } catch (SQLDataException exp) {
@@ -84,8 +84,6 @@ public class DatabaseManager {
             System.out.println("General ERROR! --> " + exp.getMessage());
         }
     }
-
-
 
     public static void CloseServerConnection(){
 
@@ -104,8 +102,8 @@ public class DatabaseManager {
 
 
     // Basic Query Functions
-    private static Object ArticleQuery(Article article, String query)
-    {
+    private static Object ArticleQuery(Article article, String query){
+
         try
         {
             // Preparing to execute query
@@ -259,6 +257,7 @@ public class DatabaseManager {
 
         return (ArrayList<Article>) ArticleQuery(article, category);
     }
+
     public static ArrayList<Article> GetAllArticles(){
 
         return (ArrayList<Article>) ArticleQuery(new Article(), "list");
@@ -514,7 +513,10 @@ public class DatabaseManager {
                         archives.add(new Tag(rs.getInt("id"),
                                 rs.getString("tag")));
 
-                    return archives.size();
+                    if(archives.size() == 0)
+                        return true;
+                    else
+                        return false;
 
                 case "id": // search query
 
@@ -551,7 +553,7 @@ public class DatabaseManager {
         return null;
     }
 
-    // TAG ARTICEL CROSS TABLE
+    // TAG ARTICLE CROSS TABLE
     public static void ProcessTagsOnArticlea(Tag tag, Article article){
 
         int count = 0;
@@ -565,7 +567,7 @@ public class DatabaseManager {
             Statement stat = conn.createStatement();
             ResultSet rs;
 
-            rs = stat.executeQuery("SELECT * FROM HASTAG WHERE ETIQUETA=" +
+            rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
                     tag.getId() + " AND ARTICULO=" +
                     article.getId());
 
@@ -573,7 +575,7 @@ public class DatabaseManager {
                 count++;
 
             if(count == 0)
-                stat.executeUpdate("Insert Into HASTAG (ETIQUETA, ARTICULO) Values(" +
+                stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
                         tag.getId() + ", " +
                         article.getId() + ")");
 
@@ -593,7 +595,7 @@ public class DatabaseManager {
 
     }
 
-
+    // TODO: DELETE before production
     public static void TestTatle(){
 
 
