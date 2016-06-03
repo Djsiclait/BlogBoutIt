@@ -657,43 +657,5 @@ public class DatabaseManager {
             }
         }
     }
-
-    // TODO: DELETE before production
-    public static void TestTatle(){
-
-
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            //stat.execute("DROP TABLE COMENTARIO");
-            //System.out.println("Drop Created");
-
-            //stat.executeUpdate("INSERT into Comentario (ID, COMMENT, AUTOR, ARTICULO) Values (0, 'Kill it! Kill it with fire!', 'wardo', 0)");
-            //stat.executeUpdate("INSERT into Comentario (ID, COMMENT, AUTOR, ARTICULO) Values (1, 'your stoopid', 'yiyi', 0)");
-            //stat.executeUpdate("INSERT into Comentario (ID, COMMENT, AUTOR, ARTICULO) Values (2, 'You are', 'wardo', 0)");
-
-            //rs = stat.executeQuery("SELECT * FROM comentario");
-
-            //while(rs.next())
-               // System.out.println(rs.getInt("id") + " " + rs.getString("comment"));
-
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-    }
-
-
+    
 }
