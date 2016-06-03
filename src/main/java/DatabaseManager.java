@@ -1,6 +1,8 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import org.h2.command.dml.Select;
+
 import java.sql.*;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -118,7 +120,14 @@ public class DatabaseManager {
                             article.getBody() + "', '" +
                             article.getAuthor() + "')");
 
-                    return null;
+                    rs = stat.executeQuery("Select ID From ARTICULO Where BODY ='" + article.getBody() + "'");
+
+                    int id = -1;
+
+                    while (rs.next())
+                        id = rs.getInt("id");
+
+                    return id;
 
                 case "delete":
 
@@ -231,11 +240,11 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreateArticle(String title, String body, String author){
+    public static int CreateArticle(String title, String body, String author){
 
         Article article = new Article(0, title, body, author);
 
-        ArticleQuery(article, "insert");
+        return (int)ArticleQuery(article, "insert");
     }
 
     public static void DeleteArticle(int id){
@@ -619,7 +628,7 @@ public class DatabaseManager {
     }
 
     // TAG ARTICLE CROSS TABLE
-    public static void ProcessTagsOnArticlea(ArrayList<Tag> tags, Article article){
+    public static void ProcessTagsOnArticlea(ArrayList<Tag> tags, int article){
 
         int count = 0;
 
@@ -637,7 +646,7 @@ public class DatabaseManager {
 
                 rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
                         tag.getId() + " AND ARTICULO=" +
-                        article.getId());
+                        article);
 
                 while (rs.next())
                     count++;
@@ -645,7 +654,7 @@ public class DatabaseManager {
                 if (count == 0)
                     stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
                             tag.getId() + ", " +
-                            article.getId() + ")");
+                            article + ")");
 
             } catch (SQLDataException exp) {
                 System.out.println("SQL DATA ERROR: " + exp.getMessage());
@@ -657,5 +666,5 @@ public class DatabaseManager {
             }
         }
     }
-    
+
 }
