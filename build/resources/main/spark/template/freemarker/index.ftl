@@ -31,6 +31,8 @@
                     <div class="col s12 m6">
                         <div class="card-panel teal">
                           <span class="white-text">
+                              <h5>${comment.getAuthor()}:</h5>
+                              <div class="divider"></div><br>
                              ${comment.getComment()}
                           </span>
                         </div>
