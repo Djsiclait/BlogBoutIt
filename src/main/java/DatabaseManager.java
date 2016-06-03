@@ -400,6 +400,40 @@ public class DatabaseManager {
             return false;
     }
 
+    public static boolean CheckCredentials(String username, String password){
+
+        try{
+
+            ResultSet rs = conn.createStatement().executeQuery("Select * From USUARIO Where USERNAME='" +
+                    username + "' AND PASSWORD='" +
+                    password + "'");
+
+            ArrayList<User> users = new ArrayList<>();
+
+            while(rs.next())
+                users.add(new User(rs.getString("username"),
+                        rs.getString("password")));
+            if(users.size() > 0)
+                return true;
+            else
+                return false;
+        }
+        catch (SQLDataException exp)
+        {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        }
+        catch (SQLException exp)
+        {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        }
+        catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return false;
+    }
+
     // Comment Query
     private static Object CommentQuery(Comment comment, String query){
 
