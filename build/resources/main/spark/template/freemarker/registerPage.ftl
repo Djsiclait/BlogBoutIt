@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col m12">
                                 <p class="right-align">
-                                    <button class="btn btn-large waves-effect waves-effect" type="submit"   name="action">Register <i class="material-icons right">send</i></button>
+                                    <button class="btn btn-large waves-effect waves-effect" type="submit"  name="action">Register <i class="material-icons right">send</i></button>
                                 </p>
                             </div>
                         </div>
