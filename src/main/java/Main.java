@@ -1,6 +1,8 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import java.util.ArrayList;
+
 import static spark.Spark.*;
 
 public class Main {
@@ -16,7 +18,8 @@ public class Main {
         //java.sql.Date time = new java.sql.Date(utilDate.getTime());
         // Terminate server connection
         //DatabaseManager.CloseServer();
-        
+
+        //ArrayList<Comment> comments = pages.DBmanager
     }
 
     static int getHerokuAssignedPort() {

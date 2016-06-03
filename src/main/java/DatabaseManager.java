@@ -492,9 +492,9 @@ public class DatabaseManager {
         CommentQuery(comment, "delete");
     }
 
-    public static ArrayList<Comment> GetArticleComments(int id, int article){
+    public static ArrayList<Comment> GetArticleComments(int article){
 
-        Comment comment = new Comment(id, article);
+        Comment comment = new Comment(0, article);
 
         return (ArrayList<Comment>) CommentQuery(comment, "comments");
     }
