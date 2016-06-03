@@ -1,8 +1,7 @@
-import java.util.Date;
-
 /**
  * Created by Siclait on 30/05/2016.
  */
+
 public class Comment {
     //Attributes
     private long id;

@@ -1,8 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Article {
     //Attributes

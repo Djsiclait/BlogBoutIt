@@ -1,4 +1,3 @@
-
 /**
  * Created by Siclait on 30/05/2016.
  */
@@ -114,7 +113,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO ARTICULO (ID, TITULO, CUERPO, AUTOR) VALUES (" + article.getId() + ", '" +
+                    stat.execute("INSERT INTO ARTICULO (TITULO, CUERPO, AUTOR) VALUES ('" +
                             article.getTitle() + "', '" +
                             article.getBody() + "', '" +
                             article.getAuthor() + "')");
@@ -232,9 +231,9 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreateArticle(int id, String title, String body, String author){
+    public static void CreateArticle(String title, String body, String author){
 
-        Article article = new Article(id, title, body, author);
+        Article article = new Article(0, title, body, author);
 
         ArticleQuery(article, "insert");
     }
@@ -414,7 +413,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO) VALUES (" + comment.getId() + ", '" +
+                    stat.execute("INSERT INTO COMENTARIO (COMMENT, AUTOR, ARTICULO) VALUES ('" +
                             comment.getComment() + "', '" +
                             comment.getAuthor() + "', " +
                             comment.getArticle() + ")");
@@ -463,9 +462,9 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreateComment(int id, String comment, String author, int article){
+    public static void CreateComment(String comment, String author, int article){
 
-        Comment com = new Comment(id, comment, author, article);
+        Comment com = new Comment(0, comment, author, article);
 
         CommentQuery(com, "insert");
     }
@@ -497,7 +496,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO ETIQUETA (ID, TAG) VALUES (" + tag.getId() + ", '" +
+                    stat.execute("INSERT INTO ETIQUETA (TAG) VALUES ('" +
                             tag.getTag() + "')");
 
                     return null;
