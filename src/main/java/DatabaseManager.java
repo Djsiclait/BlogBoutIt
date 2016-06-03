@@ -427,7 +427,7 @@ public class DatabaseManager {
             {
                 case "insert":
 
-                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO, FECHA) VALUES (" + comment.getId() + ", '" +
+                    stat.execute("INSERT INTO COMENTARIO (ID, COMMENT, AUTOR, ARTICULO) VALUES (" + comment.getId() + ", '" +
                             comment.getComment() + "', '" +
                             comment.getAuthor() + "', " +
                             comment.getArticle() + ")");
@@ -476,7 +476,7 @@ public class DatabaseManager {
         return null;
     }
 
-    public static void CreatedComment(int id, String comment, String author, int article){
+    public static void CreateComment(int id, String comment, String author, int article){
 
         Comment com = new Comment(id, comment, author, article);
 

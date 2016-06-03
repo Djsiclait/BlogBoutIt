@@ -19,7 +19,7 @@ public class Main {
         // Terminate server connection
         //DatabaseManager.CloseServer();
 
-        pages.DBmanager.DeleteComment(2);
+        pages.DBmanager.CreateComment(2, "You*re*", "wardo", 0);
 
         ArrayList<Comment> comments = pages.DBmanager.GetArticleComments(0);
 
