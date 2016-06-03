@@ -120,7 +120,7 @@ public class DatabaseManager {
                             article.getBody() + "', '" +
                             article.getAuthor() + "')");
 
-                    rs = stat.executeQuery("Select ID From ARTICULO Where BODY ='" + article.getBody() + "'");
+                    rs = stat.executeQuery("Select ID From ARTICULO Where CUERPO ='" + article.getBody() + "'");
 
                     int id = -1;
 
