@@ -123,6 +123,7 @@ public class PageCreator {
             response.redirect("./");
             System.out.println("Comment:"+comment);
             System.out.println("Post ID:"+postID);
+            DBmanager.CreateComment(comment,"Eduardo",Integer.parseInt(postID));
             return "lol";
         });
 

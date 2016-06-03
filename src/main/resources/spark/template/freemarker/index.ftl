@@ -18,7 +18,7 @@
             </div>
             <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">${articulo.getTitle()}<i class="material-icons right">comment</i></span>
-                <p>${articulo.getTitle()}</p>
+                <p>${articulo.getBody()}</p>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span>
