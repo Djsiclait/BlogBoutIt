@@ -2,8 +2,10 @@ import com.sun.org.apache.regexp.internal.RE;
 import com.sun.tracing.dtrace.ArgsAttributes;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import spark.ModelAndView;
+import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,9 +39,15 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
             ArrayList listaArticulos = DBmanager.GetAllArticles();
             ArrayList listComments  = DBmanager.GetAllComments();
-            System.out.println("Commentsssssssssssssssssssssss:"+listComments);
             attributes.put("comments",listComments);
-            //attributes.put("database",DBmanager);
+            if (request.session().attribute("user")!=null)
+            {
+                attributes.put("user",request.session().attribute("user"));
+            }
+            else
+            {
+                attributes.put("user","");
+            }
             attributes.put("listaArticulos",listaArticulos);
             attributes.put("message", "Welcome.");
             return new ModelAndView(attributes, "index.ftl");
@@ -108,6 +116,17 @@ public class PageCreator {
             response.redirect("./");
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
+            Session session=request.session(true);
+
+            if (DBmanager.isUsernameTaken(username))
+            {
+                System.out.print("Login Successfull");
+                request.session().attribute("user", username) ;
+            }
+            else
+            {
+                System.out.print("The user doesnt exist");
+            }
 
             //TODO: Make the login function with cookies and stuff
             return username;
