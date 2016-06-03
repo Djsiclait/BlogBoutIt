@@ -619,45 +619,43 @@ public class DatabaseManager {
     }
 
     // TAG ARTICLE CROSS TABLE
-    public static void ProcessTagsOnArticlea(Tag tag, Article article){
+    public static void ProcessTagsOnArticlea(ArrayList<Tag> tags, Article article){
 
         int count = 0;
 
-        if((boolean)TagQuery(tag, "isNew"))
-            TagQuery(tag, "insert");
+        for (Tag tag:
+             tags){
 
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
 
-            rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
-                    tag.getId() + " AND ARTICULO=" +
-                    article.getId());
+            if ((boolean) TagQuery(tag, "isNew"))
+                TagQuery(tag, "insert");
 
-            while(rs.next())
-                count++;
+            try {
+                // Preparing to execute query
+                Statement stat = conn.createStatement();
+                ResultSet rs;
 
-            if(count == 0)
-                stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
-                        tag.getId() + ", " +
-                        article.getId() + ")");
+                rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
+                        tag.getId() + " AND ARTICULO=" +
+                        article.getId());
 
+                while (rs.next())
+                    count++;
+
+                if (count == 0)
+                    stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
+                            tag.getId() + ", " +
+                            article.getId() + ")");
+
+            } catch (SQLDataException exp) {
+                System.out.println("SQL DATA ERROR: " + exp.getMessage());
+            } catch (SQLException exp) {
+                System.out.println("SQL ERROR: " + exp.getMessage());
+            } catch (Exception exp) // General errors
+            {
+                System.out.println("ERROR! --> " + exp.getMessage());
+            }
         }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
     }
 
     // TODO: DELETE before production
