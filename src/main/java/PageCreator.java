@@ -127,6 +127,7 @@ public class PageCreator {
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
+            DBmanager.CreateArticle("1",title,body,);
             response.redirect("./");
             return "lol";
         });
