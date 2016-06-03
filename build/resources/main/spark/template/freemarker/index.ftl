@@ -25,7 +25,8 @@
                 <!--Commentsss-->
 
                 <div class="row" id="comment-container">
-                    <#list database.GetArticleComments(articulo.getId()) as comment>
+                    <#list comments as comment>
+                        <#if comment.getArticle() == articulo.getId()>
                     <div class="col s12 m6">
                         <div class="card-panel teal">
                           <span class="white-text">
@@ -33,6 +34,7 @@
                           </span>
                         </div>
                     </div>
+                        </#if>
                     </#list>
                 </div>
                 <!--End Comments-->

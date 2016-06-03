@@ -36,7 +36,10 @@ public class PageCreator {
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             ArrayList listaArticulos = DBmanager.GetAllArticles();
-            attributes.put("database",DBmanager);
+            ArrayList listComments  = DBmanager.GetAllComments();
+            System.out.println("Commentsssssssssssssssssssssss:"+listComments);
+            attributes.put("comments",listComments);
+            //attributes.put("database",DBmanager);
             attributes.put("listaArticulos",listaArticulos);
             attributes.put("message", "Welcome.");
             return new ModelAndView(attributes, "index.ftl");
@@ -132,6 +135,7 @@ public class PageCreator {
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
+            DBmanager.CreateArticle(title,body,"Eduardo");
 
             response.redirect("./");
             return "lol";
