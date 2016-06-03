@@ -14,10 +14,13 @@ import static spark.Spark.post;
  * Created by Eduardo veras on 01-Jun-16.
  */
 public class PageCreator {
-    DatabaseManager dbManager;
+
+    public static DatabaseManager DBmanager;
+
 
     public PageCreator() throws Exception {
-        DatabaseManager DBmanager = new DatabaseManager();
+        DBmanager = new DatabaseManager();
+
         DBmanager.BootUP();
         DBmanager.PrintData();
 
@@ -59,15 +62,33 @@ public class PageCreator {
     {
         post("/register", (request, response) -> {
 
+            boolean author=false;
+            boolean admin =false;
             String username = request.queryParams("username");
             String name = request.queryParams("name");
+
             String pass = request.queryParams("password");
-            response.redirect("./");
+            String adminStr = request.queryParams("admin");
+            String authorStr = request.queryParams("author");
+            if (adminStr!=null)
+            {
+                admin=true;
+            }
+            if (authorStr!=null)
+            {
+                author=true;
+            }
             System.out.println("Username:"+username);
             System.out.println("Name:"+name);
             System.out.println("Pass:"+pass);
+            System.out.println("admin:"+admin);
+            System.out.println("author:"+author);
+            DBmanager.CreateUser(username,name,pass,admin,author);
+            response.redirect("./");
+
+
             //TODO: Add to the database into users
-            return name;
+            return "working";
         });
 
 
@@ -78,6 +99,7 @@ public class PageCreator {
             response.redirect("./");
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
+
             //TODO: Make the login function with cookies and stuff
             return username;
         });
@@ -91,6 +113,22 @@ public class PageCreator {
             response.redirect("./");
             System.out.println("Comment:"+comment);
             System.out.println("Post ID:"+postID);
+            return "lol";
+        });
+
+
+        post("/create", (request, response) -> {
+            String title = request.queryParams("title");
+            String body = request.queryParams("body");
+            String tags = request.queryParams("tags");
+
+
+
+            System.out.println("Title:"+title);
+            System.out.println("Body:"+body);
+            System.out.println("tags:"+tags);
+            //DBmanager.CreateArticle("1",title,body);
+            response.redirect("./");
             return "lol";
         });
     }

@@ -20,6 +20,7 @@ public class Main {
         //DatabaseManager.CloseServer();
 
         //ArrayList<Comment> comments = pages.DBmanager
+
     }
 
     static int getHerokuAssignedPort() {

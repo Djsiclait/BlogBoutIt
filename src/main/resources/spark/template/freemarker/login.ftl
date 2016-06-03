@@ -17,7 +17,7 @@
                 <fieldset>
                     <legend>Login to Start to Blog</legend>
                     <br>
-                    <form class="col s12" method="post" action="">
+                    <form class="col s12" method="POST" action="">
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="username" name="username" type="text" class="validate">
