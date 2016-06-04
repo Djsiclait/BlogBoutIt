@@ -8,16 +8,16 @@ $(document).ready(function () {
     $('.parallax').parallax();
 
     // hide .navbar first
-    $(".navbar-fixed").hide();
+    $(".the-index-header").hide();
 
     // fade in .navbar
     $(function () {
         $(window).scroll(function () {
             // set distance user needs to scroll before we fadeIn navbar
             if ($(this).scrollTop() > 590) {
-                $('.navbar-fixed').fadeIn();
+                $('.the-index-header').fadeIn();
             } else {
-                $('.navbar-fixed').fadeOut();
+                $('.the-index-header').fadeOut();
             }
         });
 

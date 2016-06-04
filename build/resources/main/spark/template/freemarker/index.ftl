@@ -4,7 +4,7 @@
 
         <!-- Header -->
 <div id="index-banner" class="parallax-container">
-<#include "/navbar.ftl">
+<div class="the-index-header"><#include "/navbar.ftl"></div>
     <div class="section no-pad-bot">
         <div class="container ed-container">
             <br><br>
@@ -15,6 +15,10 @@
             <div class="row center">
                 <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
             </div>
+            <div class="row center bottom">
+                <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
+            </div>
+
             <br><br>
         </div>
     </div>
@@ -27,7 +31,7 @@
 <#list listaArticulos?reverse as articulo>
     <div class="col s12 m6" id="blog-post">
 
-        <div class="card">
+        <div class="card hoverable">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="http://loremflickr.com/800/400">
             </div>
