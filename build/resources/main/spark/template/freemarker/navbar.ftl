@@ -9,7 +9,7 @@
     </div>
     </div>
 </div></div>
-<div class="navbar-fixed ">
+<div class="navbar-fixed fixed">
     <nav class="amber darken-4">
         <div class="nav-wrapper">
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
