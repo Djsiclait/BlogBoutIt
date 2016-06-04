@@ -15,10 +15,9 @@
             <div class="row center">
                 <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
             </div>
-            <div class="row center bottom">
-                <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
+            <div class="row center">
+                <h7 class="header col s12 light grey-text">Scroll Down to view content</h7>
             </div>
-
             <br><br>
         </div>
     </div>
