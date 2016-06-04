@@ -4,8 +4,17 @@
 <#include "/navbar.ftl">
         <!-- Header -->
         <div id="header">
-            <h1>${message} ${user} </h1>
+
         </div>
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="http://lorempixel.com/g/1920/1080/city/">
+    </div>
+    <div class="parallax">
+        <h1 id="parallax-text">${message} ${user} </h1>
+    </div>
+
+</div>
 
 
 
@@ -15,7 +24,7 @@
 
         <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="https://www.visioncritical.com/wp-content/uploads/2014/12/BLG_Andrew-G.-River-Sample_09.13.12.png">
+                <img class="activator" src="http://lorempixel.com/1000/600/city/">
             </div>
             <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">${articulo.getTitle()}<i class="material-icons right">comment</i></span>
@@ -31,7 +40,7 @@
                     <div class="col s12 m6">
                         <div class="card-panel teal">
                           <span class="white-text">
-                              <h5>${comment.getAuthor()}:</h5>
+                              <h5>${comment.getAuthor()}:<i class="material-icons right">delete</i></h5>
                               <div class="divider"></div><br>
                              ${comment.getComment()}
                           </span>

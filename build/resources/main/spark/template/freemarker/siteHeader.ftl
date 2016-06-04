@@ -30,9 +30,13 @@
 
         $('#textarea1').val('New Text');
         $('#textarea1').trigger('autoresize');
-
+        $(document).ready(function(){
+            $('.parallax').parallax();
+        });
 
     </script>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
 </head>
