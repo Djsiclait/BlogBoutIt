@@ -22,7 +22,8 @@ jar {
     }
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } {
         // remove all signature files
-        exclude 'META-INF/*.SF'
+        exclude 'MET' +
+                'A-INF/*.SF'
         exclude 'META-INF/*.DSA'
         exclude 'META-INF/*.RSA'
     }
