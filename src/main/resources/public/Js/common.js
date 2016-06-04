@@ -14,7 +14,7 @@ $(document).ready(function () {
     $(function () {
         $(window).scroll(function () {
             // set distance user needs to scroll before we fadeIn navbar
-            if ($(this).scrollTop() > 200) {
+            if ($(this).scrollTop() > 590) {
                 $('.navbar-fixed').fadeIn();
             } else {
                 $('.navbar-fixed').fadeOut();
