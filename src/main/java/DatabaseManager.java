@@ -48,9 +48,9 @@ public class DatabaseManager {
             Statement stat = conn.createStatement();
 
             System.out.println(stat.toString());
-            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
+            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO where username = 'admin'");
 
-            if (rs.getFetchSize() == 0) {
+            if (!rs.next()) {
                 stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
                 System.out.println("Admin created");
             }
@@ -76,7 +76,7 @@ public class DatabaseManager {
             ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
              while (rs.next())
              {
-                System.out.println(rs.getString("USERNAME")+ " " + rs.getString("NOMBRE"));
+                System.out.println("Username:"+rs.getString("USERNAME")+ " Password:" + rs.getString("PASSWORD"));
              }
 
         } catch (SQLDataException exp) {
