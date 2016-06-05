@@ -2,6 +2,7 @@
  * Created by Siclait on 30/05/2016.
  */
 import org.h2.command.dml.Select;
+import org.h2.tools.Server;
 
 import java.sql.*;
 import java.sql.Statement;
@@ -22,6 +23,7 @@ public class DatabaseManager {
     public DatabaseManager(){
 
         try {
+            Server server = Server.createTcpServer("-tcpAllowOthers").start();
             Class.forName(DB_DRIVER);
             conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
             System.out.println("Connection Successful!");
