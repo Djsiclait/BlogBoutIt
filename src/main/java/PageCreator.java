@@ -42,6 +42,7 @@ public class PageCreator {
             attributes.put("comments",listComments);
             if (request.session().attribute("user")!=null)
             {
+
                 attributes.put("user",request.session().attribute("user"));
             }
             else
