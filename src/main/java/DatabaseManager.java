@@ -690,4 +690,32 @@ public class DatabaseManager {
         }
     }
 
+    public static ArrayList<Tag> GetAllArticleTags(int article){
+
+        ArrayList<Tag> tags = new ArrayList<>();
+
+        try {
+            // Preparing to execute query
+            Statement stat = conn.createStatement();
+            ResultSet rs;
+
+            rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ARTICULO=" +
+                    article);
+
+            while (rs.next())
+                tags.add(new Tag(rs.getInt("id"),
+                        rs.getString("etiqueta")));
+
+        } catch (SQLDataException exp) {
+            System.out.println("SQL DATA ERROR: " + exp.getMessage());
+        } catch (SQLException exp) {
+            System.out.println("SQL ERROR: " + exp.getMessage());
+        } catch (Exception exp) // General errors
+        {
+            System.out.println("ERROR! --> " + exp.getMessage());
+        }
+
+        return tags;
+    }
+
 }
