@@ -67,18 +67,38 @@ public class PageCreator {
             {
                 attributes.put("user",request.session().attribute("user"));
             }
+            else
+            {
+                attributes.put("user","");
+            }
             return new ModelAndView(attributes, "login.ftl");
 
         }, new FreeMarkerEngine());
 
         get("/register", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
+            if (request.session().attribute("user")!=null)
+            {
+                attributes.put("user",request.session().attribute("user"));
+            }
+            else
+            {
+                attributes.put("user","");
+            }
             attributes.put("message", "Welcome.");
             return new ModelAndView(attributes, "registerPage.ftl");
         }, new FreeMarkerEngine());
 
         get("/create", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
+            if (request.session().attribute("user")!=null)
+            {
+                attributes.put("user",request.session().attribute("user"));
+            }
+            else
+            {
+                attributes.put("user","");
+            }
             attributes.put("message", "Welcome.");
             return new ModelAndView(attributes, "createPost.ftl");
         }, new FreeMarkerEngine());
