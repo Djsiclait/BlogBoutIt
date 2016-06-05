@@ -40,7 +40,7 @@ dependencies {
 
     // Sparkjava and FreeMarker
     compile "com.sparkjava:spark-core:2.4"
-    compile group: 'com.sparkjava', name: 'spark-template-freemarker', version: '2.0.0'
+    compile group: 'com.sparkjava', name: 'spark-template-freemarker', version: '2.3'
 
     //Slf4j Library -> Sparkjava extension
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'

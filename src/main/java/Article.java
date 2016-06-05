@@ -42,6 +42,13 @@ public class Article {
     }
 
     public String getBody() {
+        if (body.length() > 600)
+             return body.substring(0, 600)+" ...";
+        else return body;
+    }
+
+    public String getFullBody()
+    {
         return body;
     }
 

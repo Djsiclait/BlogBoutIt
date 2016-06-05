@@ -32,10 +32,14 @@
 
         <div class="card hoverable">
             <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="http://loremflickr.com/800/400">
+                <a class="modal-trigger" href="#modal${articulo.getId()}">
+                    <img class="" src="http://loremflickr.com/800/400">
+                </a>
             </div>
             <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">${articulo.getTitle()}<i class="material-icons right">comment</i></span>
+                <span class="activator card-title grey-text text-darken-4">
+                    <a class="modal-trigger" href="#modal${articulo.getId()}">${articulo.getTitle()}</a>
+                    <i class="material-icons right">comment</i></span>
                 <p>${articulo.getBody()}</p>
             </div>
             <div class="card-reveal">
@@ -48,7 +52,7 @@
                     <div class="col s12 m6">
                         <div class="card-panel teal hoverable">
                           <span class="white-text">
-                              <h5>${comment.getAuthor()}:<i class="material-icons right">delete</i></h5>
+                              <h5>${comment.getAuthor()}:<#if user != ""><a href="#"><i class="material-icons right">delete</i></a></#if></h5>
                               <div class="divider"></div><br>
                              ${comment.getComment()}
                           </span>
@@ -95,6 +99,22 @@
     </div>
 </#list>
 </div>
+
+        <!----------modals-------------->
+
+<#list listaArticulos?reverse as articulo>
+<div id="modal${articulo.getId()}" class="modal">
+    <div class="modal-content">
+        <h4>${articulo.getTitle()}</h4>
+        <p>${articulo.getFullBody()}</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+
+</#list>
+
 
 <br><br>
 
