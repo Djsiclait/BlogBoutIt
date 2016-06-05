@@ -706,12 +706,11 @@ public class DatabaseManager {
             Statement stat = conn.createStatement();
             ResultSet rs;
 
-            rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ARTICULO=" +
+            rs = stat.executeQuery("SELECT  FROM HASHTAG WHERE ARTICULO=" +
                     article);
 
             while (rs.next())
-                tags.add(new Tag(rs.getInt("id"),
-                        rs.getString("etiqueta")));
+                tags.add(new Tag(rs.getString("etiqueta")));
 
         } catch (SQLDataException exp) {
             System.out.println("SQL DATA ERROR: " + exp.getMessage());
