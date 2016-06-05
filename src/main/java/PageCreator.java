@@ -56,6 +56,7 @@ public class PageCreator {
 
         get("/logout", (req, res) -> {
             req.session().invalidate();
+            res.redirect("/");
             return "<h1>You have bee logged out<>";
         }  );
 
@@ -150,12 +151,14 @@ public class PageCreator {
                 System.out.print("Login Successfull");
                 Session session=request.session(true);
                 request.session().attribute("user", username) ;
+                response.redirect("./");
             }
             else
             {
                 System.out.print("The user doesnt exist");
+                response.redirect("/login");
             }
-            response.redirect("./");
+
 
             //TODO: Make the login function with cookies and stuff
             return username;
