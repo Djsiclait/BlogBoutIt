@@ -14,7 +14,7 @@ puede publicar una serie de articulos, los cuales es disponible
 a todos los demas usuarios.
 
 Lenguajes: Java, SQL, HTML, CSS
-Framework: SparkJava, Twitter Bootstrap 3
+Framework: SparkJava, Materialize
 Librerias: FreeMarker
 IDU:  IntelliJ IDEA (version 2016.1.2)
 Database: H2 (modo servidor)

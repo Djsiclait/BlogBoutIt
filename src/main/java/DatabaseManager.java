@@ -344,8 +344,21 @@ public class DatabaseManager {
 
                     return archives.size(); // false if 0
 
-                default:
-                    return null;
+                default: // user search query
+
+                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
+                            user.getUsername() + "'");
+
+                    archives = new ArrayList<>();
+
+                    while(rs.next())
+                        archives.add(new User(rs.getString("username"),
+                                rs.getString("nombre"),
+                                rs.getString("password"),
+                                rs.getBoolean("admin"),
+                                rs.getBoolean("autor")));
+
+                    return archives.remove(0); // returns the user
             }
         }
         catch (SQLDataException exp)
@@ -443,6 +456,14 @@ public class DatabaseManager {
         }
 
         return false;
+    }
+
+    public static User FetchUser(String username){
+
+        User user = new User(username);
+
+        return (User)UserQuery(user, username);
+
     }
 
     // Comment Query
