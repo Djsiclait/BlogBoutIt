@@ -11,7 +11,7 @@
     <br>
 
     <!-- Login Form -->
-<#if !user?has_content>
+<#if user.getName() == ''>
 
     <div class="row someform">
         <div class="col s12">

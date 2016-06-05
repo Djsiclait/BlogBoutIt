@@ -41,6 +41,7 @@
                             </div>
                         </div>
                         <div class="divider"></div>
+                        <input type="hidden" name="user" id="user" value="${user.getUsername()}">
                         <div class="row">
                             <div class="col m12">
                                 <p class="right-align">

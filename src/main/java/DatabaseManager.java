@@ -54,6 +54,13 @@ public class DatabaseManager {
                 stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
                 System.out.println("Admin created");
             }
+
+            rs = stat.executeQuery("SELECT * FROM USUARIO where username = ''");
+
+            if (!rs.next()) {
+                stat.executeUpdate("INSERT INTO USUARIO Values ('', '', 'yolo', 0, 0)");
+                System.out.println("Null user created");
+            }
         } catch (SQLDataException exp) {
             System.out.println("Data ERROR! --> " + exp.getMessage());
         } catch (SQLException exp) {

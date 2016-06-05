@@ -8,7 +8,7 @@
     <div class="section no-pad-bot">
         <div class="container ed-container">
             <br><br>
-            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user}.</h1>
+            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user.getName()}.</h1>
             <div class="row center">
                 <h5 class="header col s12 light">The blog about some of the coolest stuff</h5>
             </div>
@@ -53,9 +53,10 @@
                         <#if comment.getArticle() == articulo.getId()>
                             <div class="col s12 m6">
                                 <div class="card-panel teal hoverable">
-                          <span class="white-text">
+                          <span class="white-text ">
+                              <div class="row">
                               <h5>${comment.getAuthor()}:
-                                  <#if user != "">
+                                  <#if user.isAdmin()>
                                           <form class="spacer" action="" method="post">
                                               <input type="hidden"  id="commentID" name="commentID" value="${comment.getId()}">
                                               <input type="hidden" id="kind" name="kind" value="delete">
@@ -63,6 +64,7 @@
                                           </form>
                                   </#if>
                               </h5>
+                                  </div>
                               <div class="divider"></div>
                               <br>
                           ${comment.getComment()}
@@ -76,7 +78,7 @@
 
 
                 <div class="row">
-                    <#if user == "">
+                    <#if user.getName() == "">
                         <h5>Login/register to start commenting</h5>
                     <#else>
                         <form class="col s12" action="" method="POST" id="commentForm">
@@ -89,6 +91,7 @@
                                     <label for="textarea1">Textarea</label>
                                 </div>
                             </div>
+                            <input type="hidden" name="user" id="user" value="${user.getUsername()}">
                             <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                                 <i class="material-icons right">send</i>
                             </button>

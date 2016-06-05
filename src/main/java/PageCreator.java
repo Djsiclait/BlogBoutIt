@@ -39,15 +39,16 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
             ArrayList listaArticulos = DBmanager.GetAllArticles();
             ArrayList listComments  = DBmanager.GetAllComments();
+            //ArrayList listaTags = DBmanager.G
             attributes.put("comments",listComments);
             if (request.session().attribute("user")!=null)
             {
-
-                attributes.put("user",request.session().attribute("user"));
+                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                attributes.put("user",user);
             }
             else
             {
-                attributes.put("user","");
+                attributes.put("user",DBmanager.FetchUser(""));
             }
             attributes.put("listaArticulos",listaArticulos);
             attributes.put("message", "Welcome");
@@ -68,11 +69,12 @@ public class PageCreator {
             attributes.put("message", "Welcome");
             if (request.session().attribute("user")!=null)
             {
-                attributes.put("user",request.session().attribute("user"));
+                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                attributes.put("user",user);
             }
             else
             {
-                attributes.put("user","");
+                attributes.put("user",DBmanager.FetchUser(""));
             }
             return new ModelAndView(attributes, "login.ftl");
 
@@ -82,11 +84,12 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
             if (request.session().attribute("user")!=null)
             {
-                attributes.put("user",request.session().attribute("user"));
+                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                attributes.put("user",user);
             }
             else
             {
-                attributes.put("user","");
+                attributes.put("user",DBmanager.FetchUser(""));
             }
             attributes.put("message", "Welcome");
             return new ModelAndView(attributes, "registerPage.ftl");
@@ -96,11 +99,12 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
             if (request.session().attribute("user")!=null)
             {
-                attributes.put("user",request.session().attribute("user"));
+                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                attributes.put("user",user);
             }
             else
             {
-                attributes.put("user","");
+                attributes.put("user",DBmanager.FetchUser(""));
             }
             attributes.put("message", "Welcome");
             return new ModelAndView(attributes, "createPost.ftl");
@@ -181,9 +185,11 @@ public class PageCreator {
             {
                 String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
                 String postID = request.queryParams("postID");
+                String user = request.queryParams("user");
                 System.out.println("Comment:"+comment);
                 System.out.println("Post ID:"+postID);
-                DBmanager.CreateComment(comment,"Eduardo",Integer.parseInt(postID));
+                System.out.println("User: "+user);
+                DBmanager.CreateComment(comment,user,Integer.parseInt(postID));
 
 
             }
@@ -199,14 +205,21 @@ public class PageCreator {
             String title = request.queryParams("title");
             String body = Jsoup.parse(request.queryParams("body")).text();
             String tags = request.queryParams("tags");
+            String user = request.queryParams("user");
 
             System.out.println("Title:"+title);
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
-            //ArrayList<String> myList = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
-            //System.out.print(myList);
-            DBmanager.CreateArticle(title,body,"Eduardo");
-            //DBmanager.ProcessTagsOnArticlea(myList,new Article());
+            System.out.println("User:"+user);
+            ArrayList<String> listString = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
+            ArrayList<Tag> listTags = null;
+            for (String st:listString) {
+                listTags.add(new Tag(1,st));
+            }
+
+            System.out.print(listTags);
+            int ID = DBmanager.CreateArticle(title,body,user);
+            DBmanager.ProcessTagsOnArticlea(listTags,ID);
 
 
 
