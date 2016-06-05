@@ -2,6 +2,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import com.sun.tracing.dtrace.ArgsAttributes;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import org.jsoup.Jsoup;
+import org.omg.CORBA.COMM_FAILURE;
 import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -168,14 +169,25 @@ public class PageCreator {
         post("/", (request, response) -> {
             //TODO:Make this post work
 
-            String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
-            String postID = request.queryParams("postID");
+            String formType = request.queryParams("kind");
+
+            if (formType.equals("delete"))
+            {
+                int commentID = Integer.parseInt(request.queryParams("commentID"));
+                DBmanager.DeleteComment(commentID);
+            }
+            else
+            {
+                String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
+                String postID = request.queryParams("postID");
+                System.out.println("Comment:"+comment);
+                System.out.println("Post ID:"+postID);
+                DBmanager.CreateComment(comment,"Eduardo",Integer.parseInt(postID));
 
 
-            System.out.println("Comment:"+comment);
-            System.out.println("Post ID:"+postID);
-            DBmanager.CreateComment(comment,"Eduardo",Integer.parseInt(postID));
+            }
             response.redirect("./");
+
             return "lol";
         });
 

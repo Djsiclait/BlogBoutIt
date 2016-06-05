@@ -2,9 +2,9 @@
 <body>
 
 
-        <!-- Header -->
+<!-- Header -->
 <div id="index-banner" class="parallax-container">
-<div class="the-index-header"><#include "/navbar.ftl"></div>
+    <div class="the-index-header"><#include "/navbar.ftl"></div>
     <div class="section no-pad-bot">
         <div class="container ed-container">
             <br><br>
@@ -21,7 +21,8 @@
             <br><br>
         </div>
     </div>
-    <div class="parallax"><img src="http://designninjaz.com/wp-content/uploads/2015/01/Slider-BlackDeskScene.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="http://designninjaz.com/wp-content/uploads/2015/01/Slider-BlackDeskScene.jpg"
+                               alt="Unsplashed background img 1"></div>
 </div>
 <!-- End Header -->
 
@@ -43,48 +44,57 @@
                 <p>${articulo.getBody()}</p>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Comments<i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4">Comments<i
+                        class="material-icons right">close</i></span>
                 <!--Commentsss-->
 
                 <div class="row" id="comment-container">
                     <#list comments?reverse as comment>
                         <#if comment.getArticle() == articulo.getId()>
-                    <div class="col s12 m6">
-                        <div class="card-panel teal hoverable">
+                            <div class="col s12 m6">
+                                <div class="card-panel teal hoverable">
                           <span class="white-text">
-                              <h5>${comment.getAuthor()}:<#if user != ""><a href="#"><i class="material-icons right">delete</i></a></#if></h5>
-                              <div class="divider"></div><br>
-                             ${comment.getComment()}
+                              <h5>${comment.getAuthor()}:
+                                  <#if user != "">
+                                          <form class="spacer" action="" method="post">
+                                              <input type="hidden"  id="commentID" name="commentID" value="${comment.getId()}">
+                                              <input type="hidden" id="kind" name="kind" value="delete">
+                                              <input class="btn-floating btn-small waves-effect waves-light red" type="submit" value="X">
+                                          </form>
+                                  </#if>
+                              </h5>
+                              <div class="divider"></div>
+                              <br>
+                          ${comment.getComment()}
                           </span>
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                         </#if>
                     </#list>
                 </div>
                 <!--End Comments-->
 
 
-
-
                 <div class="row">
-                <#if user == "">
-                    <h5>Login/register to start commenting</h5>
-                <#else>
-                    <form class="col s12" action="" method="POST" id="commentForm">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="hidden" name="postID" value="${articulo.getId()}">
-                                <textarea type="input" id="textarea1" value="Sample comment" name="thebodyx" class="materialize-textarea"></textarea>
-                                <label for="textarea1">Textarea</label>
+                    <#if user == "">
+                        <h5>Login/register to start commenting</h5>
+                    <#else>
+                        <form class="col s12" action="" method="POST" id="commentForm">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="hidden" id="kind" name="kind" value="create">
+                                    <input type="hidden" name="postID" value="${articulo.getId()}">
+                                    <textarea type="input" id="textarea1" value="Sample comment" name="thebodyx"
+                                              class="materialize-textarea"></textarea>
+                                    <label for="textarea1">Textarea</label>
+                                </div>
                             </div>
-                        </div>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </form>
-                </#if>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </form>
+                    </#if>
                 </div>
-
 
 
             </div>
@@ -100,7 +110,7 @@
 </#list>
 </div>
 
-        <!----------modals-------------->
+<!----------modals-------------->
 
 <#list listaArticulos?reverse as articulo>
 <div id="modal${articulo.getId()}" class="modal">
@@ -119,10 +129,9 @@
 <br><br>
 
 
-
 <!-- Footer -->
 <#include "/footer.ftl">
 
 
-    </body>
+</body>
 </html>
