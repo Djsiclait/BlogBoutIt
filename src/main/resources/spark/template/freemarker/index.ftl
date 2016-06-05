@@ -8,7 +8,7 @@
     <div class="section no-pad-bot">
         <div class="container ed-container">
             <br><br>
-            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user}</h1>
+            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user}.</h1>
             <div class="row center">
                 <h5 class="header col s12 light">The blog about some of the coolest stuff</h5>
             </div>
@@ -46,7 +46,7 @@
                     <#list comments?reverse as comment>
                         <#if comment.getArticle() == articulo.getId()>
                     <div class="col s12 m6">
-                        <div class="card-panel teal">
+                        <div class="card-panel teal hoverable">
                           <span class="white-text">
                               <h5>${comment.getAuthor()}:<i class="material-icons right">delete</i></h5>
                               <div class="divider"></div><br>
@@ -58,7 +58,14 @@
                     </#list>
                 </div>
                 <!--End Comments-->
+
+
+
+
                 <div class="row">
+                <#if user == "">
+                    <h5>Login/register to start commenting</h5>
+                <#else>
                     <form class="col s12" action="" method="POST" id="commentForm">
                         <div class="row">
                             <div class="input-field col s12">
@@ -71,7 +78,11 @@
                             <i class="material-icons right">send</i>
                         </button>
                     </form>
+                </#if>
                 </div>
+
+
+
             </div>
             <div class="chip">
                 Tag

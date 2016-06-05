@@ -48,7 +48,7 @@ public class PageCreator {
                 attributes.put("user","");
             }
             attributes.put("listaArticulos",listaArticulos);
-            attributes.put("message", "Welcome.");
+            attributes.put("message", "Welcome");
             return new ModelAndView(attributes, "index.ftl");
 
         }, new FreeMarkerEngine());
@@ -63,7 +63,7 @@ public class PageCreator {
 
         get("/login", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
-            attributes.put("message", "Welcome.");
+            attributes.put("message", "Welcome");
             if (request.session().attribute("user")!=null)
             {
                 attributes.put("user",request.session().attribute("user"));
@@ -86,7 +86,7 @@ public class PageCreator {
             {
                 attributes.put("user","");
             }
-            attributes.put("message", "Welcome.");
+            attributes.put("message", "Welcome");
             return new ModelAndView(attributes, "registerPage.ftl");
         }, new FreeMarkerEngine());
 
@@ -100,7 +100,7 @@ public class PageCreator {
             {
                 attributes.put("user","");
             }
-            attributes.put("message", "Welcome.");
+            attributes.put("message", "Welcome");
             return new ModelAndView(attributes, "createPost.ftl");
         }, new FreeMarkerEngine());
     }
