@@ -658,7 +658,7 @@ public class DatabaseManager {
     }
 
     // TAG ARTICLE CROSS TABLE
-    public static void ProcessTagsOnArticlea(ArrayList<Tag> tags, int article){
+    public static void ProcessTagsOnArticle(ArrayList<Tag> tags, int article){
 
         int count = 0;
 
@@ -673,6 +673,9 @@ public class DatabaseManager {
                 // Preparing to execute query
                 Statement stat = conn.createStatement();
                 ResultSet rs;
+
+                tag = new Tag(stat.executeQuery("SELECT * FROM ETIQUETA WHERE TAG='" +
+                        tag.getTag() + "'").getInt("id"), tag.getTag());
 
                 rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
                         tag.getId() + " AND ARTICULO=" +
