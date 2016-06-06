@@ -218,9 +218,10 @@ public class PageCreator {
                 listTags.add(new Tag(st));
             }
             System.out.println("Lista Tags:"+ listTags);
-
+            System.out.println("Salio del for");
             int ID = DBmanager.CreateArticle(title,body,user);
-            DBmanager.ProcessTagsOnArticlea(listTags,ID);
+            DBmanager.ProcessTagsOnArticle(listTags,ID);
+            //DBmanager.ProcessTagsOnArticlea(listTags,ID);
 
 
 
