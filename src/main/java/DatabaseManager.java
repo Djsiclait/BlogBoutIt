@@ -711,7 +711,7 @@ public class DatabaseManager {
 
             ResultSet rx;
 
-            while (rs.next() && rs.next()) {
+            while (rs.next()) {
 
                 rx = stat.executeQuery("SELECT * FROM ETIQUETA WHERE ID =" +
                         rs.getInt("etiqueta"));
