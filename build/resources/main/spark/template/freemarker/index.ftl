@@ -101,11 +101,14 @@
 
 
             </div>
+    <#list listatags as tag>
             <div class="chip">
-                Tag
+                a tag:
+                ${tag.getTag()}
             </div>
+    </#list>
             <div class="chip">
-                Tag
+                tag
             </div>
         </div>
 

@@ -13,7 +13,7 @@ public class DatabaseManager {
     // Attributes
     private static Connection conn;
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost:9092/~/Blog;IFEXISTS=TRUE";
+    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost:9092/~/Blog;IFEXISTS=TRUE;";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
 

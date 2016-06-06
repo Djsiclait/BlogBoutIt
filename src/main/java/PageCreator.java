@@ -34,11 +34,29 @@ public class PageCreator {
 
             Map<String, Object> attributes = new HashMap<>();
 
-            ArrayList listaArticulos = DBmanager.GetAllArticles();
+            ArrayList<Article> listaArticulos = DBmanager.GetAllArticles();
             ArrayList listComments  = DBmanager.GetAllComments();
-            //ArrayList listaTags = DBmanager.G
 
             attributes.put("comments",listComments);
+            ArrayList<tagPair> listaTags= new ArrayList<>();
+
+            for (Article art :listaArticulos) {
+                //listaTags
+                System.out.println("Something happened------------------------------------------");
+                ArrayList<Tag> listaT=DatabaseManager.GetAllArticleTags((int) (long)art.getId());
+                System.out.println("Something happened------------------------------------------");
+                for (Tag t :listaT) {
+                    System.out.println("ENTERED LOOP---------------------------------");
+                        listaTags.add(new tagPair((int)art.getId(),t.getTag()));
+                }
+
+            }
+            for (tagPair t:listaTags) {
+                System.out.print("tag"+t.getTag());
+            }
+            attributes.put("listatags", listaTags);
+
+
 
             if (request.session().attribute("user")!=null)
             {
