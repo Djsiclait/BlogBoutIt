@@ -211,13 +211,14 @@ public class PageCreator {
             System.out.println("Body:"+body);
             System.out.println("tags:"+tags);
             System.out.println("User:"+user);
+            System.out.println();
             ArrayList<String> listString = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
             ArrayList<Tag> listTags = null;
             for (String st:listString) {
-                listTags.add(new Tag(1,st));
+                listTags.add(new Tag(st));
             }
+            System.out.println("Lista Tags:"+ listTags);
 
-            System.out.print(listTags);
             int ID = DBmanager.CreateArticle(title,body,user);
             DBmanager.ProcessTagsOnArticlea(listTags,ID);
 
