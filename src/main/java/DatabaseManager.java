@@ -1,7 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import org.h2.command.dml.Select;
 import org.h2.tools.Server;
 
 import java.sql.*;
@@ -665,17 +664,19 @@ public class DatabaseManager {
         for (Tag tag:
              tags){
 
-
             if ((boolean) TagQuery(tag, "isNew"))
                 TagQuery(tag, "insert");
 
             try {
                 // Preparing to execute query
                 Statement stat = conn.createStatement();
-                ResultSet rs;
+                ResultSet rs, rx;
 
-                tag = new Tag(stat.executeQuery("SELECT * FROM ETIQUETA WHERE TAG='" +
-                        tag.getTag() + "'").getInt("id"), tag.getTag());
+                rx =stat.executeQuery("SELECT * FROM ETIQUETA WHERE TAG='" +
+                        tag.getTag() + "'");
+
+                while (rx.next())
+                    tag = new Tag(rx.getInt("id"), tag.getTag());
 
                 rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
                         tag.getId() + " AND ARTICULO=" +
