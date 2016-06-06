@@ -213,7 +213,7 @@ public class PageCreator {
             System.out.println("User:"+user);
             System.out.println();
             ArrayList<String> listString = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
-            ArrayList<Tag> listTags = null;
+            ArrayList<Tag> listTags = new ArrayList<Tag>();
             for (String st:listString) {
                 listTags.add(new Tag(st));
             }
