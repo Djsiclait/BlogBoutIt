@@ -708,19 +708,23 @@ public class DatabaseManager {
         try {
             // Preparing to execute query
             Statement stat = conn.createStatement();
+            Statement stat2 = conn.createStatement();
             ResultSet rs;
+            ResultSet rx;
 
             rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ARTICULO=" +
                     article);
 
-            ResultSet rx;
-
             while (rs.next()) {
 
-                rx = stat.executeQuery("SELECT * FROM ETIQUETA WHERE ID =" +
+                rx = stat2.executeQuery("SELECT * FROM ETIQUETA WHERE ID =" +
                         rs.getInt("etiqueta"));
+                while (rx.next())
+                {
+                    //System.out.println("Entered while-------------"+rs.getString("etiqueta"));
+                    tags.add(new Tag(rs.getInt("etiqueta"), rx.getString("tag")));
+                }
 
-                tags.add(new Tag(rs.getInt("etiqueta"), rx.getString("tag")));
             }
 
         } catch (SQLDataException exp) {

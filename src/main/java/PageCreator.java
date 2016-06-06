@@ -42,11 +42,11 @@ public class PageCreator {
 
             for (Article art :listaArticulos) {
                 //listaTags
-                System.out.println("Something happened------------------------------------------");
+                //System.out.println("Something happened------------------------------------------");
                 ArrayList<Tag> listaT=DatabaseManager.GetAllArticleTags((int) (long)art.getId());
-                System.out.println("Something happened------------------------------------------");
+                //System.out.println("Something happened------------------------------------------");
                 for (Tag t :listaT) {
-                    System.out.println("ENTERED LOOP---------------------------------");
+                    //System.out.println("ENTERED LOOP---------------------------------");
                         listaTags.add(new tagPair((int)art.getId(),t.getTag()));
                 }
 
@@ -54,7 +54,7 @@ public class PageCreator {
             for (tagPair t:listaTags) {
                 System.out.print("tag"+t.getTag());
             }
-            attributes.put("listatags", listaTags);
+            attributes.put("listatagsss", listaTags);
 
 
 

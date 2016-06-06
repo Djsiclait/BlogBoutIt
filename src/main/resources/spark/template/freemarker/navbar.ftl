@@ -30,6 +30,18 @@
                     <li><a  class="orange-text darken-4" href="/logout">Logout</a></li>
                 </#if>
             </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a class="orange-text darken-4" href="/">Home</a></li>
+            <#if user.getName() == "">
+                <li><a  class="orange-text darken-4" href="/register">Register</a></li>
+                <li><a  class="orange-text darken-4" href="/login">Login</a></li>
+            <#else>
+                <#if user.isAdmin()||user.isAuthor()>
+                    <li><a  class="orange-text darken-4" href="/create">Create Post</a></li>
+                </#if>
+                <li><a  class="orange-text darken-4" href="/logout">Logout</a></li>
+            </#if>
+            </ul>
         </div>
     </nav>
 </div>
