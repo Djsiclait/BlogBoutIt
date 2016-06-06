@@ -1,9 +1,8 @@
-$(window).load(function () {
-    $(".loader").fadeOut("slow");
-})
+
 
 $('#textarea1').val('New Text');
 $('#textarea1').trigger('autoresize');
+
 $(document).ready(function () {
     $(".button-collapse").sideNav();
 
@@ -25,3 +24,7 @@ $(document).ready(function () {
 
 });
 
+
+$(window).load(function () {
+    $(".loader").fadeOut("slow");
+})
