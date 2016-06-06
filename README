@@ -11,7 +11,7 @@ Fecha de Entrega: 3-6-2016
 Esta practica simula una sitio web tipo blog, que brinda a los
 usuarios la creacion de cuentas. Con una cuenta, cada persona/autor
 puede publicar una serie de articulos, los cuales es disponible
-a todos los demas usuarios.
+a todos los demas usuarios. Además, implementa el concepto de sessiones para distiguir entre usuario y visitantes, brindando permiso especiales al primero. 
 
 Lenguajes: Java, SQL, HTML, CSS
 Framework: SparkJava, Materialize
