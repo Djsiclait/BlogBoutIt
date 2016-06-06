@@ -29,7 +29,7 @@
 
 <div class="row" id="mainContent">
 <#list listaArticulos?reverse as articulo>
-    <div class="col s12 m6" id="blog-post">
+    <div class="col s12 m6 l4" id="blog-post">
 
         <div class="card hoverable">
             <div class="card-image waves-effect waves-block waves-light">
@@ -59,8 +59,9 @@
                               <div class="row">
                               ${comment.getAuthor()}:
                                   <#if user.isAdmin()>
-                                          <form class="spacer" action="" method="post">
-                                              <input type="hidden"  id="commentID" name="commentID" value="${comment.getId()}">
+                                      <form class="spacer" action="" method="post">
+                                              <input type="hidden" id="commentID" name="commentID"
+                                                     value="${comment.getId()}">
                                               <input type="hidden" id="kind" name="kind" value="delete">
                                               <input class="waves-effect waves-teal btn-flat" type="submit" value="X">
                                           </form>
@@ -104,13 +105,20 @@
 
 
             </div>
-    <#list listatagsss as tag>
-        <#if tag.getPostID()== articulo.getId()>
-            <div class="chip">
-                ${tag.getTag()}
-            </div>
-        </#if>
-    </#list>
+            <#list listatagsss as tag>
+                <#if tag.getPostID()== articulo.getId()>
+                    <div class="chip">
+                    ${tag.getTag()}
+                    </div>
+                </#if>
+            </#list>
+
+            <#if user.isAdmin()>
+                <div class="card-action">
+                    <a class="red-text" href="#">Delete Post</a>
+                    <a href="#">Edit Post</a>
+                </div>
+            </#if>
         </div>
 
     </div>

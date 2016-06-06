@@ -24,7 +24,7 @@ body
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 9999;
+    z-index: 99999999;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -109,6 +109,10 @@ p {
     #index-banner .section {
         top: 0;
     }
+}
+.navbar-fixed
+{
+    z-index: 99999;
 }
 
 .icon-block {

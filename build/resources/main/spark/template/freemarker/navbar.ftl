@@ -17,7 +17,7 @@
     <nav class="grey lighten-3">
         <div class="nav-wrapper">
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <a id="navbar-logo" href="/" class="hoverable brand-logo orange-text accent-2"> BlogBoutIt</a>
+            <a id="navbar-logo" href="/" class="brand-logo orange-text accent-2"> BlogBoutIt</a>
             <ul class="right hide-on-med-and-down">
                 <li><a class="orange-text darken-4" href="/">Home</a></li>
                 <#if user.getName() == "">

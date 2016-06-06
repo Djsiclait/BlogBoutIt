@@ -51,9 +51,6 @@ public class PageCreator {
                 }
 
             }
-            for (tagPair t:listaTags) {
-                System.out.print("tag"+t.getTag());
-            }
             attributes.put("listatagsss", listaTags);
 
 
