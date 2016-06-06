@@ -54,17 +54,20 @@
                             <div class="col s12 m6">
                                 <div class="card-panel teal hoverable">
                           <span class="white-text ">
+
+                              <h5>
                               <div class="row">
-                              <h5>${comment.getAuthor()}:
+                              ${comment.getAuthor()}:
                                   <#if user.isAdmin()>
                                           <form class="spacer" action="" method="post">
                                               <input type="hidden"  id="commentID" name="commentID" value="${comment.getId()}">
                                               <input type="hidden" id="kind" name="kind" value="delete">
-                                              <input class="btn-floating btn-small waves-effect waves-light red" type="submit" value="X">
+                                              <input class="waves-effect waves-teal btn-flat" type="submit" value="X">
                                           </form>
                                   </#if>
-                              </h5>
                                   </div>
+                              </h5>
+
                               <div class="divider"></div>
                               <br>
                           ${comment.getComment()}
@@ -101,15 +104,13 @@
 
 
             </div>
-    <#list listatags as tag>
+    <#list listatagsss as tag>
+        <#if tag.getPostID()== articulo.getId()>
             <div class="chip">
-                a tag:
                 ${tag.getTag()}
             </div>
+        </#if>
     </#list>
-            <div class="chip">
-                tag
-            </div>
         </div>
 
     </div>

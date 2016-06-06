@@ -5,6 +5,8 @@ $(window).load(function () {
 $('#textarea1').val('New Text');
 $('#textarea1').trigger('autoresize');
 $(document).ready(function () {
+    $(".button-collapse").sideNav();
+
     $('.parallax').parallax();
     $('.modal-trigger').leanModal();
     // hide .navbar first
