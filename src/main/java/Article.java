@@ -16,7 +16,7 @@ public class Article {
     @ManyToOne
     private User author;
 
-    @OneToMany
+    @OneToMany(mappedBy = "article")
     private ArrayList<Comment> Comments = new ArrayList<>();
 
     @OneToMany

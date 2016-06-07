@@ -8,7 +8,7 @@ public class Tag {
     // Attributes
     @Id
     @GeneratedValue
-    private long id;
+    private Integer id;
     private String tag;
 
     //Constructors
@@ -16,7 +16,7 @@ public class Tag {
 
     }
 
-    public Tag(int id){
+    public Tag(Integer id){
         this.setId(id);
     }
 
@@ -24,18 +24,18 @@ public class Tag {
         this.setTag(tag);
     }
 
-    public Tag(long id, String tag){
+    public Tag(Integer id, String tag){
 
         this.setId(id);
         this.setTag(tag);
     }
 
     // Getters and Setters
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

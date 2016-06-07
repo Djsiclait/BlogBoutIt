@@ -1,46 +1,70 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import javax.persistence.*;
 
+@Entity
 public class Comment {
     //Attributes
-    private long id;
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String comment;
-    private String author;
-    private int article;
+
+    @ManyToOne
+    private User author;
+
+    @ManyToOne
+    private Article article;
 
     // Constructor
-    public Comment(int id){
-        this.id = id;
-    }
-    public Comment(int id, int article){
-        this.id = id;
-        this.article = article;
+    public Comment(Integer id){
+        this.setId(id);
     }
 
-    public Comment(long id, String comment, String author, int article){
-
-        this.id =  id;
-        this.comment = comment;
-        this.author = author;
-        this.article = article;
+    public Comment(Integer id, Article article){
+        this.setId(id);
+        this.setArticle(article);
     }
 
-    //Getters
-    public long getId() {
+    public Comment(Integer id, String comment, User author, Article article){
+
+        this.setId(id);
+        this.setComment(comment);
+        this.setAuthor(author);
+        this.setArticle(article);
+    }
+
+    // Getters and Setters
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public String getAuthor() {
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public User getAuthor() {
         return author;
     }
 
-    public int getArticle() {
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Article getArticle() {
         return article;
     }
 
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 }
