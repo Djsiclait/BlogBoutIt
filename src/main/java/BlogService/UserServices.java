@@ -9,12 +9,12 @@ public class UserServices extends ORManager<User>{
 
     private static UserServices instance;
 
-    public UserServices(){
+    private UserServices(){
         super(User.class);
     }
 
     public static UserServices getInstance(){
-        if(instance  == null)
+        if(instance == null)
             instance = new UserServices();
 
         return instance;
