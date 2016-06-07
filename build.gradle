@@ -46,8 +46,17 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
     compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+
+    // H2 Data Base
     compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+
+    // Jsoup
     compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
 
+    // ORM - Hibernate
+    compile "org.hibernate:hibernate-core:5.2.0.Final"
+
+    // JPA - Spring
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: '1.0.0.Final'
 
 }
