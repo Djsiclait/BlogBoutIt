@@ -19,5 +19,5 @@ public class TagServices extends ORManager<Tag>{
 
         return instance;
     }
-    
+
 }

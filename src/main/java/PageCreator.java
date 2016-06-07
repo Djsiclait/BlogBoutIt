@@ -4,7 +4,7 @@
 import org.jsoup.Jsoup;
 
 import Entity.*;
-import BlogService.*;
+import BlogService.DatabaseManager;
 
 import spark.ModelAndView;
 import spark.Session;
