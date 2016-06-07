@@ -109,7 +109,7 @@ public class DatabaseManager {
         }
     }
 
-
+/*
     // Basic Query Functions
     private static Object ArticleQuery(Article article, String query){
 
@@ -738,5 +738,5 @@ public class DatabaseManager {
 
         return tags;
     }
-
+*/
 }

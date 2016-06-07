@@ -34,8 +34,8 @@ public class PageCreator {
 
             Map<String, Object> attributes = new HashMap<>();
 
-            ArrayList<Article> listaArticulos = DBmanager.GetAllArticles();
-            ArrayList listComments  = DBmanager.GetAllComments();
+            ArrayList<Article> listaArticulos = new ArrayList<>();// = DBmanager.GetAllArticles();
+            ArrayList listComments = new ArrayList<>();//  = DBmanager.GetAllComments();
 
             attributes.put("comments",listComments);
             ArrayList<tagPair> listaTags= new ArrayList<>();
@@ -43,7 +43,7 @@ public class PageCreator {
             for (Article art :listaArticulos) {
                 //listaTags
                 //System.out.println("Something happened------------------------------------------");
-                ArrayList<Tag> listaT=DatabaseManager.GetAllArticleTags((int) (long)art.getId());
+                ArrayList<Tag> listaT = new ArrayList<>();// = DatabaseManager.GetAllArticleTags((int) (long)art.getId());
                 //System.out.println("Something happened------------------------------------------");
                 for (Tag t :listaT) {
                     //System.out.println("ENTERED LOOP---------------------------------");
@@ -57,12 +57,12 @@ public class PageCreator {
 
             if (request.session().attribute("user")!=null)
             {
-                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                User user = null ;// = DBmanager.FetchUser(request.session().attribute("user"));
                 attributes.put("user",user);
             }
             else
             {
-                attributes.put("user",DBmanager.FetchUser(""));
+                //attributes.put("user",DBmanager.FetchUser(""));
             }
 
             attributes.put("listaArticulos",listaArticulos);
@@ -89,12 +89,12 @@ public class PageCreator {
 
             if (request.session().attribute("user")!=null)
             {
-                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
                 attributes.put("user",user);
             }
             else
             {
-                attributes.put("user",DBmanager.FetchUser(""));
+                //attributes.put("user",DBmanager.FetchUser(""));
             }
 
             return new ModelAndView(attributes, "login.ftl");
@@ -106,12 +106,12 @@ public class PageCreator {
 
             if (request.session().attribute("user")!=null)
             {
-                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
                 attributes.put("user",user);
             }
             else
             {
-                attributes.put("user",DBmanager.FetchUser(""));
+                //attributes.put("user",DBmanager.FetchUser(""));
             }
 
             attributes.put("message", "Welcome");
@@ -125,12 +125,12 @@ public class PageCreator {
 
             if (request.session().attribute("user")!=null)
             {
-                User user = DBmanager.FetchUser(request.session().attribute("user"));
+                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
                 attributes.put("user",user);
             }
             else
             {
-                attributes.put("user",DBmanager.FetchUser(""));
+                //attributes.put("user",DBmanager.FetchUser(""));
             }
 
             attributes.put("message", "Welcome");
@@ -168,7 +168,7 @@ public class PageCreator {
             System.out.println("admin:"+admin);
             System.out.println("author:"+author);
 
-            DBmanager.CreateUser(username,name,pass,admin,author);
+            //DBmanager.CreateUser(username,name,pass,admin,author);
 
             response.redirect("./");
 
@@ -184,7 +184,7 @@ public class PageCreator {
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
 
-            if (DBmanager.CheckCredentials(username,pass))
+            if (true)// (DBmanager.CheckCredentials(username,pass))
             {
                 System.out.print("Login Successfull");
                 Session session=request.session(true);
@@ -212,7 +212,7 @@ public class PageCreator {
             if (formType.equals("delete"))
             {
                 int commentID = Integer.parseInt(request.queryParams("commentID"));
-                DBmanager.DeleteComment(commentID);
+                //DBmanager.DeleteComment(commentID);
             }
             else
             {
@@ -224,7 +224,7 @@ public class PageCreator {
                 System.out.println("Post ID:"+postID);
                 System.out.println("User: "+user);
 
-                DBmanager.CreateComment(comment,user,Integer.parseInt(postID));
+                //DBmanager.CreateComment(comment,user,Integer.parseInt(postID));
 
             }
 
@@ -258,8 +258,8 @@ public class PageCreator {
             System.out.println("Lista Tags:"+ listTags);
             System.out.println("Salio del for");
 
-            int ID = DBmanager.CreateArticle(title,body,user);
-            DBmanager.ProcessTagsOnArticle(listTags,ID);
+            Integer ID = null;// = DBmanager.CreateArticle(title,body,user);
+            //DBmanager.ProcessTagsOnArticle(listTags,ID);
             //DBmanager.ProcessTagsOnArticlea(listTags,ID);
 
             response.redirect("./");
