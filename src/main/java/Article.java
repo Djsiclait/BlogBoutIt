@@ -16,10 +16,10 @@ public class Article {
     @ManyToOne
     private User author;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
     private ArrayList<Comment> Comments = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private ArrayList<Tag> Tags = new ArrayList<>();
 
     //Constuctors
