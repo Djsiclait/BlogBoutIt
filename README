@@ -15,6 +15,6 @@ a todos los demas usuarios.
 
 Lenguajes: Java, SQL, HTML, CSS
 Framework: SparkJava, Materialize
-Librerias: FreeMarker
+Librerias: FreeMarker, JPA-Hibernate, ORM-Hibernate
 IDU:  IntelliJ IDEA (version 2016.1.2)
 Database: H2 (modo servidor)

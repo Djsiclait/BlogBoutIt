@@ -2,25 +2,46 @@
  * Created by Siclait on 30/05/2016.
  */
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Entity
-public class Article {
+@Table(name = "ARTICULO")
+public class Article implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     //Attributes
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private Integer id;
+
+    @Column(name = "TITULO", length = 50)
     private String title;
+
+    @Column(name = "CUERPO", length = 80000, unique = true)
     private String body;
 
     @ManyToOne
+    @Column(name = "AUTOR")
     private User author;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    @Column(name = "COMENTARIOS")
     private ArrayList<Comment> Comments = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER)
+    @Column(name = "ETIQUETAS")
     private ArrayList<Tag> Tags = new ArrayList<>();
+
+    @GeneratedValue
+    @Column(name = "FECHA")
+    private Date pubDate;
+    @GeneratedValue
+    @Column(name = "MODIFICADO")
+    private Date modified;
 
     //Constuctors
     public Article(){
@@ -53,6 +74,18 @@ public class Article {
         this.setAuthor(author);
         this.setComments(Comments);
         this.setTags(Tags);
+    }
+
+    public Article(Integer id, String title, String body, User autho, ArrayList<Comment> Comments, ArrayList<Tag> Tags, Date pubDate, Date modified){
+
+        this.setId(id);
+        this.setTitle(title);
+        this.setBody(body);
+        this.setAuthor(author);
+        this.setComments(Comments);
+        this.setTags(Tags);
+        this.setPubDate(pubDate);
+        this.setModified(modified);
     }
 
     // Getters and Setters
@@ -102,5 +135,21 @@ public class Article {
 
     public void setTags(ArrayList<Tag> tags) {
         Tags = tags;
+    }
+
+    public Date getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
     }
 }

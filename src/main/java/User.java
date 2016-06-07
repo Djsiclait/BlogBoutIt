@@ -2,15 +2,29 @@
  * Created by Siclait on 30/05/2016.
  */
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class User {
+@Table(name = "USUARIO")
+public class User implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     // Attributes
     @Id
+    @Column(name = "USERNAME", length = 50)
     private String username;
+
+    @Column(name = "NOMBRE", length = 100)
     private String name;
+
+    @Column(name = "PASSWORD", length = 20)
     private String password;
+
+    @Column(name = "ADMIN")
     private boolean admin;
+
+    @Column(name = "AUTOR")
     private boolean author;
 
     // Constructors

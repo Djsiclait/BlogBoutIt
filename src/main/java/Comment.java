@@ -2,19 +2,29 @@
  * Created by Siclait on 30/05/2016.
  */
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Comment {
+@Table(name = "COMENTARIO")
+public class Comment implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     //Attributes
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private Integer id;
+
+    @Column(name = "COMMENT", length = 500)
     private String comment;
 
     @ManyToOne
+    @Column(name = "AUTOR")
     private User author;
 
     @ManyToOne
+    @Column(name = "ARTICULO")
     private Article article;
 
     // Constructor

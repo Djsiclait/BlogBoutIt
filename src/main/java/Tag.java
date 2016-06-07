@@ -2,13 +2,21 @@
  * Created by Siclait on 30/05/2016.
  */
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Tag {
+@Table(name = "ETIQUETA")
+public class Tag implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     // Attributes
     @Id
     @GeneratedValue
+    @Column(name = "ID")
     private Integer id;
+
+    @Column(name = "TAG", length = 50, unique = true)
     private String tag;
 
     //Constructors
