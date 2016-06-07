@@ -1,9 +1,13 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+import javax.persistence.*;
 
+@Entity
 public class Tag {
     // Attributes
+    @Id
+    @GeneratedValue
     private long id;
     private String tag;
 
@@ -13,25 +17,33 @@ public class Tag {
     }
 
     public Tag(int id){
-        this.id = id;
+        this.setId(id);
     }
 
     public Tag(String tag){
-        this.tag = tag;
+        this.setTag(tag);
     }
 
     public Tag(long id, String tag){
 
-        this.id = id;
-        this.tag = tag;
+        this.setId(id);
+        this.setTag(tag);
     }
 
-    // Getters
+    // Getters and Setters
     public long getId() {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTag() {
         return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
