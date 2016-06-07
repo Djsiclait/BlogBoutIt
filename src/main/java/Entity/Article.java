@@ -1,6 +1,8 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+package Entity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;

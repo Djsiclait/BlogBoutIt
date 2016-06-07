@@ -1,4 +1,10 @@
+/**
+ * Created by Eduardo veras on 01-Jun-16.
+ */
 import org.jsoup.Jsoup;
+
+import Entity.*;
+import BlogService.*;
 
 import spark.ModelAndView;
 import spark.Session;
@@ -9,9 +15,6 @@ import java.util.*;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
-/**
- * Created by Eduardo veras on 01-Jun-16.
- */
 public class PageCreator {
 
     public static DatabaseManager DBmanager;
@@ -38,7 +41,7 @@ public class PageCreator {
             ArrayList listComments = new ArrayList<>();//  = DBmanager.GetAllComments();
 
             attributes.put("comments",listComments);
-            ArrayList<tagPair> listaTags= new ArrayList<>();
+            //ArrayList<tagPair> listaTags= new ArrayList<>();
 
             for (Article art :listaArticulos) {
                 //listaTags
@@ -47,11 +50,11 @@ public class PageCreator {
                 //System.out.println("Something happened------------------------------------------");
                 for (Tag t :listaT) {
                     //System.out.println("ENTERED LOOP---------------------------------");
-                        listaTags.add(new tagPair((int)art.getId(),t.getTag()));
+                        //listaTags.add(new tagPair((int)art.getId(),t.getTag()));
                 }
 
             }
-            attributes.put("listatagsss", listaTags);
+            //attributes.put("listatagsss", listaTags);
 
 
 

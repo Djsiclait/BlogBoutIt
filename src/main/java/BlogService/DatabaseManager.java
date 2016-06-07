@@ -1,6 +1,8 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
+package BlogService;
+
 import org.h2.tools.Server;
 
 import java.sql.*;
@@ -80,10 +82,10 @@ public class DatabaseManager {
 
             System.out.println(stat.toString());
             ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
-             while (rs.next())
-             {
+            while (rs.next())
+            {
                 System.out.println("Username:"+rs.getString("USERNAME")+ " Password:" + rs.getString("PASSWORD"));
-             }
+            }
 
         } catch (SQLDataException exp) {
             System.out.println("Data ERROR! --> " + exp.getMessage());
