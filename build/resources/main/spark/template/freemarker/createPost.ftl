@@ -24,7 +24,7 @@
                     <form class="col s12" method="post" action="">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="title" type="text" name="title" class="validate">
+                                <input id="title" type="text" name="title" class="validate" required/>
                                 <label for="title">Title</label>
                             </div>
                         </div>
