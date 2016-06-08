@@ -92,11 +92,13 @@ public class ORManager<T> {
     }
 
     public void Delete(T entity){
+
         EntityManager em = getEntityManager();
+
         em.getTransaction().begin();
 
         try {
-            em.remove(entity);
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
             em.getTransaction().commit();
 
         } catch (EntityNotFoundException exp) {

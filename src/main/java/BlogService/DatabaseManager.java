@@ -69,6 +69,9 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
+        //User user = FetchUser("Wardo");
+        //System.out.println(user.getName());
+
         /*try {
             Statement stat = conn.createStatement();
 
@@ -325,111 +328,10 @@ public class DatabaseManager {
 
         return ArticleServices.getInstance().FindAll();
     }
-/*
-    // User Queries
-    private static Object UserQuery(User user, String query) {
 
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            switch (query)
-            {
-                case "insert":
-
-                    stat.execute("INSERT INTO USUARIO (USERNAME, NOMBRE, PASSWORD, ADMIN, AUTOR) VALUES ('" + user.getUsername() + "', '" +
-                            user.getName() + "', '" +
-                            user.getPassword() + "', " +
-                            user.isAdmin() + ", " +
-                            user.isAuthor() + ")");
-
-                    return null;
-
-                case "delete":
-
-                    stat.execute("DELETE FROM USUARIO WHERE USERNAME='" +
-                            user.getUsername() + "' AND ADMIN=0");
-
-                    return null;
-
-                case "edit":
-
-                    stat.execute("UPDATE USUARIO SET NOMBRE='" +
-                            user.getName() + "' , PASSWORD='" +
-                            user.getPassword() + "', ADMIN="  +
-                            user.isAdmin() + ", AUTOR="  +
-                            user.isAuthor()  + " WHERE USERNAME='" +
-                            user.getUsername() + "'");
-
-                    return null;
-
-                case "isAdmin": // search query
-
-                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
-                            user.getUsername() + "' AND ADMIN=1");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new User(rs.getString("username"),
-                                rs.getString("nombre"),
-                                rs.getString("password"),
-                                rs.getBoolean("admin"),
-                                rs.getBoolean("autor")));
-
-                    return archives.size(); // flse is 0
-
-                case "taken": // search query
-
-                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
-                            user.getUsername() + "'");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new User(rs.getString("username"),
-                                rs.getString("nombre"),
-                                rs.getString("password"),
-                                rs.getBoolean("admin"),
-                                rs.getBoolean("autor")));
-
-                    return archives.size(); // false if 0
-
-                default: // user search query
-
-                    rs = stat.executeQuery("Select * From USUARIO WHERE USERNAME='" +
-                            user.getUsername() + "'");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new User(rs.getString("username"),
-                                rs.getString("nombre"),
-                                rs.getString("password"),
-                                rs.getBoolean("admin"),
-                                rs.getBoolean("autor")));
-
-                    return archives.remove(0); // returns the user
-            }
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;
-    }*/
-
+    /*
+     * User Entity Queries
+     */
     public static void CreateUser(String username, String name, String password, boolean admin, boolean author){
 
         User user = new User(username, name, password, admin, author);
@@ -441,7 +343,7 @@ public class DatabaseManager {
 
         User user = UserServices.getInstance().Find(username);
 
-        if(user == null)
+        if(user == null) // User does not exist
             return false;
         else
             return true;
@@ -476,12 +378,12 @@ public class DatabaseManager {
 
         User user = UserServices.getInstance().Find(username);
 
-        if(user.getName() == newName) {
+        if(!user.getName().equals(newName)) {
             user.setName(newName);
             different = true;
         }
 
-        if(user.getPassword() == newPassword) {
+        if(!user.getPassword().equals(newPassword)) {
             user.setPassword(newPassword);
             different = true;
         }
@@ -506,43 +408,13 @@ public class DatabaseManager {
 
         User user = UserServices.getInstance().Find(username);
 
-        if(user == null)
+        if(user == null) // user doesn't exist
             return false;
-        else if (user.getPassword().equals(password))
+        else if (!user.getPassword().equals(password)) // wrong password
             return false;
         else
             return true;
 
-        /*try{
-
-            ResultSet rs = conn.createStatement().executeQuery("Select * From USUARIO Where USERNAME='" +
-                    username + "' AND PASSWORD='" +
-                    password + "'");
-
-            ArrayList<User> users = new ArrayList<>();
-
-            while(rs.next())
-                users.add(new User(rs.getString("username"),
-                        rs.getString("password")));
-            if(users.size() > 0)
-                return true;
-            else
-                return false;
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return false;*/
     }
 
     public static User FetchUser(String username){
@@ -550,7 +422,8 @@ public class DatabaseManager {
         return UserServices.getInstance().Find(username);
 
     }
-/*
+
+    /*
     // Comment Query
     private static Object CommentQuery(Comment comment, String query){
 
