@@ -744,12 +744,36 @@ public class DatabaseManager {
         }
 
         return null;
-    }
+    }*/
 
     // TAG ARTICLE CROSS TABLE
-    public static void ProcessTagsOnArticle(ArrayList<Tag> tags, int article){
+    public static void CreateTag(String tag){
 
-        int count = 0;
+        Tag tg = new Tag(tag);
+
+        TagServices.getInstance().Create(tg);
+    }
+
+    // TODO: add Cross Table logic
+    public static void ProcessTagsOnArticle(ArrayList<Tag> tags, Article article){
+
+        List<Tag> tg = TagServices.getInstance().FindAll();
+
+        if(tg == null)
+            for (Tag tag:
+                 tags) {
+                TagServices.getInstance().Create(tag);
+            }
+        else
+            for (Tag tag:
+                 tags) {
+                Tag bubble = TagServices.getInstance().Find(tag.getTag());
+
+                if(bubble == null)
+                    TagServices.getInstance().Create(tag);
+            }
+
+        /*int count = 0;
 
         for (Tag tag:
              tags){
@@ -788,7 +812,7 @@ public class DatabaseManager {
             {
                 System.out.println("ERROR! --> " + exp.getMessage());
             }
-        }
+        }*/
     }
 
     public static ArrayList<Tag> GetAllArticleTags(int article){
@@ -828,5 +852,5 @@ public class DatabaseManager {
 
         return tags;
     }
-*/
+
 }
