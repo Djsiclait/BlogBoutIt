@@ -53,12 +53,17 @@ public class DatabaseManager {
 
     public static void BootUP(){
 
-        List<User> users = UserServices.getInstance().FindAll();
+        List<User> Users = UserServices.getInstance().FindAll();
 
-        if(users == null)
-            System.out.println("It 'Works'!");
+        if(Users.size() == 0) {
+            System.out.println("Creating Admin ...");
+
+            UserServices.getInstance().Create(new User("admin", "Administrador", "admin", true, true));
+
+            System.out.println("Admin Created Successfully!");
+        }
         else
-            System.out.println("Fail");
+            System.out.println("Database already configured");
 
         /*try {
             Statement stat = conn.createStatement();
