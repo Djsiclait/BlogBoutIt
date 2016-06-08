@@ -496,17 +496,23 @@ public class DatabaseManager {
 
     public static boolean isAdmin(String username){
 
-        User user = new User(username);
+        User user = UserServices.getInstance().Find(username);
 
-        if((int)UserQuery(user, "isAdmin") != 0)
-            return true;
-        else
-            return false;
+        return user.isAdmin();
     }
 
     public static boolean CheckCredentials(String username, String password){
 
-        try{
+        User user = UserServices.getInstance().Find(username);
+
+        if(user == null)
+            return false;
+        else if (user.getPassword().equals(password))
+            return false;
+        else
+            return true;
+
+        /*try{
 
             ResultSet rs = conn.createStatement().executeQuery("Select * From USUARIO Where USERNAME='" +
                     username + "' AND PASSWORD='" +
@@ -535,14 +541,12 @@ public class DatabaseManager {
             System.out.println("ERROR! --> " + exp.getMessage());
         }
 
-        return false;
+        return false;*/
     }
 
     public static User FetchUser(String username){
 
-        User user = new User(username);
-
-        return (User)UserQuery(user, username);
+        return UserServices.getInstance().Find(username);
 
     }
 /*
