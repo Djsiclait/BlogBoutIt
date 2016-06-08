@@ -627,11 +627,19 @@ public class DatabaseManager {
         CommentServices.getInstance().Delete(comment);
     }
 
-    public static ArrayList<Comment> GetArticleComments(int article){
+    public static ArrayList<Comment> GetArticleComments(Article article){
 
-        Comment comment = new Comment(0, article);
+        ArrayList<Comment> list = new ArrayList<>();
 
-        return (ArrayList<Comment>) CommentQuery(comment, "comments");
+        List<Comment> comments = CommentServices.getInstance().FindAll();
+
+        for (Comment comment:
+             comments) {
+            if(comment.getArticle().equals(article))
+                list.add(comment);
+        }
+
+        return list;
     }
 
     public static ArrayList<Comment> GetAllComments(){
