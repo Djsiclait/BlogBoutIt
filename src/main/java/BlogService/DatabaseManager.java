@@ -642,9 +642,11 @@ public class DatabaseManager {
         return list;
     }
 
-    public static ArrayList<Comment> GetAllComments(){
+    public static List<Comment> GetAllComments(){
 
-        try{
+        return CommentServices.getInstance().FindAll();
+
+        /*try{
 
             ResultSet rs = conn.createStatement().executeQuery("Select * From COMENTARIO");
 
@@ -671,7 +673,7 @@ public class DatabaseManager {
             System.out.println("ERROR! --> " + exp.getMessage());
         }
 
-        return null;
+        return null;*/
     }
 
     /*
