@@ -115,7 +115,7 @@ public class ORManager<T> {
         }
     }
 
-    public List<T> FindAll(Object id) {
+    public List<T> FindAll() {
 
         EntityManager em = getEntityManager();
 

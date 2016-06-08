@@ -30,6 +30,10 @@ public class User implements Serializable{
     private boolean author;
 
     // Constructors
+    public User(){
+
+    }
+
     public User(String username) {
         this.setUsername(username);
     }

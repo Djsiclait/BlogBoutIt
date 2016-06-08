@@ -21,15 +21,17 @@ public class Comment implements Serializable{
     @Column(name = "COMMENT", length = 500)
     private String comment;
 
-    @ManyToOne
-    @Column(name = "AUTOR")
+    @ManyToOne // @Column not allowed on @ManyTOne
     private User author;
 
-    @ManyToOne
-    @Column(name = "ARTICULO")
+    @ManyToOne // @Column not allowed on @ManyTOne
     private Article article;
 
     // Constructor
+    public Comment(){
+
+    }
+
     public Comment(Integer id){
         this.setId(id);
     }

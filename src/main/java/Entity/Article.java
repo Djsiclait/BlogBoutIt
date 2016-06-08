@@ -5,8 +5,8 @@ package Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "ARTICULO")
@@ -26,17 +26,16 @@ public class Article implements Serializable{
     @Column(name = "CUERPO", length = 80000, unique = true)
     private String body;
 
-    @ManyToOne
-    @Column(name = "AUTOR")
+    @ManyToOne  // @Column not allowed on @ManyTOne
     private User author;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
     @Column(name = "COMENTARIOS")
-    private ArrayList<Comment> Comments = new ArrayList<>();
+    private Set<Comment> Comments; // Must use Set
 
     @OneToMany(fetch = FetchType.EAGER)
     @Column(name = "ETIQUETAS")
-    private ArrayList<Tag> Tags = new ArrayList<>();
+    private Set<Tag> Tags; // Must use Set
 
     @GeneratedValue
     @Column(name = "FECHA")
@@ -68,7 +67,7 @@ public class Article implements Serializable{
         this.setAuthor(author);
     }
 
-    public Article(Integer id, String title, String body, User autho, ArrayList<Comment> Comments, ArrayList<Tag> Tags){
+    public Article(Integer id, String title, String body, User autho, Set<Comment> Comments, Set<Tag> Tags){
 
         this.setId(id);
         this.setTitle(title);
@@ -78,7 +77,7 @@ public class Article implements Serializable{
         this.setTags(Tags);
     }
 
-    public Article(Integer id, String title, String body, User autho, ArrayList<Comment> Comments, ArrayList<Tag> Tags, Date pubDate, Date modified){
+    public Article(Integer id, String title, String body, User autho, Set<Comment> Comments, Set<Tag> Tags, Date pubDate, Date modified){
 
         this.setId(id);
         this.setTitle(title);
@@ -123,19 +122,19 @@ public class Article implements Serializable{
         this.author = author;
     }
 
-    public ArrayList<Comment> getComments() {
+    public Set<Comment> getComments() {
         return Comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         Comments = comments;
     }
 
-    public ArrayList<Tag> getTags() {
+    public Set<Tag> getTags() {
         return Tags;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         Tags = tags;
     }
 

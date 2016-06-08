@@ -22,10 +22,10 @@ public class PageCreator {
 
     public PageCreator() throws Exception {
 
-        DBmanager = new DatabaseManager();
+        //DBmanager = new DatabaseManager();
 
-        DBmanager.BootUP();
-        DBmanager.PrintData();
+        DatabaseManager.BootUP();
+        //DBmanager.PrintData();
 
         generateGets();
         generatePost();

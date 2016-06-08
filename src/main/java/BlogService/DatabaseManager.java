@@ -3,12 +3,15 @@
  */
 package BlogService;
 
+import Entity.*;
+
 import org.h2.tools.Server;
 
 import java.sql.*;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
@@ -21,6 +24,11 @@ public class DatabaseManager {
 
     private static ArrayList<Object> archives;
 
+
+    private DatabaseManager(){
+
+    }
+    /*
     public DatabaseManager(){
 
         try {
@@ -41,11 +49,18 @@ public class DatabaseManager {
         {
             System.out.println("General ERROR --> " + exp.getMessage());
         }
-    }
+    } */
 
     public static void BootUP(){
 
-        try {
+        List<User> users = UserServices.getInstance().FindAll();
+
+        if(users == null)
+            System.out.println("It 'Works'!");
+        else
+            System.out.println("Fail");
+
+        /*try {
             Statement stat = conn.createStatement();
 
             System.out.println(stat.toString());
@@ -68,7 +83,7 @@ public class DatabaseManager {
             System.out.println("SQL ERROR! --> " + exp.getMessage());
         } catch (Exception exp) {
             System.out.println("General ERROR! --> " + exp.getMessage());
-        }
+        }*/
     }
 
     public static Connection getConn(){
