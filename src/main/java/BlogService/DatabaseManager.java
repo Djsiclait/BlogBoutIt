@@ -453,7 +453,7 @@ public class DatabaseManager {
         UserServices.getInstance().Delete(user);
     }
 
-
+    // TODO: Discuss if function is really necessary
     public static void MakeAdmin(String username){
 
         User user = UserServices.getInstance().Find(username);
@@ -469,11 +469,29 @@ public class DatabaseManager {
 
     }
 
-    public static void EditUser(String username, String newName, String newPassword, boolean admin, boolean author){
+    public static void EditUser(String username, String newName, String newPassword){
 
-        User user = new User(username, newName, newPassword, admin, author);
+        boolean different = false;
 
-        UserQuery(user, "edit");
+        User user = UserServices.getInstance().Find(username);
+
+        if(user.getName() == newName) {
+            user.setName(newName);
+            different = true;
+        }
+
+        if(user.getPassword() == newPassword) {
+            user.setPassword(newPassword);
+            different = true;
+        }
+
+        if(different) {
+            UserServices.getInstance().Edit(user);System.out.println("This user is already an admin");
+            System.out.println("User edited");
+        }
+        else
+            System.out.println("No change is needed");
+
     }
 
     public static boolean isAdmin(String username){
