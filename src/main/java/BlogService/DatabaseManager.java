@@ -747,6 +747,7 @@ public class DatabaseManager {
     }*/
 
     // TAG ARTICLE CROSS TABLE
+    // TODO: Discuss if really necessary
     public static void CreateTag(String tag){
 
         Tag tg = new Tag(tag);
@@ -815,11 +816,20 @@ public class DatabaseManager {
         }*/
     }
 
-    public static ArrayList<Tag> GetAllArticleTags(int article){
+    public static ArrayList<Tag> GetAllArticleTags(Article article){
 
-        ArrayList<Tag> tags = new ArrayList<>();
+        ArrayList<Tag> tg = new ArrayList<>();
 
-        try {
+        List<Tag> tags = TagServices.getInstance().FindAll();
+
+        for (Tag tag:
+             tags) {
+            // Add Cross table logic
+        }
+
+        return tg;
+
+        /*try {
             // Preparing to execute query
             Statement stat = conn.createStatement();
             Statement stat2 = conn.createStatement();
@@ -850,7 +860,7 @@ public class DatabaseManager {
             System.out.println("ERROR! --> " + exp.getMessage());
         }
 
-        return tags;
+        return tags;*/
     }
 
 }
