@@ -5,6 +5,7 @@ package BlogService;
 
 import Entity.*;
 
+import Entity.Comment;
 import Entity.User;
 import org.h2.engine.*;
 import org.h2.tools.Server;
@@ -610,13 +611,13 @@ public class DatabaseManager {
         }
 
         return null;
-    }
+    }*/
 
-    public static void CreateComment(String comment, String author, int article){
+    public static void CreateComment(String comment, User author, Article article){
 
-        Comment com = new Comment(0, comment, author, article);
+        Comment com = new Comment(comment, author, article);
 
-        CommentQuery(com, "insert");
+        CommentServices.getInstance().Create(com);
     }
 
     public static void DeleteComment(int id){
@@ -665,6 +666,7 @@ public class DatabaseManager {
         return null;
     }
 
+    /*
     // Tag Query
     private static Object TagQuery(Tag tag, String query){
 

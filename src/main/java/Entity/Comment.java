@@ -41,9 +41,8 @@ public class Comment implements Serializable{
         this.setArticle(article);
     }
 
-    public Comment(Integer id, String comment, User author, Article article){
+    public Comment(String comment, User author, Article article){
 
-        this.setId(id);
         this.setComment(comment);
         this.setAuthor(author);
         this.setArticle(article);
