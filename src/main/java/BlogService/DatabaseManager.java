@@ -622,9 +622,9 @@ public class DatabaseManager {
 
     public static void DeleteComment(int id){
 
-        Comment comment = new Comment(id);
+        Comment comment = CommentServices.getInstance().Find(id);
 
-        CommentQuery(comment, "delete");
+        CommentServices.getInstance().Delete(comment);
     }
 
     public static ArrayList<Comment> GetArticleComments(int article){
