@@ -453,9 +453,20 @@ public class DatabaseManager {
         UserServices.getInstance().Delete(user);
     }
 
-    public static void MakeAdmin(String username, String name, String password){
 
-        EditUser(username, name, password, true, true);
+    public static void MakeAdmin(String username){
+
+        User user = UserServices.getInstance().Find(username);
+
+        if(!user.isAdmin()) {
+            System.out.println("Making new admin ...");
+            user.setAdmin(true);
+            UserServices.getInstance().Edit(user);
+            System.out.println("New admin added!");
+        }
+        else
+            System.out.println("This user is already an admin");
+
     }
 
     public static void EditUser(String username, String newName, String newPassword, boolean admin, boolean author){
