@@ -72,6 +72,7 @@ public class DatabaseManager {
         //User user = FetchUser("Wardo");
         //System.out.println(user.getName());
 
+        // to send to edwardo
         /*try {
             Statement stat = conn.createStatement();
 
