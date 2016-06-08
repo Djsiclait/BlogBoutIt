@@ -123,6 +123,7 @@ public class ORManager<T> {
 
     }
 
+    // Can only be sent primary keys
     public T Find(Object id) {
 
         EntityManager em = getEntityManager();
