@@ -448,9 +448,9 @@ public class DatabaseManager {
 
     public static void DeleteUser(String username){
 
-        User user = new User(username);
+        User user = UserServices.getInstance().Find(username);
 
-        UserQuery(user, "delete");
+        UserServices.getInstance().Delete(user);
     }
 
     public static void MakeAdmin(String username, String name, String password){
