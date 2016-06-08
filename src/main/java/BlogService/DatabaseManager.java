@@ -293,22 +293,28 @@ public class DatabaseManager {
 
     public static void DeleteArticle(int id){
 
-        Article article = new Article(id);
+        Article article = ArticleServices.getInstance().Find(id);
 
-        ArticleQuery(article, "delete");
+        ArticleServices.getInstance().Delete(article);
     }
 
     public static void EditArticle(int id, String title, String body){
 
-        Article article = new Article(id, title, body);
+        Article article = ArticleServices.getInstance().Find(id);
 
-        ArticleQuery(article, "edit");
+        article.setTitle(title);
+        article.setBody(body);
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date date = new java.sql.Date(utilDate.getTime());
+        article.setModified(date);
+
+        ArticleServices.getInstance().Edit(article);
     }
 
-    public static ArrayList<Article> SearchArchivesBy(Article article, String category){
+    /*public static ArrayList<Article> SearchArchivesBy(Article article, String category){
 
         return (ArrayList<Article>) ArticleQuery(article, category);
-    }
+    }*/
 
     public static ArrayList<Article> GetAllArticles(){
 

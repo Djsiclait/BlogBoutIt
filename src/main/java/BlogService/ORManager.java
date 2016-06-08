@@ -91,6 +91,36 @@ public class ORManager<T> {
         }
     }
 
+    public void Delete(T entity){
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+
+        try {
+            em.remove(entity);
+            em.getTransaction().commit();
+
+        } catch (EntityNotFoundException exp) {
+            System.out.println("Entity ERROR! --> " + exp.getMessage());
+            em.getTransaction().rollback();
+            throw exp;
+        } catch (TransactionRequiredException exp) {
+            System.out.println("Transaction ERROR! --> " + exp.getMessage());
+            em.getTransaction().rollback();
+            throw exp;
+        } catch (PersistenceException exp) {
+            System.out.println("Persistence ERROR! --> " + exp.getMessage());
+            em.getTransaction().rollback();
+            throw exp;
+        } catch (Exception exp) {
+            System.out.println("General ERROR! --> " + exp.getMessage());
+            em.getTransaction().rollback();
+            throw exp;
+        } finally {
+            em.close();
+        }
+
+    }
+
     public T Find(Object id) {
 
         EntityManager em = getEntityManager();
