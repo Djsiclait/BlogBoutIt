@@ -5,6 +5,8 @@ package BlogService;
 
 import Entity.*;
 
+import Entity.User;
+import org.h2.engine.*;
 import org.h2.tools.Server;
 
 import java.sql.*;
@@ -12,6 +14,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DatabaseManager {
 
@@ -311,14 +314,15 @@ public class DatabaseManager {
         ArticleServices.getInstance().Edit(article);
     }
 
+    // TODO: Modify this function to be able to search by Tag
     /*public static ArrayList<Article> SearchArchivesBy(Article article, String category){
 
         return (ArrayList<Article>) ArticleQuery(article, category);
     }*/
 
-    public static ArrayList<Article> GetAllArticles(){
+    public static List<Article> GetAllArticles(){
 
-        return (ArrayList<Article>) ArticleQuery(new Article(), "list");
+        return ArticleServices.getInstance().FindAll();
     }
 /*
     // User Queries
@@ -423,21 +427,20 @@ public class DatabaseManager {
         }
 
         return null;
-    }
+    }*/
 
     public static void CreateUser(String username, String name, String password, boolean admin, boolean author){
 
         User user = new User(username, name, password, admin, author);
 
-        if(!isUsernameTaken(username))
-            UserQuery(user, "insert");
+        UserServices.getInstance().Create(user);
     }
 
     public static boolean isUsernameTaken(String username) {
 
-        User user = new User(username, "x", "x", false, false);
+        User user = UserServices.getInstance().Find(username);
 
-        if((int)UserQuery(user, "taken") == 0)
+        if(user == null)
             return false;
         else
             return true;
@@ -513,7 +516,7 @@ public class DatabaseManager {
         return (User)UserQuery(user, username);
 
     }
-
+/*
     // Comment Query
     private static Object CommentQuery(Comment comment, String query){
 
