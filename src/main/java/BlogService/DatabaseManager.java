@@ -125,7 +125,7 @@ public class DatabaseManager {
 
     }
 
-    public static void CloseServerConnection(){
+    /*public static void CloseServerConnection(){
 
         try {
             conn.close();
@@ -138,11 +138,11 @@ public class DatabaseManager {
         {
             System.out.println("General ERROR --> " + exp.getMessage());
         }
-    }
+    }*/
 
-/*
+
     // Basic Query Functions
-    private static Object ArticleQuery(Article article, String query){
+   /* private static Object ArticleQuery(Article article, String query){
 
         try
         {
@@ -277,13 +277,18 @@ public class DatabaseManager {
         }
 
         return null;
-    }
+    }*/
 
-    public static int CreateArticle(String title, String body, String author){
+    public static Integer CreateArticle(String title, String body, User author){
 
-        Article article = new Article(0, title, body, author);
+        Article article = new Article(title, body, author);
 
-        return (int)ArticleQuery(article, "insert");
+        ArticleServices.getInstance().Create(article);
+
+        // Using body as a pseudo-key given it is a unique attribute
+        article = ArticleServices.getInstance().Find(body);
+
+        return article.getId();
     }
 
     public static void DeleteArticle(int id){
@@ -309,7 +314,7 @@ public class DatabaseManager {
 
         return (ArrayList<Article>) ArticleQuery(new Article(), "list");
     }
-
+/*
     // User Queries
     private static Object UserQuery(User user, String query) {
 

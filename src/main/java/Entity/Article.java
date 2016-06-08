@@ -59,7 +59,7 @@ public class Article implements Serializable{
         this.setBody(body);
     }
 
-    public Article(Integer id, String title, String body, User author){
+    public Article(String title, String body, User author){
 
         this.setId(id);
         this.setTitle(title);
