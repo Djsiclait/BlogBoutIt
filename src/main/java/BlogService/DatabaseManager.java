@@ -91,12 +91,19 @@ public class DatabaseManager {
         }*/
     }
 
-    public static Connection getConn(){
+    /*public static Connection getConn(){
         return conn;
-    }
+    }*/
 
     public static void PrintData(){
 
+        List<User> Users = UserServices.getInstance().FindAll();
+
+        for (User user:
+             Users) {
+            System.out.println("Username:" + user.getUsername() + " Password:" + user.getPassword());
+        }
+        /*
         try {
             Statement stat = conn.createStatement();
 
@@ -114,6 +121,8 @@ public class DatabaseManager {
         } catch (Exception exp) {
             System.out.println("General ERROR! --> " + exp.getMessage());
         }
+        */
+
     }
 
     public static void CloseServerConnection(){

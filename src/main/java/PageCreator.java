@@ -25,7 +25,7 @@ public class PageCreator {
         //DBmanager = new DatabaseManager();
 
         DatabaseManager.BootUP();
-        //DBmanager.PrintData();
+        DatabaseManager.PrintData();
 
         generateGets();
         generatePost();
