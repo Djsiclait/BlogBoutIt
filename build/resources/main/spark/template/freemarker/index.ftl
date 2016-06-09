@@ -50,7 +50,7 @@
 
                 <div class="row" id="comment-container">
                     <#list comments?reverse as comment>
-                        <#if comment.getArticle() == articulo.getId()>
+                        <#if comment.getArticle().getId() == articulo.getId()>
                             <div class="col s12 m6">
                                 <div class="card-panel teal hoverable">
                           <span class="white-text ">
@@ -106,11 +106,11 @@
 
             </div>
             <#list listatagsss as tag>
-                <#if tag.getPostID()== articulo.getId()>
+                <!---->
                     <div class="chip">
                     ${tag.getTag()}
                     </div>
-                </#if>
+
             </#list>
 
             <#if user.isAdmin()>
@@ -131,7 +131,7 @@
 <div id="modal${articulo.getId()}" class="modal">
     <div class="modal-content">
         <h4>${articulo.getTitle()}</h4>
-        <p>${articulo.getFullBody()}</p>
+        <p>${articulo.getBody()}</p>
     </div>
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>

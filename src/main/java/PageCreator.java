@@ -17,7 +17,7 @@ import static spark.Spark.post;
 
 public class PageCreator {
 
-    public static DatabaseManager DBmanager;
+    //public static DatabaseManager DBmanager;
 
 
     public PageCreator() throws Exception {
@@ -37,38 +37,37 @@ public class PageCreator {
 
             Map<String, Object> attributes = new HashMap<>();
 
-            ArrayList<Article> listaArticulos = new ArrayList<>();// = DBmanager.GetAllArticles();
-            ArrayList listComments = new ArrayList<>();//  = DBmanager.GetAllComments();
+            List<Article> listaArticulos = DatabaseManager.GetAllArticles();
+            List<Comment> listComments = DatabaseManager.GetAllComments();
 
             attributes.put("comments",listComments);
-            //ArrayList<tagPair> listaTags= new ArrayList<>();
+            ArrayList<Tag> listaTags = new ArrayList<>();
 
             for (Article art :listaArticulos) {
                 //listaTags
-                //System.out.println("Something happened------------------------------------------");
-                ArrayList<Tag> listaT = new ArrayList<>();// = DatabaseManager.GetAllArticleTags((int) (long)art.getId());
-                //System.out.println("Something happened------------------------------------------");
+                System.out.println("Something happened------------------------------------------");
+                Set<Tag> listaT = DatabaseManager.GetAllArticleTags(art.getId());
+                System.out.println("Something happened------------------------------------------");
                 for (Tag t :listaT) {
-                    //System.out.println("ENTERED LOOP---------------------------------");
-                        //listaTags.add(new tagPair((int)art.getId(),t.getTag()));
+                    System.out.println("ENTERED LOOP---------------------------------");
+                        listaTags.add(t);
                 }
 
             }
-            //attributes.put("listatagsss", listaTags);
 
+            attributes.put("listatagsss", listaTags);
 
-
-            if (request.session().attribute("user")!=null)
+            if (request.session().attribute("user")!= null)
             {
-                User user = null ;// = DBmanager.FetchUser(request.session().attribute("user"));
-                attributes.put("user",user);
+                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                attributes.put("user", user);
             }
             else
             {
-                //attributes.put("user",DBmanager.FetchUser(""));
+                attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
 
-            attributes.put("listaArticulos",listaArticulos);
+            attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
 
             return new ModelAndView(attributes, "index.ftl");
@@ -90,14 +89,14 @@ public class PageCreator {
 
             attributes.put("message", "Welcome");
 
-            if (request.session().attribute("user")!=null)
+            if (request.session().attribute("user")!= null)
             {
-                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
-                attributes.put("user",user);
+                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                attributes.put("user", user);
             }
             else
             {
-                //attributes.put("user",DBmanager.FetchUser(""));
+                attributes.put("user", DatabaseManager.FetchUser(""));
             }
 
             return new ModelAndView(attributes, "login.ftl");
