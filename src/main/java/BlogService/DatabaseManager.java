@@ -73,12 +73,12 @@ public class DatabaseManager {
 
         //DeleteComment(7);
 
-        ArrayList<Tag> tags = new ArrayList<>();
-        tags.add(TagServices.getInstance().Find(10));
-        tags.add(TagServices.getInstance().Find(11));
-        tags.add(new Tag("#wise"));
+        Set<Tag> tags = GetAllArticleTags(2);
 
-        ProcessTagsOnArticle(tags, ArticleServices.getInstance().Find(1));
+        for (Tag tag:
+             tags) {
+            System.out.println(tag.getId() + " " + tag.getTag());
+        }
 
         /*try {
             Statement stat = conn.createStatement();
@@ -429,11 +429,12 @@ public class DatabaseManager {
         return tg.getId();
     }
 
-    // TODO: add Cross Table logic
     public static void ProcessTagsOnArticle(ArrayList<Tag> tags, Article article){
 
         List<Tag> tg = TagServices.getInstance().FindAll();
 
+        // Do not try to understand this mess
+        // It works that's all i care
         for (Tag tag:
              tags) {
 
@@ -452,89 +453,20 @@ public class DatabaseManager {
 
         }
 
-        try{
-
-            for (Tag tag:
-                 tags) {
-                article.getTags().add(tag);
-            }
-            System.out.println("PING!\n\n");
-            ArticleServices.getInstance().Edit(article);
-            System.out.println("PING!\n\n");
-        }
-        catch(Exception exp){
-            System.out.println(exp.getMessage());
-        }
-
-        /*
-        if(tg == null)
-            for (Tag tag:
-                 tags) {
-                TagServices.getInstance().Create(tag);
-            }
-        else
-            for (Tag tag:
-                 tags) {
-                Tag bubble = TagServices.getInstance().Find(tag.getTag());
-
-                if(bubble == null)
-                    TagServices.getInstance().Create(tag);
-            }
-
-        int count = 0;
-
         for (Tag tag:
-             tags){
+                tags) {
+                article.getTags().add(tag);
+        }
 
-            if ((boolean) TagQuery(tag, "isNew"))
-                TagQuery(tag, "insert");
+        ArticleServices.getInstance().Edit(article);
 
-            try {
-                // Preparing to execute query
-                Statement stat = conn.createStatement();
-                ResultSet rs, rx;
-
-                rx =stat.executeQuery("SELECT * FROM ETIQUETA WHERE TAG='" +
-                        tag.getTag() + "'");
-
-                while (rx.next())
-                    tag = new Tag(rx.getInt("id"), tag.getTag());
-
-                rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
-                        tag.getId() + " AND ARTICULO=" +
-                        article);
-
-                while (rs.next())
-                    count++;
-
-                if (count == 0)
-                    stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
-                            tag.getId() + ", " +
-                            article + ")");
-
-            } catch (SQLDataException exp) {
-                System.out.println("SQL DATA ERROR: " + exp.getMessage());
-            } catch (SQLException exp) {
-                System.out.println("SQL ERROR: " + exp.getMessage());
-            } catch (Exception exp) // General errors
-            {
-                System.out.println("ERROR! --> " + exp.getMessage());
-            }
-        }*/
     }
 
-    public static ArrayList<Tag> GetAllArticleTags(Article article){
+    public static Set<Tag> GetAllArticleTags(int article){
 
-        ArrayList<Tag> tg = new ArrayList<>();
+        Article art = ArticleServices.getInstance().Find(article);
 
-        List<Tag> tags = TagServices.getInstance().FindAll();
-
-        for (Tag tag:
-             tags) {
-            // Add Cross table logic
-        }
-
-        return tg;
+        return art.getTags();
 
         /*try {
             // Preparing to execute query
