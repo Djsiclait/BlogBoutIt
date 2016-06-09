@@ -68,6 +68,26 @@ public class DatabaseManager {
         return article.getId();
     }
 
+    public static void LikeArticle(int id){
+
+        Article article = ArticleServices.getInstance().Find(id);
+
+        article.setLikes(article.getLikes() + 1);
+
+        ArticleServices.getInstance().Edit(article);
+
+    }
+
+    public static void DislikeArticle(int id){
+
+        Article article = ArticleServices.getInstance().Find(id);
+
+        article.setDislikes(article.getDislikes() + 1);
+
+        ArticleServices.getInstance().Edit(article);
+
+    }
+
     public static void DeleteArticle(int id){
 
         Article article = ArticleServices.getInstance().Find(id);
