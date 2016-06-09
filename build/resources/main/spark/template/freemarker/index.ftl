@@ -105,7 +105,7 @@
 
 
             </div>
-            <#list listatagsss as tag>
+            <#list articulo.getTags() as tag>
                 <!---->
                     <div class="chip">
                     ${tag.getTag()}
