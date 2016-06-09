@@ -71,7 +71,10 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
-        //DeleteArticle(3);
+        CreateComment("This is a wonderful piece of work", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
+        CreateComment("Thank you!", FetchUser("Wardo"), ArticleServices.getInstance().Find(2));
+        CreateComment("Welcome", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
+        CreateComment("I  jest of course", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
 
         /*try {
             Statement stat = conn.createStatement();
