@@ -73,11 +73,12 @@ public class DatabaseManager {
 
         //DeleteComment(7);
 
-        CreateTag("#Yolo");
-        CreateTag("#Swag");
-        CreateTag("flo");
-        CreateTag("MaxFlo");
-        CreateTag("#DeeperThanDeep");
+        ArrayList<Tag> tags = new ArrayList<>();
+        tags.add(TagServices.getInstance().Find(10));
+        tags.add(TagServices.getInstance().Find(11));
+        tags.add(new Tag("#wise"));
+
+        ProcessTagsOnArticle(tags, ArticleServices.getInstance().Find(1));
 
         /*try {
             Statement stat = conn.createStatement();
@@ -411,11 +412,21 @@ public class DatabaseManager {
 
     // TAG ARTICLE CROSS TABLE
     // TODO: Discuss if really necessary
-    public static void CreateTag(String tag){
+    public static Integer CreateTag(String tag){
 
         Tag tg = new Tag(tag);
 
         TagServices.getInstance().Create(tg);
+
+        List<Tag> tags = TagServices.getInstance().FindAll();
+
+        for (Tag t:
+                tags) {
+            if(t.getTag().equals(tag))
+                tg = t;
+        }
+
+        return tg.getId();
     }
 
     // TODO: add Cross Table logic
@@ -423,6 +434,39 @@ public class DatabaseManager {
 
         List<Tag> tg = TagServices.getInstance().FindAll();
 
+        for (Tag tag:
+             tags) {
+
+            boolean newTag = true;
+
+            for (Tag t:
+                 tg) {
+                if(tag.getTag().equals(t.getTag())) {
+                    newTag = false;
+                    break;
+                }
+            }
+
+            if(newTag)
+                tag.setId(CreateTag(tag.getTag()));
+
+        }
+
+        try{
+
+            for (Tag tag:
+                 tags) {
+                article.getTags().add(tag);
+            }
+            System.out.println("PING!\n\n");
+            ArticleServices.getInstance().Edit(article);
+            System.out.println("PING!\n\n");
+        }
+        catch(Exception exp){
+            System.out.println(exp.getMessage());
+        }
+
+        /*
         if(tg == null)
             for (Tag tag:
                  tags) {
@@ -437,7 +481,7 @@ public class DatabaseManager {
                     TagServices.getInstance().Create(tag);
             }
 
-        /*int count = 0;
+        int count = 0;
 
         for (Tag tag:
              tags){
