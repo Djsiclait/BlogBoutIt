@@ -71,10 +71,14 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
-        CreateComment("This is a wonderful piece of work", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
-        CreateComment("Thank you!", FetchUser("Wardo"), ArticleServices.getInstance().Find(2));
-        CreateComment("Welcome", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
-        CreateComment("I  jest of course", FetchUser("Djsiclait"), ArticleServices.getInstance().Find(2));
+        //DeleteComment(7);
+
+        ArrayList<Comment> comments = GetArticleComments(ArticleServices.getInstance().Find(2));
+
+        for (Comment comment:
+             comments) {
+            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor().getUsername());
+        }
 
         /*try {
             Statement stat = conn.createStatement();
@@ -380,12 +384,12 @@ public class DatabaseManager {
 
         ArrayList<Comment> list = new ArrayList<>();
 
-        List<Comment> comments = CommentServices.getInstance().FindAll();
+        List<Comment> comments = GetAllComments();
 
         for (Comment comment:
              comments) {
-            if(comment.getArticle().equals(article))
-                list.add(comment);
+            if(comment.getArticle().getId() == article.getId())
+              list.add(comment);
         }
 
         return list;
