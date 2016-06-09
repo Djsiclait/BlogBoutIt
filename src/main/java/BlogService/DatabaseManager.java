@@ -73,12 +73,11 @@ public class DatabaseManager {
 
         //DeleteComment(7);
 
-        ArrayList<Comment> comments = GetArticleComments(ArticleServices.getInstance().Find(2));
-
-        for (Comment comment:
-             comments) {
-            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor().getUsername());
-        }
+        CreateTag("#Yolo");
+        CreateTag("#Swag");
+        CreateTag("flo");
+        CreateTag("MaxFlo");
+        CreateTag("#DeeperThanDeep");
 
         /*try {
             Statement stat = conn.createStatement();
@@ -304,68 +303,8 @@ public class DatabaseManager {
     }
 
     /*
-    // Comment Query
-    private static Object CommentQuery(Comment comment, String query){
-
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            switch (query)
-            {
-                case "insert":
-
-                    stat.execute("INSERT INTO COMENTARIO (COMMENT, AUTOR, ARTICULO) VALUES ('" +
-                            comment.getComment() + "', '" +
-                            comment.getAuthor() + "', " +
-                            comment.getArticle() + ")");
-
-                    return null;
-
-                case "delete":
-
-                    stat.execute("DELETE FROM COMENTARIO WHERE ID=" +
-                            comment.getId());
-
-                    return null;
-
-                case "comments": // search query
-
-                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICULO=" +
-                            comment.getArticle());
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new Comment(rs.getInt("id"),
-                                rs.getString("comment"),
-                                rs.getString("autor"),
-                                rs.getInt("articulo")));
-
-                    return archives;
-
-                default:
-                    return null;
-            }
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;
-    }*/
-
+     * Comment Entity Query
+    */
     public static void CreateComment(String comment, User author, Article article){
 
         Comment com = new Comment(comment, author, article);
