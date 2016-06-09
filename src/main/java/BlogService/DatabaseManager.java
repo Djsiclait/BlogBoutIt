@@ -7,53 +7,15 @@ import Entity.*;
 
 import Entity.Comment;
 import Entity.User;
-import org.h2.engine.*;
-import org.h2.tools.Server;
-
-import java.sql.*;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class DatabaseManager {
 
-    // Attributes
-    private static Connection conn;
-    private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:tcp://localhost:9092/~/Blog;IFEXISTS=TRUE;";
-    private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "";
-
-    private static ArrayList<Object> archives;
-
-
     private DatabaseManager(){
 
     }
-    /*
-    public DatabaseManager(){
-
-        try {
-            Server server = Server.createTcpServer("-tcpAllowOthers").start();
-            Class.forName(DB_DRIVER);
-            conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            System.out.println("Connection Successful!");
-        }
-        catch(ClassNotFoundException exp)
-        {
-            System.out.println("Class ERROR --> " + exp.getMessage());
-        }
-        catch(SQLException exp)
-        {
-            System.out.println("Sql ERROR --> " + exp.getMessage());
-        }
-        catch(Exception exp)
-        {
-            System.out.println("General ERROR --> " + exp.getMessage());
-        }
-    } */
 
     public static void BootUP(){
 
@@ -71,45 +33,7 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
-        //DeleteComment(7);
-
-        ArrayList<Comment> comments = GetArticleComments(ArticleServices.getInstance().Find(2));
-
-        for (Comment comment:
-             comments) {
-            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor().getUsername());
-        }
-
-        // to send to edwardo
-        /*try {
-            Statement stat = conn.createStatement();
-
-            System.out.println(stat.toString());
-            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO where username = 'admin'");
-
-            if (!rs.next()) {
-                stat.executeUpdate("INSERT INTO USUARIO Values ('admin', 'Administrator', 'admin', 1, 1)");
-                System.out.println("Admin created");
-            }
-
-            rs = stat.executeQuery("SELECT * FROM USUARIO where username = ''");
-
-            if (!rs.next()) {
-                stat.executeUpdate("INSERT INTO USUARIO Values ('', '', 'yolo', 0, 0)");
-                System.out.println("Null user created");
-            }
-        } catch (SQLDataException exp) {
-            System.out.println("Data ERROR! --> " + exp.getMessage());
-        } catch (SQLException exp) {
-            System.out.println("SQL ERROR! --> " + exp.getMessage());
-        } catch (Exception exp) {
-            System.out.println("General ERROR! --> " + exp.getMessage());
-        }*/
     }
-
-    /*public static Connection getConn(){
-        return conn;
-    }*/
 
     public static void PrintData(){
 
@@ -119,43 +43,8 @@ public class DatabaseManager {
              Users) {
             System.out.println("Username:" + user.getUsername() + " Password:" + user.getPassword());
         }
-        /*
-        try {
-            Statement stat = conn.createStatement();
-
-            System.out.println(stat.toString());
-            ResultSet rs = stat.executeQuery("SELECT * FROM USUARIO");
-            while (rs.next())
-            {
-                System.out.println("Username:"+rs.getString("USERNAME")+ " Password:" + rs.getString("PASSWORD"));
-            }
-
-        } catch (SQLDataException exp) {
-            System.out.println("Data ERROR! --> " + exp.getMessage());
-        } catch (SQLException exp) {
-            System.out.println("SQL ERROR! --> " + exp.getMessage());
-        } catch (Exception exp) {
-            System.out.println("General ERROR! --> " + exp.getMessage());
-        }
-        */
 
     }
-
-    /*public static void CloseServerConnection(){
-
-        try {
-            conn.close();
-        }
-        catch(SQLException exp)
-        {
-            System.out.println("Sql ERROR --> " + exp.getMessage());
-        }
-        catch(Exception exp)
-        {
-            System.out.println("General ERROR --> " + exp.getMessage());
-        }
-    }*/
-
 
     // Basic Query Functions
     /*
@@ -305,68 +194,8 @@ public class DatabaseManager {
     }
 
     /*
-    // Comment Query
-    private static Object CommentQuery(Comment comment, String query){
-
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            switch (query)
-            {
-                case "insert":
-
-                    stat.execute("INSERT INTO COMENTARIO (COMMENT, AUTOR, ARTICULO) VALUES ('" +
-                            comment.getComment() + "', '" +
-                            comment.getAuthor() + "', " +
-                            comment.getArticle() + ")");
-
-                    return null;
-
-                case "delete":
-
-                    stat.execute("DELETE FROM COMENTARIO WHERE ID=" +
-                            comment.getId());
-
-                    return null;
-
-                case "comments": // search query
-
-                    rs = stat.executeQuery("Select * From COMENTARIO WHERE ARTICULO=" +
-                            comment.getArticle());
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new Comment(rs.getInt("id"),
-                                rs.getString("comment"),
-                                rs.getString("autor"),
-                                rs.getInt("articulo")));
-
-                    return archives;
-
-                default:
-                    return null;
-            }
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;
-    }*/
-
+     * Comment Entity Query
+    */
     public static void CreateComment(String comment, User author, Article article){
 
         Comment com = new Comment(comment, author, article);
@@ -402,190 +231,66 @@ public class DatabaseManager {
     }
 
     /*
-    // Tag Query
-    private static Object TagQuery(Tag tag, String query){
-
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            switch (query)
-            {
-                case "insert":
-
-                    stat.execute("INSERT INTO ETIQUETA (TAG) VALUES ('" +
-                            tag.getTag() + "')");
-
-                    return null;
-
-                case "isNew": // search query
-
-                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
-                            tag.getTag() + "'");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new Tag(rs.getInt("id"),
-                                rs.getString("tag")));
-
-                    if(archives.size() == 0)
-                        return true;
-                    else
-                        return false;
-
-                case "id": // search query
-
-                    rs = stat.executeQuery("Select * From ETIQUETA WHERE TAG='" +
-                            tag.getTag() + "'");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new Tag(rs.getInt("id"),
-                                rs.getString("tag")));
-
-                    Tag t = (Tag)archives.remove(0);
-
-                    return t.getId();
-
-                default:
-                    return null;
-            }
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;
-    }*/
+     * Tag Entity Query
+    */
 
     // TAG ARTICLE CROSS TABLE
     // TODO: Discuss if really necessary
-    public static void CreateTag(String tag){
+    public static Integer CreateTag(String tag){
 
         Tag tg = new Tag(tag);
 
         TagServices.getInstance().Create(tg);
+
+        List<Tag> tags = TagServices.getInstance().FindAll();
+
+        for (Tag t:
+                tags) {
+            if(t.getTag().equals(tag))
+                tg = t;
+        }
+
+        return tg.getId();
     }
 
-    // TODO: add Cross Table logic
     public static void ProcessTagsOnArticle(ArrayList<Tag> tags, Article article){
 
         List<Tag> tg = TagServices.getInstance().FindAll();
 
-        if(tg == null)
-            for (Tag tag:
-                 tags) {
-                TagServices.getInstance().Create(tag);
-            }
-        else
-            for (Tag tag:
-                 tags) {
-                Tag bubble = TagServices.getInstance().Find(tag.getTag());
-
-                if(bubble == null)
-                    TagServices.getInstance().Create(tag);
-            }
-
-        /*int count = 0;
-
-        for (Tag tag:
-             tags){
-
-            if ((boolean) TagQuery(tag, "isNew"))
-                TagQuery(tag, "insert");
-
-            try {
-                // Preparing to execute query
-                Statement stat = conn.createStatement();
-                ResultSet rs, rx;
-
-                rx =stat.executeQuery("SELECT * FROM ETIQUETA WHERE TAG='" +
-                        tag.getTag() + "'");
-
-                while (rx.next())
-                    tag = new Tag(rx.getInt("id"), tag.getTag());
-
-                rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ETIQUETA=" +
-                        tag.getId() + " AND ARTICULO=" +
-                        article);
-
-                while (rs.next())
-                    count++;
-
-                if (count == 0)
-                    stat.executeUpdate("Insert Into HASHTAG (ETIQUETA, ARTICULO) Values(" +
-                            tag.getId() + ", " +
-                            article + ")");
-
-            } catch (SQLDataException exp) {
-                System.out.println("SQL DATA ERROR: " + exp.getMessage());
-            } catch (SQLException exp) {
-                System.out.println("SQL ERROR: " + exp.getMessage());
-            } catch (Exception exp) // General errors
-            {
-                System.out.println("ERROR! --> " + exp.getMessage());
-            }
-        }*/
-    }
-
-    public static ArrayList<Tag> GetAllArticleTags(Article article){
-
-        ArrayList<Tag> tg = new ArrayList<>();
-
-        List<Tag> tags = TagServices.getInstance().FindAll();
-
+        // Do not try to understand this mess
+        // It works that's all i care
         for (Tag tag:
              tags) {
-            // Add Cross table logic
-        }
 
-        return tg;
+            boolean newTag = true;
 
-        /*try {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            Statement stat2 = conn.createStatement();
-            ResultSet rs;
-            ResultSet rx;
-
-            rs = stat.executeQuery("SELECT * FROM HASHTAG WHERE ARTICULO=" +
-                    article);
-
-            while (rs.next()) {
-
-                rx = stat2.executeQuery("SELECT * FROM ETIQUETA WHERE ID =" +
-                        rs.getInt("etiqueta"));
-                while (rx.next())
-                {
-                    //System.out.println("Entered while-------------"+rs.getString("etiqueta"));
-                    tags.add(new Tag(rs.getInt("etiqueta"), rx.getString("tag")));
+            for (Tag t:
+                 tg) {
+                if(tag.getTag().equals(t.getTag())) {
+                    newTag = false;
+                    break;
                 }
-
             }
 
-        } catch (SQLDataException exp) {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        } catch (SQLException exp) {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        } catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
+            if(newTag)
+                tag.setId(CreateTag(tag.getTag()));
+
         }
 
-        return tags;*/
+        for (Tag tag:
+                tags) {
+                article.getTags().add(tag);
+        }
+
+        ArticleServices.getInstance().Edit(article);
+
+    }
+
+    public static Set<Tag> GetAllArticleTags(int article){
+
+        Article art = ArticleServices.getInstance().Find(article);
+
+        return art.getTags();
     }
 
 }
