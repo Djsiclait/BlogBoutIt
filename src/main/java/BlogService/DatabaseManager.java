@@ -63,14 +63,22 @@ public class DatabaseManager {
             System.out.println("Creating Admin ...");
 
             UserServices.getInstance().Create(new User("admin", "Administrador", "admin", true, true));
+            UserServices.getInstance().Create(new User("Djsiclait", "Djidjelly Siclait", "1234", true, true));
+            UserServices.getInstance().Create(new User("Wardo", "Eduardo Veras", "1234", true, true));
 
             System.out.println("Admin Created Successfully!");
         }
         else
             System.out.println("Database already configured");
 
-        //User user = FetchUser("Wardo");
-        //System.out.println(user.getName());
+        //DeleteComment(7);
+
+        ArrayList<Comment> comments = GetArticleComments(ArticleServices.getInstance().Find(2));
+
+        for (Comment comment:
+             comments) {
+            System.out.println(comment.getId() + " " + comment.getComment() + " " + comment.getAuthor().getUsername());
+        }
 
         // to send to edwardo
         /*try {
@@ -150,143 +158,9 @@ public class DatabaseManager {
 
 
     // Basic Query Functions
-   /* private static Object ArticleQuery(Article article, String query){
-
-        try
-        {
-            // Preparing to execute query
-            Statement stat = conn.createStatement();
-            ResultSet rs;
-
-            switch (query)
-            {
-                case "insert":
-
-                    stat.execute("INSERT INTO ARTICULO (TITULO, CUERPO, AUTOR) VALUES ('" +
-                            article.getTitle() + "', '" +
-                            article.getBody() + "', '" +
-                            article.getAuthor() + "')");
-
-                    rs = stat.executeQuery("Select ID From ARTICULO Where CUERPO ='" + article.getBody() + "'");
-
-                    int id = -1;
-
-                    while (rs.next())
-                        id = rs.getInt("id");
-
-                    return id;
-
-                case "delete":
-
-                    stat.execute("DELETE FROM ARTICULO WHERE ID=" + article.getId());
-
-                    return null;
-
-                case "edit":
-
-                    stat.execute("UPDATE ARTICULO SET TITULO='" +
-                            article.getTitle() + "' , CUERPO='" +
-                            article.getBody() + "' WHERE ID=" +
-                            article.getId());
-
-                    return null;
-
-                case "list": // search query
-
-                    rs = stat.executeQuery("Select * From ARTICULO");
-
-                    archives = new ArrayList<>();
-
-                    while(rs.next())
-                        archives.add(new Article(rs.getInt("id"),
-                                rs.getString("titulo"),
-                                rs.getString("cuerpo"),
-                                rs.getString("autor")));
-
-                    return archives;
-
-                default: // specific search query
-
-                    switch (query)
-                    {
-                        case "id":
-
-                            rs = stat.executeQuery("Select * From ARTICULO Where ID=" + article.getId());
-
-                            archives = new ArrayList<>();
-
-                            while(rs.next())
-                                archives.add(new Article(rs.getInt("id"),
-                                        rs.getString("titulo"),
-                                        rs.getString("cuerpo"),
-                                        rs.getString("autor")));
-
-                            return archives;
-
-                        case "title":
-
-                            rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getTitle() + "'");
-
-                            archives = new ArrayList<>();
-
-                            while(rs.next())
-                                archives.add(new Article(rs.getInt("id"),
-                                        rs.getString("titulo"),
-                                        rs.getString("cuerpo"),
-                                        rs.getString("autor")));
-
-                            return archives;
-
-                        case "author":
-
-                            rs = stat.executeQuery("Select * From ARTICULO Where AUTOR='" + article.getAuthor() + "'");
-
-                            archives = new ArrayList<>();
-
-                            while(rs.next())
-                                archives.add(new Article(rs.getInt("id"),
-                                        rs.getString("titulo"),
-                                        rs.getString("cuerpo"),
-                                        rs.getString("autor")));
-
-                            return archives;
-
-                        case "pubDate": // Temporarily shutdown
-
-                            //rs = stat.executeQuery("Select * From ARTICULO Where TITULO='" + article.getPubDate() + "'");
-
-                            //archives = new ArrayList<>();
-
-                            //while(rs.next())
-                                //archives.add(new Article(rs.getInt("id"),
-                                        //rs.getString("titulo"),
-                                        //rs.getString("cuerpo"),
-                                        //rs.getString("autor")));
-
-                            //return archives;
-                            return null;
-
-                        default:
-                            return null;
-                    }
-            }
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;
-    }*/
-
+    /*
+     * Article Entity Query
+     */
     public static Integer CreateArticle(String title, String body, User author){
 
         Article article = new Article(title, body, author);
@@ -294,7 +168,13 @@ public class DatabaseManager {
         ArticleServices.getInstance().Create(article);
 
         // Using body as a pseudo-key given it is a unique attribute
-        article = ArticleServices.getInstance().Find(body);
+        List<Article> articles = GetAllArticles();
+
+        for (Article art:
+             articles) {
+            if(art.getBody().equals(body))
+                article = art;
+        }
 
         return article.getId();
     }
@@ -505,12 +385,12 @@ public class DatabaseManager {
 
         ArrayList<Comment> list = new ArrayList<>();
 
-        List<Comment> comments = CommentServices.getInstance().FindAll();
+        List<Comment> comments = GetAllComments();
 
         for (Comment comment:
              comments) {
-            if(comment.getArticle().equals(article))
-                list.add(comment);
+            if(comment.getArticle().getId() == article.getId())
+              list.add(comment);
         }
 
         return list;
@@ -519,35 +399,6 @@ public class DatabaseManager {
     public static List<Comment> GetAllComments(){
 
         return CommentServices.getInstance().FindAll();
-
-        /*try{
-
-            ResultSet rs = conn.createStatement().executeQuery("Select * From COMENTARIO");
-
-            ArrayList<Comment> comments = new ArrayList<>();
-
-            while(rs.next())
-                comments.add(new Comment(rs.getInt("id"),
-                        rs.getString("comment"),
-                        rs.getString("autor"),
-                        rs.getInt("articulo")));
-
-            return comments;
-        }
-        catch (SQLDataException exp)
-        {
-            System.out.println("SQL DATA ERROR: " + exp.getMessage());
-        }
-        catch (SQLException exp)
-        {
-            System.out.println("SQL ERROR: " + exp.getMessage());
-        }
-        catch (Exception exp) // General errors
-        {
-            System.out.println("ERROR! --> " + exp.getMessage());
-        }
-
-        return null;*/
     }
 
     /*
