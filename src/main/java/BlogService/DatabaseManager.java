@@ -127,6 +127,27 @@ public class DatabaseManager {
         return ArticleServices.getInstance().FindAll();
     }
 
+    public static ArrayList<Article> GetArticlesOnPage(int pageNum){
+        ArrayList<Article> sample = new ArrayList<>();
+        List<Article> archive = ArticleServices.getInstance().FindAll();
+        int count = 1;
+
+        if(pageNum <= Math.ceil(archive.size()/5))
+        {
+            for (Article article:
+                 archive) {
+                if(count >= (pageNum - 1) * 5  && count <= pageNum * 5)
+                    sample.add(article);
+
+                count++;
+            }
+        }
+        else
+            return null;
+
+        return sample;
+    }
+
     /*
      * User Entity Queries
      */
@@ -306,6 +327,7 @@ public class DatabaseManager {
             for (Tag t:
                  tg) {
                 if(tag.getTag().equals(t.getTag())) {
+                    tag = t;
                     newTag = false;
                     break;
                 }
