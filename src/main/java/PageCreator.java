@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -40,27 +41,40 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
+            for (Article ar:listaArticulos) {
+                System.out.println("ID: "+ ar.getId());
+                System.out.println("Body: "+ ar.getBody());
+                System.out.println("Title: "+ ar.getTitle());
+                for (Comment com :ar.getComments())
+                {
+                    System.out.println("     Comment ID:"+com.getId());
+                }
+            }
 
             if (request.session().attribute("user")!= null)
             {
                 System.out.println("---------------we are in the IF ------------------");
 
                 String CookieUSER= request.session().attribute("user");
-                //System.out.print("|"+CookieUSER+"|");
+                System.out.println("CookieUser: "+CookieUSER);
                 User user = DatabaseManager.FetchUser(CookieUSER);
-                System.out.println("Username: "+user.getUsername());
-                System.out.println("Name: "+user.getName());
-                System.out.println("Password: "+user.getPassword());
-
                 attributes.put("user", user);
+                //System.out.print("|"+CookieUSER+"|");
+                //User user = DatabaseManager.FetchUser(CookieUSER);
+                //System.out.println("Username: "+user.getUsername());
+                //System.out.println("Name: "+user.getName());
+                //System.out.println("Password: "+user.getPassword());
+
+                //attributes.put("user", user);
             }
             else
             {
-                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                User user = DatabaseManager.FetchUser("guest");
                 System.out.println("---------------we are in the ELSE ------------------");
                 System.out.println("Username: "+user.getUsername());
                 System.out.println("Name: "+user.getName());
-                System.out.println("Password: "+user.getPassword());
+                System.out.println("Password: "+ user.getPassword());
+
                 attributes.put("user", user);
             }
 
@@ -74,7 +88,7 @@ public class PageCreator {
         get("/logout", (req, res) -> {
 
             req.session().invalidate();
-            //res.redirect("/");
+            res.redirect("/");
 
             return "<h1>You have bee logged out</h1>";
         }  );
@@ -85,14 +99,6 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
-            //System.out.println("-----------------------------------------------------------------");
-            //User us = DatabaseManager.FetchUser("guest");
-            //System.out.println(us.getName());
-            //System.out.println("-----------------------------------------------------------------");
-            //System.out.println(us.getUsername());
-            //System.out.println("-----------------------------------------------------------------");
-            //System.out.println(us.getPassword());
-            //System.out.println("-----------------------------------------------------------------");
             if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
@@ -175,6 +181,10 @@ public class PageCreator {
             System.out.println("author:"+author);
 
             DatabaseManager.CreateUser(username,name,pass,admin,author);
+
+            Session session=request.session(true);
+
+            request.session().attribute("user", username) ;
 
             response.redirect("./");
 
