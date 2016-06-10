@@ -52,10 +52,10 @@ public class PageCreator {
             }
             else
             {
-                System.out.print("Shit, Something 2222222222222222");
-
                 request.session().attribute("user", "guest");
+
                 String CookieUSER= request.session().attribute("user");
+                System.out.print("Shit, Something 2222222222222222");
                 System.out.print("|"+CookieUSER+"|");
                 User auser = DatabaseManager.FetchUser("guest");
                 System.out.print(auser.getUsername());
