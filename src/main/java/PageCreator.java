@@ -1,6 +1,8 @@
 /**
  * Created by Eduardo veras on 01-Jun-16.
  */
+import BlogService.ArticleServices;
+import BlogService.UserServices;
 import org.jsoup.Jsoup;
 
 import Entity.*;
@@ -38,24 +40,6 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
-            List<Comment> listComments = DatabaseManager.GetAllComments();
-
-            attributes.put("comments",listComments);
-            ArrayList<Tag> listaTags = new ArrayList<>();
-
-            for (Article art :listaArticulos) {
-                //listaTags
-                System.out.println("Something happened------------------------------------------");
-                Set<Tag> listaT = DatabaseManager.GetAllArticleTags(art.getId());
-                System.out.println("Something happened------------------------------------------");
-                for (Tag t :listaT) {
-                    System.out.println("ENTERED LOOP---------------------------------");
-                        listaTags.add(t);
-                }
-
-            }
-
-            attributes.put("listatagsss", listaTags);
 
             if (request.session().attribute("user")!= null)
             {
@@ -89,14 +73,14 @@ public class PageCreator {
 
             attributes.put("message", "Welcome");
 
-            if (request.session().attribute("user")!= null)
+            if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
-                attributes.put("user", user);
+                attributes.put("userlog", user);
             }
             else
             {
-                attributes.put("user", DatabaseManager.FetchUser(""));
+                attributes.put("userlog", DatabaseManager.FetchUser("Guest"));
             }
 
             return new ModelAndView(attributes, "login.ftl");
@@ -106,14 +90,14 @@ public class PageCreator {
 
             Map<String, Object> attributes = new HashMap<>();
 
-            if (request.session().attribute("user")!=null)
+            if (request.session().attribute("user") != null)
             {
-                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
+                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
                 attributes.put("user",user);
             }
             else
             {
-                //attributes.put("user",DBmanager.FetchUser(""));
+                attributes.put("user", DatabaseManager.FetchUser("Guest"));
             }
 
             attributes.put("message", "Welcome");
@@ -125,14 +109,14 @@ public class PageCreator {
 
             Map<String, Object> attributes = new HashMap<>();
 
-            if (request.session().attribute("user")!=null)
+            if (request.session().attribute("user") != null)
             {
-                User user = null;// = DBmanager.FetchUser(request.session().attribute("user"));
-                attributes.put("user",user);
+                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                attributes.put("userCre",user);
             }
             else
             {
-                //attributes.put("user",DBmanager.FetchUser(""));
+                attributes.put("userCre", DatabaseManager.FetchUser(""));
             }
 
             attributes.put("message", "Welcome");
@@ -145,8 +129,8 @@ public class PageCreator {
     {
         post("/register", (request, response) -> {
 
-            boolean author=false;
-            boolean admin =false;
+            boolean author = false;
+            boolean admin = false;
 
             String username = request.queryParams("username");
             String name = request.queryParams("name");
@@ -154,7 +138,7 @@ public class PageCreator {
             String adminStr = request.queryParams("admin");
             String authorStr = request.queryParams("author");
 
-            if (adminStr!=null)
+            if (adminStr != null)
             {
                 admin=true;
             }
@@ -170,11 +154,10 @@ public class PageCreator {
             System.out.println("admin:"+admin);
             System.out.println("author:"+author);
 
-            //DBmanager.CreateUser(username,name,pass,admin,author);
+            DatabaseManager.CreateUser(username,name,pass,admin,author);
 
             response.redirect("./");
 
-            //TODO: Add to the database into users
             return "working";
         });
 
@@ -186,7 +169,7 @@ public class PageCreator {
             System.out.println("Username:"+username);
             System.out.println("pass:"+pass);
 
-            if (true)// (DBmanager.CheckCredentials(username,pass))
+            if (DatabaseManager.CheckCredentials(username,pass))
             {
                 System.out.print("Login Successfull");
                 Session session=request.session(true);
@@ -214,19 +197,19 @@ public class PageCreator {
             if (formType.equals("delete"))
             {
                 int commentID = Integer.parseInt(request.queryParams("commentID"));
-                //DBmanager.DeleteComment(commentID);
+                DatabaseManager.DeleteComment(commentID);
             }
             else
             {
                 String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
-                String postID = request.queryParams("postID");
-                String user = request.queryParams("user");
+                Article article = DatabaseManager.FetchArticle(Integer.parseInt(request.queryParams("postID")));
+                User user = DatabaseManager.FetchUser(request.queryParams("user"));
 
                 System.out.println("Comment:"+comment);
-                System.out.println("Post ID:"+postID);
-                System.out.println("User: "+user);
+                System.out.println("Post ID:"+article.getId());
+                System.out.println("User: "+user.getUsername());
 
-                //DBmanager.CreateComment(comment,user,Integer.parseInt(postID));
+                DatabaseManager.CreateComment(comment,user,article);
 
             }
 
@@ -234,9 +217,6 @@ public class PageCreator {
 
             return "lol";
         });
-
-
-
 
         post("/create", (request, response) -> {
             String title = request.queryParams("title");
@@ -250,8 +230,8 @@ public class PageCreator {
             System.out.println("User:"+user);
             System.out.println();
 
-            ArrayList<String> listString = new ArrayList<String>(Arrays.asList(tags.split("\\s*,\\s*")));
-            ArrayList<Tag> listTags = new ArrayList<Tag>();
+            ArrayList<String> listString = new ArrayList<>(Arrays.asList(tags.split("\\s*,\\s*")));
+            ArrayList<Tag> listTags = new ArrayList<>();
 
             for (String st:listString) {
                 listTags.add(new Tag(st));
@@ -260,9 +240,8 @@ public class PageCreator {
             System.out.println("Lista Tags:"+ listTags);
             System.out.println("Salio del for");
 
-            Integer ID = null;// = DBmanager.CreateArticle(title,body,user);
-            //DBmanager.ProcessTagsOnArticle(listTags,ID);
-            //DBmanager.ProcessTagsOnArticlea(listTags,ID);
+            Integer ID = DatabaseManager.CreateArticle(title,body, DatabaseManager.FetchUser(user));
+            DatabaseManager.ProcessTagsOnArticle(listTags, DatabaseManager.FetchArticle(ID));
 
             response.redirect("./");
 

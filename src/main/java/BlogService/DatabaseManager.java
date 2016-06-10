@@ -68,6 +68,11 @@ public class DatabaseManager {
         return article.getId();
     }
 
+    public static Article FetchArticle(Integer id){
+
+        return ArticleServices.getInstance().Find(id);
+    }
+
     public static void LikeArticle(int id){
 
         Article article = ArticleServices.getInstance().Find(id);

@@ -80,7 +80,7 @@
 
 
                 <div class="row">
-                    <#if user.getName() == "">
+                    <#if user.getName() == "Guest">
                         <h5>Login/register to start commenting</h5>
                     <#else>
                         <form class="col s12" action="" method="POST" id="commentForm">

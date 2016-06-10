@@ -1,7 +1,7 @@
 <#include "/siteHeader.ftl">
 <body>
 
-<#include "/navbar.ftl">
+<#-- <#include "/navbar.ftl"> -->
 <!-- Header -->
 <div id="header">
     <h1>${message}</h1>
