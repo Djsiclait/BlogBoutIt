@@ -20,7 +20,7 @@
             <a id="navbar-logo" href="/" class="brand-logo orange-text accent-2"> BlogBoutIt</a>
             <ul class="right hide-on-med-and-down">
                 <li><a class="orange-text darken-4" href="/">Home</a></li>
-                <#if user.getName() == "Guest">
+                <#if user.getName() == "guest">
                     <li><a  class="orange-text darken-4" href="/register">Register</a></li>
                     <li><a  class="orange-text darken-4" href="/login">Login</a></li>
                 <#else>
@@ -32,7 +32,7 @@
             </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a class="orange-text darken-4" href="/">Home</a></li>
-            <#if user.getName() == "Guest">
+            <#if user.getName() == "guest">
                 <li><a  class="orange-text darken-4" href="/register">Register</a></li>
                 <li><a  class="orange-text darken-4" href="/login">Login</a></li>
             <#else>

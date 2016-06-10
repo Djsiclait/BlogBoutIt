@@ -43,23 +43,25 @@ public class PageCreator {
 
             if (request.session().attribute("user")!= null)
             {
-                System.out.print("Shit, Something happened11111111111111");
+                System.out.println("---------------we are in the IF ------------------");
+
                 String CookieUSER= request.session().attribute("user");
-                System.out.print("|"+CookieUSER+"|");
+                //System.out.print("|"+CookieUSER+"|");
                 User user = DatabaseManager.FetchUser(CookieUSER);
-                System.out.println(user.getUsername());
+                System.out.println("Username: "+user.getUsername());
+                System.out.println("Name: "+user.getName());
+                System.out.println("Password: "+user.getPassword());
+
                 attributes.put("user", user);
             }
             else
             {
-                //request.session().attribute("user", "guest");
-
-                //String CookieUSER= request.session().attribute("user");
-                //System.out.print("Shit, Something 2222222222222222");
-                //System.out.print("|"+CookieUSER+"|");
-                //User auser = DatabaseManager.FetchUser("guest");
-                //System.out.print(auser.getUsername());
-                attributes.put("user", "guest");
+                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                System.out.println("---------------we are in the ELSE ------------------");
+                System.out.println("Username: "+user.getUsername());
+                System.out.println("Name: "+user.getName());
+                System.out.println("Password: "+user.getPassword());
+                attributes.put("user", user);
             }
 
             attributes.put("listaArticulos", listaArticulos);
