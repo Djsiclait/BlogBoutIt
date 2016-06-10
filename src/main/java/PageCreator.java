@@ -43,12 +43,23 @@ public class PageCreator {
 
             if (request.session().attribute("user")!= null)
             {
-                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+                System.out.print("Shit, Something happened11111111111111");
+                String CookieUSER= request.session().attribute("user");
+                System.out.print("|"+CookieUSER+"|");
+                User user = DatabaseManager.FetchUser(CookieUSER);
+                System.out.println(user.getUsername());
                 attributes.put("user", user);
             }
             else
             {
-                attributes.put("user", DatabaseManager.FetchUser("guest"));
+                System.out.print("Shit, Something 2222222222222222");
+
+                request.session().attribute("user", "guest");
+                String CookieUSER= request.session().attribute("user");
+                System.out.print("|"+CookieUSER+"|");
+                User auser = DatabaseManager.FetchUser("guest");
+                System.out.print(auser.getUsername());
+                attributes.put("user", auser);
             }
 
             attributes.put("listaArticulos", listaArticulos);
@@ -61,9 +72,9 @@ public class PageCreator {
         get("/logout", (req, res) -> {
 
             req.session().invalidate();
-            res.redirect("/");
+            //res.redirect("/");
 
-            return "<h1>You have bee logged out<>";
+            return "<h1>You have bee logged out</h1>";
         }  );
 
 
@@ -72,14 +83,14 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
-            System.out.println("-----------------------------------------------------------------");
-            User us = DatabaseManager.FetchUser("guest");
-            System.out.println(us.getName());
-            System.out.println("-----------------------------------------------------------------");
-            System.out.println(us.getUsername());
-            System.out.println("-----------------------------------------------------------------");
-            System.out.println(us.getPassword());
-            System.out.println("-----------------------------------------------------------------");
+            //System.out.println("-----------------------------------------------------------------");
+            //User us = DatabaseManager.FetchUser("guest");
+            //System.out.println(us.getName());
+            //System.out.println("-----------------------------------------------------------------");
+            //System.out.println(us.getUsername());
+            //System.out.println("-----------------------------------------------------------------");
+            //System.out.println(us.getPassword());
+            //System.out.println("-----------------------------------------------------------------");
             if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
@@ -119,11 +130,11 @@ public class PageCreator {
             if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
-                attributes.put("userCre",user);
+                attributes.put("user",user);
             }
             else
             {
-                attributes.put("userCre", DatabaseManager.FetchUser("guest"));
+                attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
 
             attributes.put("message", "Welcome");

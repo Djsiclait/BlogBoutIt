@@ -1,7 +1,5 @@
 <#include "/siteHeader.ftl">
 <body>
-
-
 <!-- Header -->
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
@@ -51,7 +49,7 @@
                 <div class="row" id="comment-container">
                     <#list articulo.getComments()?reverse as comment>
                         <div class="col s12 m6">
-                                <div class="card-panel teal hoverable">
+                            <div class="card-panel teal hoverable">
                           <span class="white-text ">
 
                               <h5>
@@ -72,15 +70,15 @@
                               <br>
                           ${comment.getComment()}
                           </span>
-                                </div>
                             </div>
+                        </div>
                     </#list>
                 </div>
                 <!--End Comments-->
 
 
                 <div class="row">
-                    <#if user.getName() == "Guest">
+                    <#if user.getName() == "guest">
                         <h5>Login/register to start commenting</h5>
                     <#else>
                         <form class="col s12" action="" method="POST" id="commentForm">
@@ -105,9 +103,9 @@
             </div>
             <#list articulo.getTags() as tag>
                 <!---->
-                    <div class="chip">
-                    ${tag.getTag()}
-                    </div>
+                <div class="chip">
+                ${tag.getTag()}
+                </div>
 
             </#list>
 
@@ -120,6 +118,11 @@
         </div>
 
     </div>
+    <#else>
+        <div class="container">
+            <h1>We are sorry!</h1>
+            <h3> There are no post to show right now, try again later</h3>
+        </div>
 </#list>
 </div>
 

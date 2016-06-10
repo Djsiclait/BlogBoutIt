@@ -1,7 +1,7 @@
 <#include "/siteHeader.ftl">
 <body>
 
-<#--<#include "/navbar.ftl">-->
+<#include "/navbar.ftl">
 <!-- Header -->
 <div id="header">
     <h1>${message}</h1>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="divider"></div>
-                        <input type="hidden" name="user" id="user" value="${userCre.getUsername()}">
+                        <input type="hidden" name="user" id="user" value="${user.getUsername()}">
                         <div class="row">
                             <div class="col m12">
                                 <p class="right-align">
