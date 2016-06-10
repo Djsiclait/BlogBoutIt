@@ -72,15 +72,22 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
-
+            System.out.println("-----------------------------------------------------------------");
+            User us = DatabaseManager.FetchUser("guest");
+            System.out.println(us.getName());
+            System.out.println("-----------------------------------------------------------------");
+            System.out.println(us.getUsername());
+            System.out.println("-----------------------------------------------------------------");
+            System.out.println(us.getPassword());
+            System.out.println("-----------------------------------------------------------------");
             if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
-                attributes.put("userlog", user);
+                attributes.put("user", user);
             }
             else
             {
-                attributes.put("userlog", DatabaseManager.FetchUser("Guest"));
+                attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
 
             return new ModelAndView(attributes, "login.ftl");
@@ -97,7 +104,7 @@ public class PageCreator {
             }
             else
             {
-                attributes.put("user", DatabaseManager.FetchUser("Guest"));
+                attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
 
             attributes.put("message", "Welcome");
@@ -116,7 +123,7 @@ public class PageCreator {
             }
             else
             {
-                attributes.put("userCre", DatabaseManager.FetchUser(""));
+                attributes.put("userCre", DatabaseManager.FetchUser("guest"));
             }
 
             attributes.put("message", "Welcome");

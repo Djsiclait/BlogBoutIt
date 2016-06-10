@@ -2,7 +2,7 @@
 <body>
 <!-- Header -->
 
-<#--<#include "/navbar.ftl">-->
+<#include "/navbar.ftl">
 <div id="header">
     <h1>${message}</h1>
 </div>
@@ -11,7 +11,7 @@
     <br>
 
     <!-- Login Form -->
-<#if userlog.getName() == "Guest">
+<#if user.getName() == "Guest">
 
     <div class="row someform">
         <div class="col s12">
