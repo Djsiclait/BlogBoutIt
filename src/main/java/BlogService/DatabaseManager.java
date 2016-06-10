@@ -35,7 +35,6 @@ public class DatabaseManager {
         }
         else
             System.out.println("Database already configured");
-
     }
 
     public static void PrintData(){
