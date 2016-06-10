@@ -56,6 +56,9 @@ public class PageCreator {
                 System.out.println("---------------we are in the IF ------------------");
 
                 String CookieUSER= request.session().attribute("user");
+                System.out.println("CookieUser: "+CookieUSER);
+                User user = DatabaseManager.FetchUser(CookieUSER);
+                attributes.put("user", user);
                 //System.out.print("|"+CookieUSER+"|");
                 //User user = DatabaseManager.FetchUser(CookieUSER);
                 //System.out.println("Username: "+user.getUsername());
@@ -66,8 +69,7 @@ public class PageCreator {
             }
             else
             {
-
-                User user = DatabaseManager.FetchUser("admin");
+                User user = DatabaseManager.FetchUser("guest");
                 System.out.println("---------------we are in the ELSE ------------------");
                 System.out.println("Username: "+user.getUsername());
                 System.out.println("Name: "+user.getName());
@@ -86,7 +88,7 @@ public class PageCreator {
         get("/logout", (req, res) -> {
 
             req.session().invalidate();
-            //res.redirect("/");
+            res.redirect("/");
 
             return "<h1>You have bee logged out</h1>";
         }  );
@@ -97,14 +99,6 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
-            //System.out.println("-----------------------------------------------------------------");
-            //User us = DatabaseManager.FetchUser("guest");
-            //System.out.println(us.getName());
-            //System.out.println("-----------------------------------------------------------------");
-            //System.out.println(us.getUsername());
-            //System.out.println("-----------------------------------------------------------------");
-            //System.out.println(us.getPassword());
-            //System.out.println("-----------------------------------------------------------------");
             if (request.session().attribute("user") != null)
             {
                 User user = DatabaseManager.FetchUser(request.session().attribute("user"));
@@ -187,6 +181,10 @@ public class PageCreator {
             System.out.println("author:"+author);
 
             DatabaseManager.CreateUser(username,name,pass,admin,author);
+
+            Session session=request.session(true);
+
+            request.session().attribute("user", username) ;
 
             response.redirect("./");
 

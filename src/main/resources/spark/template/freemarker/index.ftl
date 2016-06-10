@@ -28,7 +28,7 @@
 <div class="row" id="mainContent">
 <#list listaArticulos?reverse as articulo>
 
-<div class="col s12 m6 l4" id="blog-post">
+<div class="col s12 m6" id="blog-post">
 
     <div class="card hoverable">
         <div class="card-image waves-effect waves-block waves-light">
