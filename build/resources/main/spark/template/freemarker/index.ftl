@@ -1,10 +1,13 @@
 <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
+<!--
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
     <div class="section no-pad-bot">
         <div class="container ed-container">
+
+
             <br><br>
             <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user.getName()}.</h1>
             <div class="row center">
@@ -17,11 +20,53 @@
                 <h7 class="header col s12 light grey-text">Scroll Down to view content</h7>
             </div>
             <br><br>
+
+
         </div>
     </div>
     <div class="parallax"><img src="http://designninjaz.com/wp-content/uploads/2015/01/Slider-BlackDeskScene.jpg"
                                alt="Unsplashed background img 1"></div>
 </div>
+-->
+<div id="index-banner" class="parallax-container">
+    <div class="the-index-header"><#include "/navbar.ftl"></div>
+    <div class="section no-pad-bot">
+        <div class="container ed-container">
+
+
+            <br><br>
+            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user.getName()}.</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">The blog about some of the coolest stuff</h5>
+            </div>
+            <div class="row center">
+                <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
+            </div>
+            <div class="row center">
+                <h7 class="header col s12 light grey-text">Scroll Down to view content</h7>
+            </div>
+            <br><br>
+
+
+        </div>
+    </div>
+    <div class="parallax">
+        <div class="homepage-hero-module">
+            <div class="video-container">
+                <div class="filter"></div>
+                <video autoplay loop class="fillWidth">
+                    <source src="/media/Mp4/Going-Places.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                    <source src="/media/Webm/Going-Places.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+                </video>
+                <div class="poster hidden">
+                    <img src="/media/Snapshots/Going-Places.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- End Header -->
 
 
@@ -40,7 +85,15 @@
             <span class="activator card-title grey-text text-darken-4">
                 <a class="modal-trigger" href="#modal${articulo.getId()}">${articulo.getTitle()}</a>
                 <i class="material-icons right">comment</i></span>
-            <p>${articulo.getBody()}</p>
+
+            <#assign minititle=articulo.getBody()>
+            <#if minititle?length &lt; 350>
+            <p>${minititle}</p>
+            <#else>
+            <p>${minititle?substring(0,349)} ... </p>
+            </#if>
+
+            <#--<p>${articulo.getBody()}</p>-->
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">Comments<i
