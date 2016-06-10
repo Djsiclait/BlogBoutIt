@@ -29,7 +29,7 @@ public class DatabaseManager {
             UserServices.getInstance().Create(new User("Wardo", "Eduardo Veras", "1234", true, true));
             UserServices.getInstance().Create(new User("guest", "guest", "", false, false));
 
-            ArticleServices.getInstance().Create(new Article("Original Post", "This is the websites first original post", FetchUser("admin")));
+            ArticleServices.getInstance().Create(new Article("Original Post", "This is the websites first original post", UserServices.getInstance().Find("admin")));
 
             System.out.println("Admin Created Successfully!");
         }

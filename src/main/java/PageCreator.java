@@ -52,14 +52,14 @@ public class PageCreator {
             }
             else
             {
-                request.session().attribute("user", "guest");
+                //request.session().attribute("user", "guest");
 
-                String CookieUSER= request.session().attribute("user");
-                System.out.print("Shit, Something 2222222222222222");
-                System.out.print("|"+CookieUSER+"|");
-                User auser = DatabaseManager.FetchUser("guest");
-                System.out.print(auser.getUsername());
-                attributes.put("user", auser);
+                //String CookieUSER= request.session().attribute("user");
+                //System.out.print("Shit, Something 2222222222222222");
+                //System.out.print("|"+CookieUSER+"|");
+                //User auser = DatabaseManager.FetchUser("guest");
+                //System.out.print(auser.getUsername());
+                attributes.put("user", "guest");
             }
 
             attributes.put("listaArticulos", listaArticulos);
