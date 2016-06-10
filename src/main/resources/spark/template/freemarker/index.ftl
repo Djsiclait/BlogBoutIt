@@ -27,102 +27,103 @@
 
 <div class="row" id="mainContent">
 <#list listaArticulos?reverse as articulo>
-    <div class="col s12 m6 l4" id="blog-post">
 
-        <div class="card hoverable">
-            <div class="card-image waves-effect waves-block waves-light">
-                <a class="modal-trigger" href="#modal${articulo.getId()}">
-                    <img class="" src="http://loremflickr.com/800/400">
-                </a>
+<div class="col s12 m6 l4" id="blog-post">
+
+    <div class="card hoverable">
+        <div class="card-image waves-effect waves-block waves-light">
+            <a class="modal-trigger" href="#modal${articulo.getId()}">
+                <img class="" src="http://loremflickr.com/800/400">
+            </a>
+        </div>
+        <div class="card-content">
+            <span class="activator card-title grey-text text-darken-4">
+                <a class="modal-trigger" href="#modal${articulo.getId()}">${articulo.getTitle()}</a>
+                <i class="material-icons right">comment</i></span>
+            <p>${articulo.getBody()}</p>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Comments<i
+                    class="material-icons right">close</i></span>
+
+
+            <div class="row" id="comment-container">
+                <#list articulo.getComments()?reverse as comment>
+                    <div class="col s12 m6">
+                        <div class="card-panel teal hoverable">
+                      <span class="white-text ">
+
+                          <h5>
+                          <div class="row">
+                          ${comment.getAuthor().getUsername()}:
+                              <#if user.isAdmin()>
+                                  <form class="spacer" action="" method="post">
+                                          <input type="hidden" id="commentID" name="commentID"
+                                                 value="${comment.getId()}">
+                                          <input type="hidden" id="kind" name="kind" value="delete">
+                                          <input class="waves-effect waves-teal btn-flat" type="submit" value="X">
+                                      </form>
+                              </#if>
+                              </div>
+                          </h5>
+
+                          <div class="divider"></div>
+                          <br>
+                      ${comment.getComment()}
+                      </span>
+                        </div>
+                    </div>
+                </#list>
             </div>
-            <div class="card-content">
-                <span class="activator card-title grey-text text-darken-4">
-                    <a class="modal-trigger" href="#modal${articulo.getId()}">${articulo.getTitle()}</a>
-                    <i class="material-icons right">comment</i></span>
-                <p>${articulo.getBody()}</p>
-            </div>
-            <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4">Comments<i
-                        class="material-icons right">close</i></span>
-                <!--Commentsss-->
 
-                <div class="row" id="comment-container">
-                    <#list articulo.getComments()?reverse as comment>
-                        <div class="col s12 m6">
-                            <div class="card-panel teal hoverable">
-                          <span class="white-text ">
 
-                              <h5>
-                              <div class="row">
-                              ${comment.getAuthor().getUsername()}:
-                                  <#if user.isAdmin()>
-                                      <form class="spacer" action="" method="post">
-                                              <input type="hidden" id="commentID" name="commentID"
-                                                     value="${comment.getId()}">
-                                              <input type="hidden" id="kind" name="kind" value="delete">
-                                              <input class="waves-effect waves-teal btn-flat" type="submit" value="X">
-                                          </form>
-                                  </#if>
-                                  </div>
-                              </h5>
 
-                              <div class="divider"></div>
-                              <br>
-                          ${comment.getComment()}
-                          </span>
+
+            <div class="row">
+                <#if user.getName() == "guest">
+                    <h5>Login/register to start commenting</h5>
+                <#else>
+                    <form class="col s12" action="" method="POST" id="commentForm">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="hidden" id="kind" name="kind" value="create">
+                                <input type="hidden" name="postID" value="${articulo.getId()}">
+                                <textarea type="input" id="textarea1" value="Sample comment" name="thebodyx"
+                                          class="materialize-textarea"></textarea>
+                                <label for="textarea1">Textarea</label>
                             </div>
                         </div>
-                    </#list>
-                </div>
-                <!--End Comments-->
-
-
-                <div class="row">
-                    <#if user.getName() == "guest">
-                        <h5>Login/register to start commenting</h5>
-                    <#else>
-                        <form class="col s12" action="" method="POST" id="commentForm">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input type="hidden" id="kind" name="kind" value="create">
-                                    <input type="hidden" name="postID" value="${articulo.getId()}">
-                                    <textarea type="input" id="textarea1" value="Sample comment" name="thebodyx"
-                                              class="materialize-textarea"></textarea>
-                                    <label for="textarea1">Textarea</label>
-                                </div>
-                            </div>
-                            <input type="hidden" name="user" id="user" value="${user.getUsername()}">
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </form>
-                    </#if>
-                </div>
-
-
+                        <input type="hidden" name="user" id="user" value="${user.getUsername()}">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </#if>
             </div>
-            <#list articulo.getTags() as tag>
-                <!---->
-                <div class="chip">
-                ${tag.getTag()}
-                </div>
 
-            </#list>
 
-            <#if user.isAdmin()>
-                <div class="card-action">
-                    <a class="red-text" href="#">Delete Post</a>
-                    <a href="#">Edit Post</a>
-                </div>
-            </#if>
         </div>
+
+        <#list articulo.getTags() as tag>
+
+            <div class="chip">
+            ${tag.getTag()}
+            </div>
+
+        </#list>
+
+        <#if user.isAdmin()>
+            <div class="card-action">
+                <a class="red-text" href="#">Delete Post</a>
+                <a href="#">Edit Post</a>
+            </div>
+        </#if>
 
     </div>
-    <#else>
-        <div class="container">
-            <h1>We are sorry!</h1>
-            <h3> There are no post to show right now, try again later</h3>
-        </div>
+
+</div>
+
+
 </#list>
 </div>
 

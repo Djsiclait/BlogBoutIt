@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -40,6 +41,15 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
+            for (Article ar:listaArticulos) {
+                System.out.println("ID: "+ ar.getId());
+                System.out.println("Body: "+ ar.getBody());
+                System.out.println("Title: "+ ar.getTitle());
+                for (Comment com :ar.getComments())
+                {
+                    System.out.println("     Comment ID:"+com.getId());
+                }
+            }
 
             if (request.session().attribute("user")!= null)
             {
@@ -47,20 +57,22 @@ public class PageCreator {
 
                 String CookieUSER= request.session().attribute("user");
                 //System.out.print("|"+CookieUSER+"|");
-                User user = DatabaseManager.FetchUser(CookieUSER);
-                System.out.println("Username: "+user.getUsername());
-                System.out.println("Name: "+user.getName());
-                System.out.println("Password: "+user.getPassword());
+                //User user = DatabaseManager.FetchUser(CookieUSER);
+                //System.out.println("Username: "+user.getUsername());
+                //System.out.println("Name: "+user.getName());
+                //System.out.println("Password: "+user.getPassword());
 
-                attributes.put("user", user);
+                //attributes.put("user", user);
             }
             else
             {
-                User user = DatabaseManager.FetchUser(request.session().attribute("user"));
+
+                User user = DatabaseManager.FetchUser("admin");
                 System.out.println("---------------we are in the ELSE ------------------");
                 System.out.println("Username: "+user.getUsername());
                 System.out.println("Name: "+user.getName());
-                System.out.println("Password: "+user.getPassword());
+                System.out.println("Password: "+ user.getPassword());
+
                 attributes.put("user", user);
             }
 
