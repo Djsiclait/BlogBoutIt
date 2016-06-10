@@ -49,15 +49,14 @@
                 <!--Commentsss-->
 
                 <div class="row" id="comment-container">
-                    <#list comments?reverse as comment>
-                        <#if comment.getArticle().getId() == articulo.getId()>
-                            <div class="col s12 m6">
+                    <#list articulo.getComments()?reverse as comment>
+                        <div class="col s12 m6">
                                 <div class="card-panel teal hoverable">
                           <span class="white-text ">
 
                               <h5>
                               <div class="row">
-                              ${comment.getAuthor()}:
+                              ${comment.getAuthor().getUsername()}:
                                   <#if user.isAdmin()>
                                       <form class="spacer" action="" method="post">
                                               <input type="hidden" id="commentID" name="commentID"
@@ -75,7 +74,6 @@
                           </span>
                                 </div>
                             </div>
-                        </#if>
                     </#list>
                 </div>
                 <!--End Comments-->
