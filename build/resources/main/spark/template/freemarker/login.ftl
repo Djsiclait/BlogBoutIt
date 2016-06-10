@@ -11,7 +11,7 @@
     <br>
 
     <!-- Login Form -->
-<#if user.getName() == "Guest">
+<#if user.getName() == "guest">
 
     <div class="row someform">
         <div class="col s12">
