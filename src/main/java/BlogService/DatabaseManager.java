@@ -229,6 +229,17 @@ public class DatabaseManager {
         Comment com = new Comment(comment, author, article);
 
         CommentServices.getInstance().Create(com);
+
+        List<Comment> comments = CommentServices.getInstance().FindAll();
+
+        for (Comment c:
+             comments) {
+            if(c.getArticle().getId() == article.getId())
+                article.getComments().add(c);
+        }
+
+        ArticleServices.getInstance().Edit(article);
+
     }
 
     public static void DeleteComment(int id){
