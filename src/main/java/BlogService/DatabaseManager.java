@@ -7,9 +7,8 @@ import Entity.*;
 
 import Entity.Comment;
 import Entity.User;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 public class DatabaseManager {
 
@@ -35,6 +34,15 @@ public class DatabaseManager {
         }
         else
             System.out.println("Database already configured");
+
+
+        ArrayList<Article> articles = GetArticlesOnPage(1);
+
+        for (Article article:
+             articles) {
+            System.out.println("\n\n" + article.getId() + " " + article.getTitle() + " " + article.getModified().toString() + "\n\n");
+        }
+
     }
 
     public static void PrintData(){
@@ -130,6 +138,13 @@ public class DatabaseManager {
         ArrayList<Article> sample = new ArrayList<>();
         List<Article> archive = ArticleServices.getInstance().FindAll();
         int count = 1;
+
+        Collections.sort(archive, new Comparator<Article>() {
+            @Override
+            public int compare(Article o1, Article o2) {
+                return o2.getModified().compareTo(o1.getModified());
+            }
+        });
 
         if(pageNum <= Math.ceil(archive.size()/5))
         {
