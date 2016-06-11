@@ -162,6 +162,31 @@ public class DatabaseManager {
         return sample;
     }
 
+    public static ArrayList<Article> SearchArticlesByTag(String tag){
+        ArrayList<Article> sample = new ArrayList<>();
+        List<Article> archive = ArticleServices.getInstance().FindAll();
+
+        Collections.sort(archive, new Comparator<Article>() {
+            @Override
+            public int compare(Article o1, Article o2) {
+                return o2.getModified().compareTo(o1.getModified());
+            }
+        });
+
+        for (Article article:
+                archive) {
+            for (Tag t:
+                 article.getTags()) {
+                if(t.getTag().equals(tag)) {
+                    sample.add(article);
+                    break;
+                }
+            }
+        }
+
+        return sample;
+    }
+
     /*
      * User Entity Queries
      */
