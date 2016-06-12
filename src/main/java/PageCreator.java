@@ -41,7 +41,7 @@ public class PageCreator {
 
             int PageNum =  Integer.parseInt(request.params(":pagenum"));
             System.out.print("-------------------------------------------------------------Page Number:"+ PageNum);
-            List<Article> listaArticulosPag = DatabaseManager.GetArticlesOnPage(PageNum);
+            ArrayList<Article> listaArticulosPag = DatabaseManager.GetArticlesOnPage(PageNum);
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
 
 
@@ -81,6 +81,7 @@ public class PageCreator {
 
                 attributes.put("user", user);
             }
+
             if (listaArticulosPag==null)
             {
                 System.out.print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -89,7 +90,7 @@ public class PageCreator {
             {
                 attributes.put("listaArticulos", listaArticulosPag);
             }
-            attributes.put("listaArticulos", listaArticulos);
+            //attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
 
             return new ModelAndView(attributes, "index.ftl");
