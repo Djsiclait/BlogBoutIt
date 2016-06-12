@@ -146,11 +146,11 @@ public class DatabaseManager {
             }
         });
 
-        if(pageNum <= Math.ceil(archive.size()/5))
+        if(pageNum <= Math.ceil(archive.size()/2))
         {
             for (Article article:
                  archive) {
-                if(count >= (pageNum - 1) * 5  && count <= pageNum * 5)
+                if(count >= (pageNum - 1) * 2  && count <= pageNum * 2)
                     sample.add(article);
 
                 count++;

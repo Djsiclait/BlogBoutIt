@@ -1,8 +1,7 @@
 /**
  * Created by Eduardo veras on 01-Jun-16.
  */
-import BlogService.ArticleServices;
-import BlogService.UserServices;
+
 import org.jsoup.Jsoup;
 
 import Entity.*;
@@ -12,7 +11,6 @@ import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -20,12 +18,7 @@ import static spark.Spark.post;
 
 public class PageCreator {
 
-    //public static DatabaseManager DBmanager;
-
-
     public PageCreator() throws Exception {
-
-        //DBmanager = new DatabaseManager();
 
         DatabaseManager.BootUP();
         DatabaseManager.PrintData();
@@ -37,10 +30,21 @@ public class PageCreator {
     private static void generateGets()
     {
         get("/", (request, response) -> {
+            response.redirect("/1");
+            return "Hello";
+        });
+
+
+        get("/:pagenum", (request, response) -> {
 
             Map<String, Object> attributes = new HashMap<>();
 
+            int PageNum =  Integer.parseInt(request.params(":pagenum"));
+            System.out.print("-------------------------------------------------------------Page Number:"+ PageNum);
+            List<Article> listaArticulosPag = DatabaseManager.GetArticlesOnPage(PageNum);
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
+
+
             for (Article ar:listaArticulos) {
                 System.out.println("ID: "+ ar.getId());
                 System.out.println("Body: "+ ar.getBody());
@@ -77,7 +81,14 @@ public class PageCreator {
 
                 attributes.put("user", user);
             }
-
+            if (listaArticulosPag==null)
+            {
+                System.out.print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                attributes.put("listaArticulos", listaArticulos);
+            }else
+            {
+                attributes.put("listaArticulos", listaArticulosPag);
+            }
             attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
 
@@ -228,6 +239,14 @@ public class PageCreator {
             {
                 int commentID = Integer.parseInt(request.queryParams("commentID"));
                 DatabaseManager.DeleteComment(commentID);
+            }
+            else if (formType.equals("like"))
+            {
+                DatabaseManager.LikeArticle(Integer.parseInt(request.queryParams("postID")));
+            }
+            else if (formType.equals("dislike"))
+            {
+                DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else
             {
