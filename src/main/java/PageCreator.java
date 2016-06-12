@@ -29,6 +29,7 @@ public class PageCreator {
 
     private static void generateGets()
     {
+        System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
             response.redirect("/1");
             return "Hello";
@@ -98,7 +99,6 @@ public class PageCreator {
 
 
         get("/logout", (req, res) -> {
-
             req.session().invalidate();
             res.redirect("/");
 
@@ -107,7 +107,7 @@ public class PageCreator {
 
 
         get("/login", (request, response) -> {
-
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PROCESING LOGIN GET METHOD XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
@@ -120,7 +120,6 @@ public class PageCreator {
             {
                 attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
-
             return new ModelAndView(attributes, "login.ftl");
         }, new FreeMarkerEngine());
 
@@ -165,6 +164,7 @@ public class PageCreator {
 
     private static void generatePost()
     {
+        System.out.println("Generating POST methods......................");
         post("/register", (request, response) -> {
 
             boolean author = false;
@@ -231,9 +231,9 @@ public class PageCreator {
             return username;
         });
 
-        post("/", (request, response) -> {
+        post("/:pagenum", (request, response) -> {
             //TODO:Make this post work
-
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX  PROCESING HOMEPAGE POST XXXXXXXXXXXXXXXXXXXXX");
             String formType = request.queryParams("kind");
 
             if (formType.equals("delete"))
@@ -243,10 +243,12 @@ public class PageCreator {
             }
             else if (formType.equals("like"))
             {
+                System.out.println("im liking something");
                 DatabaseManager.LikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else if (formType.equals("dislike"))
             {
+                System.out.println("im disliking something");
                 DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else
@@ -254,13 +256,10 @@ public class PageCreator {
                 String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
                 Article article = DatabaseManager.FetchArticle(Integer.parseInt(request.queryParams("postID")));
                 User user = DatabaseManager.FetchUser(request.queryParams("user"));
-
-                System.out.println("Comment:"+comment);
-                System.out.println("Post ID:"+article.getId());
-                System.out.println("User: "+user.getUsername());
-
+                //System.out.println("Comment:"+comment);
+                //System.out.println("Post ID:"+article.getId());
+                //System.out.println("User: "+user.getUsername());
                 DatabaseManager.CreateComment(comment,user,article);
-
             }
 
             response.redirect("./");

@@ -3,16 +3,12 @@
 
 <html lang="en">
 
-
-
 <head>
-
-
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Title Goes Here</title>
+    <title>Blog About It</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -23,7 +19,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
     <script type="text/javascript" src="/js/common.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <link rel="stylesheet" href="/css/blogtheme.css">
