@@ -237,7 +237,7 @@ public class PageCreator {
             return username;
         });
 
-        post("/:pagenum", (request, response) -> {
+        post("/pages/:pagenum", (request, response) -> {
             //TODO:Make this post work
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX  PROCESING HOMEPAGE POST XXXXXXXXXXXXXXXXXXXXX");
             String formType = request.queryParams("kind");
