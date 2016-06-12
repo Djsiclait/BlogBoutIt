@@ -204,7 +204,7 @@ public class PageCreator {
 
             request.session().attribute("user", username) ;
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "working";
         });
@@ -262,13 +262,10 @@ public class PageCreator {
                 String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
                 Article article = DatabaseManager.FetchArticle(Integer.parseInt(request.queryParams("postID")));
                 User user = DatabaseManager.FetchUser(request.queryParams("user"));
-                //System.out.println("Comment:"+comment);
-                //System.out.println("Post ID:"+article.getId());
-                //System.out.println("User: "+user.getUsername());
                 DatabaseManager.CreateComment(comment,user,article);
             }
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "lol";
         });
@@ -298,7 +295,7 @@ public class PageCreator {
             Integer ID = DatabaseManager.CreateArticle(title,body, DatabaseManager.FetchUser(user));
             DatabaseManager.ProcessTagsOnArticle(listTags, DatabaseManager.FetchArticle(ID));
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "lol";
         });
