@@ -31,12 +31,12 @@ public class PageCreator {
     {
         System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
-            response.redirect("/1");
+            response.redirect("/pages/1");
             return "Hello";
         });
 
 
-        get("/:pagenum", (request, response) -> {
+        get("/pages/:pagenum", (request, response) -> {
 
             Map<String, Object> attributes = new HashMap<>();
 
