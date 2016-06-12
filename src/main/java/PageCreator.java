@@ -1,8 +1,7 @@
 /**
  * Created by Eduardo veras on 01-Jun-16.
  */
-import BlogService.ArticleServices;
-import BlogService.UserServices;
+
 import org.jsoup.Jsoup;
 
 import Entity.*;
@@ -12,7 +11,6 @@ import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -20,12 +18,7 @@ import static spark.Spark.post;
 
 public class PageCreator {
 
-    //public static DatabaseManager DBmanager;
-
-
     public PageCreator() throws Exception {
-
-        //DBmanager = new DatabaseManager();
 
         DatabaseManager.BootUP();
         DatabaseManager.PrintData();
@@ -36,12 +29,29 @@ public class PageCreator {
 
     private static void generateGets()
     {
+        System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
+            response.redirect("/pages/1");
+            return "Hello";
+        });
+
+        get("/pages", (request, response) -> {
+            response.redirect("/pages/1");
+            return "Hello";
+        });
+
+
+        get("/pages/:pagenum", (request, response) -> {
 
             Map<String, Object> attributes = new HashMap<>();
 
+            int PageNum =  Integer.parseInt(request.params(":pagenum"));
+            System.out.print("-------------------------------------------------------------Page Number:"+ PageNum);
+            ArrayList<Article> listaArticulosPag = DatabaseManager.GetArticlesOnPage(PageNum);
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
-            for (Article ar:listaArticulos) {
+
+
+            for (Article ar:listaArticulosPag) {
                 System.out.println("ID: "+ ar.getId());
                 System.out.println("Body: "+ ar.getBody());
                 System.out.println("Title: "+ ar.getTitle());
@@ -78,15 +88,23 @@ public class PageCreator {
                 attributes.put("user", user);
             }
 
-            attributes.put("listaArticulos", listaArticulos);
+            if (listaArticulosPag==null)
+            {
+                System.out.print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                attributes.put("listaArticulos", listaArticulos);
+            }else
+            {
+                attributes.put("listaArticulos", listaArticulosPag);
+            }
+            //attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
+            attributes.put("pagenum",PageNum);
 
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
 
 
         get("/logout", (req, res) -> {
-
             req.session().invalidate();
             res.redirect("/");
 
@@ -95,7 +113,7 @@ public class PageCreator {
 
 
         get("/login", (request, response) -> {
-
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PROCESING LOGIN GET METHOD XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
@@ -108,7 +126,6 @@ public class PageCreator {
             {
                 attributes.put("user", DatabaseManager.FetchUser("guest"));
             }
-
             return new ModelAndView(attributes, "login.ftl");
         }, new FreeMarkerEngine());
 
@@ -153,6 +170,7 @@ public class PageCreator {
 
     private static void generatePost()
     {
+        System.out.println("Generating POST methods......................");
         post("/register", (request, response) -> {
 
             boolean author = false;
@@ -186,7 +204,7 @@ public class PageCreator {
 
             request.session().attribute("user", username) ;
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "working";
         });
@@ -219,9 +237,9 @@ public class PageCreator {
             return username;
         });
 
-        post("/", (request, response) -> {
+        post("/pages/:pagenum", (request, response) -> {
             //TODO:Make this post work
-
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX  PROCESING HOMEPAGE POST XXXXXXXXXXXXXXXXXXXXX");
             String formType = request.queryParams("kind");
 
             if (formType.equals("delete"))
@@ -229,21 +247,25 @@ public class PageCreator {
                 int commentID = Integer.parseInt(request.queryParams("commentID"));
                 DatabaseManager.DeleteComment(commentID);
             }
+            else if (formType.equals("like"))
+            {
+                System.out.println("im liking something");
+                DatabaseManager.LikeArticle(Integer.parseInt(request.queryParams("postID")));
+            }
+            else if (formType.equals("dislike"))
+            {
+                System.out.println("im disliking something");
+                DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
+            }
             else
             {
                 String comment = Jsoup.parse(request.queryParams("thebodyx")).text();
                 Article article = DatabaseManager.FetchArticle(Integer.parseInt(request.queryParams("postID")));
                 User user = DatabaseManager.FetchUser(request.queryParams("user"));
-
-                System.out.println("Comment:"+comment);
-                System.out.println("Post ID:"+article.getId());
-                System.out.println("User: "+user.getUsername());
-
                 DatabaseManager.CreateComment(comment,user,article);
-
             }
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "lol";
         });
@@ -273,7 +295,7 @@ public class PageCreator {
             Integer ID = DatabaseManager.CreateArticle(title,body, DatabaseManager.FetchUser(user));
             DatabaseManager.ProcessTagsOnArticle(listTags, DatabaseManager.FetchArticle(ID));
 
-            response.redirect("./");
+            response.redirect("/");
 
             return "lol";
         });
