@@ -35,6 +35,11 @@ public class PageCreator {
             return "Hello";
         });
 
+        get("/pages", (request, response) -> {
+            response.redirect("/pages/1");
+            return "Hello";
+        });
+
 
         get("/pages/:pagenum", (request, response) -> {
 
@@ -46,7 +51,7 @@ public class PageCreator {
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
 
 
-            for (Article ar:listaArticulos) {
+            for (Article ar:listaArticulosPag) {
                 System.out.println("ID: "+ ar.getId());
                 System.out.println("Body: "+ ar.getBody());
                 System.out.println("Title: "+ ar.getTitle());
@@ -93,6 +98,7 @@ public class PageCreator {
             }
             //attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
+            attributes.put("pagenum",PageNum);
 
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
