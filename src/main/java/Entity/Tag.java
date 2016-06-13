@@ -18,7 +18,7 @@ public class Tag implements Serializable{
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "TAG", length = 50, unique = true)
+    @Column(name = "TAG", length = 50)//, unique = true)
     private String tag;
 
     //Constructors

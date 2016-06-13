@@ -35,14 +35,6 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
-
-    /*    ArrayList<Article> articles = GetArticlesOnPage(1);
-
-        for (Article article:
-             articles) {
-            System.out.println("\n\n" + article.getId() + " " + article.getTitle() + " " + article.getModified().toString() + "\n\n");
-        }*/
-
     }
 
     public static void PrintData(){
