@@ -167,8 +167,15 @@
 
             <div class="card-action">
                 <#if user.isAdmin()>
-                    <a class="red-text" href="#">Delete Post</a>
-                    <a href="#">Edit Post</a>
+                    <form class="center" action="" method="post">
+                        <input type="hidden" id="kind" name="kind" value="deleteP">
+                        <input type="hidden" name="postID" value="${articulo.getId()}">
+                        <input class="btn-flat" type="submit" style="color: red;" value="DELETE">
+                    </form><form class="center" action="" method="post">
+                    <input type="hidden" id="kind" name="kind" value="edit">
+                    <input type="hidden" name="postID" value="${articulo.getId()}">
+                    <input class="btn-flat" type="submit" style="color: green;" value="EDIT">
+                </form>
                 </#if>
                 <form class="left" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="like">

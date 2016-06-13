@@ -210,6 +210,14 @@ public class PageCreator {
             {
                 DatabaseManager.LikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
+            else if (formType.equals("deleteP"))
+            {
+                DatabaseManager.DeleteArticle(Integer.parseInt(request.queryParams("postID")));
+            }
+            else if (formType.equals("edit"))
+            {
+                //DatabaseManager.EditArticle(Integer.parseInt(request.queryParams("postID")));
+            }
             else if (formType.equals("dislike"))
             {
                 DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
