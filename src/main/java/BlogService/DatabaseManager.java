@@ -7,7 +7,9 @@ import Entity.*;
 
 import Entity.Comment;
 import Entity.User;
+import org.h2.tools.Server;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class DatabaseManager {
@@ -19,6 +21,13 @@ public class DatabaseManager {
     }
 
     public static void BootUP(){
+        Server server = null;
+        try {
+            server = Server.createTcpServer("-tcpAllowOthers").start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         List<User> Users = UserServices.getInstance().FindAll();
 
