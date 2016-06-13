@@ -173,12 +173,16 @@
                 <form class="left" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="like">
                     <input type="hidden" name="postID" value="${articulo.getId()}">
-                    <input class="btn-flat" type="submit" value="Like"> ${articulo.getLikes()}
+                    <button class="btn waves-effect waves-light orange accent-4" type="submit" name="action">${articulo.getLikes()}
+                        <i class="material-icons right">thumb_up</i>
+                    </button>
                 </form>
                 <form class="right" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="dislike">
                     <input type="hidden" name="postID" value="${articulo.getId()}">
-                    <input class="btn-flat" type="submit" value="Dislike"> ${articulo.getDislikes()}
+                    <button class="btn waves-effect waves-light orange accent-4" type="submit" name="action">${articulo.getDislikes()}
+                        <i class="material-icons right">thumb_down</i>
+                    </button>
                 </form>
 
             </div>
@@ -213,7 +217,7 @@
 <ul class="pagination center-align">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
 <#list 1..pages as X>
-    <li class="active"><a href="./${X}">${X}</a></li>
+    <li class="active orange accent-4"><a href="./${X}">${X}</a></li>
    <!-- <li class="waves-effect"><a href="./2">2</a></li>
     <li class="waves-effect"><a href="./3">3</a></li>
     <li class="waves-effect"><a href="./4">4</a></li>
