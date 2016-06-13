@@ -82,6 +82,7 @@
                 <a class="modal-trigger" href="#modal${articulo.getId()}">
                     <img class="" src="http://loremflickr.com/800/400">
                 </a>
+                <a class="modal-trigger card-title" href="#modal${articulo.getId()}"><h3>${articulo.getTitle()}</h3></a>
             </div>
             <div class="card-content">
             <span class="activator card-title grey-text text-darken-4">
@@ -158,7 +159,7 @@
 
             <#list articulo.getTags() as tag>
 
-                <div class="chip">
+                <div class="chip">#
                 ${tag.getTag()}
                 </div>
 
