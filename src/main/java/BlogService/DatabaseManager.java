@@ -359,6 +359,7 @@ public class DatabaseManager {
                  tg) {
                 if(tag.getTag().equals(t.getTag())) {
                     tag = t;
+                    System.out.println("\n\n" + tag.getId() + " " + tag.getTag() + "\n\n");
                     newTag = false;
                     break;
                 }

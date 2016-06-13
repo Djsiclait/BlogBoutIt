@@ -68,7 +68,10 @@ public class ORManager<T> {
 
         try {
             em.merge(entity);
-            em.getTransaction().commit();
+            //em.remove(em.contains(entity) ? entity : em.merge(entity));
+            //em.persist(entity);
+            em.getTransaction().commit(); // This is what is causing the error with  old tags
+            System.out.println("\n\nPING!!!!\n\n");
 
         } catch (EntityNotFoundException exp) {
             System.out.println("Entity ERROR! --> " + exp.getMessage());
