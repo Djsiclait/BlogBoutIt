@@ -99,6 +99,7 @@ public class PageCreator {
             //attributes.put("listaArticulos", listaArticulos);
             attributes.put("message", "Welcome");
             attributes.put("pagenum",PageNum);
+            attributes.put("pages", DatabaseManager.totalPage);
 
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());

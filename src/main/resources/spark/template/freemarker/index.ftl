@@ -194,7 +194,7 @@
 
 <!----------modals-------------->
 
-<#list listaArticulos?reverse as articulo>
+<#list listaArticulos as articulo>
 <div id="modal${articulo.getId()}" class="modal">
     <div class="modal-content">
         <h4>${articulo.getTitle()}</h4>
@@ -212,13 +212,13 @@
 
 <ul class="pagination center-align">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-
-    <li class="active"><a href="./1">1</a></li>
-    <li class="waves-effect"><a href="./2">2</a></li>
+<#list 1..pages as X>
+    <li class="active"><a href="./${X}">${X}</a></li>
+   <!-- <li class="waves-effect"><a href="./2">2</a></li>
     <li class="waves-effect"><a href="./3">3</a></li>
     <li class="waves-effect"><a href="./4">4</a></li>
-    <li class="waves-effect"><a href="./5">5</a></li>
-
+    <li class="waves-effect"><a href="./5">5</a></li> -->
+</#list>
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 </ul>
 <!-- Footer -->

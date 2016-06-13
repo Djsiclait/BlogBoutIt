@@ -12,6 +12,8 @@ import java.util.*;
 
 public class DatabaseManager {
 
+    public static int totalPage = 0;
+
     private DatabaseManager(){
 
     }
@@ -44,7 +46,9 @@ public class DatabaseManager {
 
         ProcessTagsOnArticle(tags, article);*/
 
+        int total = ArticleServices.getInstance().FindAll().size();
 
+        totalPage = (int)Math.ceil(total/5) + ((total % 5 > 0)? 1: 0);
 
     }
 
@@ -149,11 +153,11 @@ public class DatabaseManager {
             }
         });
 
-        if(pageNum <= Math.ceil(archive.size()/2))
+        if(pageNum <= Math.ceil(archive.size()/5) + ((archive.size() % 5 > 0)? 1: 0))
         {
             for (Article article:
                  archive) {
-                if(count >= (pageNum - 1) * 2  && count <= pageNum * 2)
+                if(count > (pageNum - 1) * 5  && count <= pageNum * 5)
                     sample.add(article);
 
                 count++;
