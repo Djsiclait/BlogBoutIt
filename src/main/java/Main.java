@@ -14,7 +14,7 @@ public class Main {
         PageCreator pages = new PageCreator();
     }
 
-    static int getHerokuAssignedPort() {
+    static void getHerokuAssignedPort() {
         ProcessBuilder process = new ProcessBuilder();
         Integer port;
         if (process.environment().get("PORT") != null) {
