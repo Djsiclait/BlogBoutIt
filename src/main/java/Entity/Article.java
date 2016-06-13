@@ -33,8 +33,7 @@ public class Article implements Serializable{
     @Column(name = "COMENTARIOS")
     private Set<Comment> Comments; // Must use Set
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Column(name = "ETIQUETAS")
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Tag> Tags; // Must use Set
 
     @Column(name = "FECHA")
