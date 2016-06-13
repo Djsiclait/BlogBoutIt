@@ -254,7 +254,7 @@ public class PageCreator {
             }
             else if (formType.equals("dislike"))
             {
-                System.out.println("im disliking something");
+                System.out.println("im disliking something *" + request.queryParams("postID"));
                 DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else
@@ -293,7 +293,7 @@ public class PageCreator {
             System.out.println("Salio del for");
 
             Integer ID = DatabaseManager.CreateArticle(title,body, DatabaseManager.FetchUser(user));
-            DatabaseManager.ProcessTagsOnArticle(listTags, DatabaseManager.FetchArticle(ID));
+            DatabaseManager.ProcessTagsOnArticle(listTags, ID); //DatabaseManager.FetchArticle(ID));
 
             response.redirect("/");
 

@@ -35,6 +35,17 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
+        /*Article article = ArticleServices.getInstance().Find(21);
+
+        ArrayList<Tag> tags = new ArrayList<>();
+
+        tags.add(TagServices.getInstance().Find(5));
+        tags.add(new Tag("moonstone"));
+
+        ProcessTagsOnArticle(tags, article);*/
+
+
+
     }
 
     public static void PrintData(){
@@ -80,7 +91,7 @@ public class DatabaseManager {
         Article article = ArticleServices.getInstance().Find(id);
 
         article.setLikes(article.getLikes() + 1);
-
+        System.out.println("\n\n" + article.getId() + " " + article.getTitle() + " " + article.getLikes() + "\n\n");
         ArticleServices.getInstance().Edit(article);
 
     }
@@ -344,7 +355,7 @@ public class DatabaseManager {
         return tg.getId();
     }
 
-    public static void ProcessTagsOnArticle(ArrayList<Tag> tags, Article article){
+    public static void ProcessTagsOnArticle(ArrayList<Tag> tags, int articleID){
 
         List<Tag> tg = TagServices.getInstance().FindAll();
 
@@ -370,10 +381,14 @@ public class DatabaseManager {
 
         }
 
+        Article article = FetchArticle(articleID);
+
         for (Tag tag:
                 tags) {
                 article.getTags().add(tag);
         }
+
+        System.out.println("\n\n" + article.getId() + " " + article.getTitle() + "\n\n");
 
         ArticleServices.getInstance().Edit(article);
 

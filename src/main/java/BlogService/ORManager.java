@@ -67,6 +67,7 @@ public class ORManager<T> {
         em.getTransaction().begin();
 
         try {
+            //em.detach(entity);
             em.merge(entity);
             //em.remove(em.contains(entity) ? entity : em.merge(entity));
             //em.persist(entity);

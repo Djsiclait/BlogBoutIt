@@ -172,11 +172,13 @@
                 </#if>
                 <form class="left" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="like">
-                    <input class="btn-flat" type="submit" value="Like">
+                    <input type="hidden" name="postID" value="${articulo.getId()}">
+                    <input class="btn-flat" type="submit" value="Like"> ${articulo.getLikes()}
                 </form>
                 <form class="right" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="dislike">
-                    <input class="btn-flat" type="submit" value="Dislike">
+                    <input type="hidden" name="postID" value="${articulo.getId()}">
+                    <input class="btn-flat" type="submit" value="Dislike"> ${articulo.getDislikes()}
                 </form>
 
             </div>
