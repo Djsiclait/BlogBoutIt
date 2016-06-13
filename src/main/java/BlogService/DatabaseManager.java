@@ -37,15 +37,6 @@ public class DatabaseManager {
         else
             System.out.println("Database already configured");
 
-        /*Article article = ArticleServices.getInstance().Find(21);
-
-        ArrayList<Tag> tags = new ArrayList<>();
-
-        tags.add(TagServices.getInstance().Find(5));
-        tags.add(new Tag("moonstone"));
-
-        ProcessTagsOnArticle(tags, article);*/
-
         int total = ArticleServices.getInstance().FindAll().size();
 
         totalPage = (int)Math.ceil(total/5) + ((total % 5 > 0)? 1: 0);
@@ -129,12 +120,6 @@ public class DatabaseManager {
 
         ArticleServices.getInstance().Edit(article);
     }
-
-    // TODO: Modify this function to be able to search by Tag
-    /*public static ArrayList<Article> SearchArchivesBy(Article article, String category){
-
-        return (ArrayList<Article>) ArticleQuery(article, category);
-    }*/
 
     public static List<Article> GetAllArticles(){
 

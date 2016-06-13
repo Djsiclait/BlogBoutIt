@@ -46,57 +46,31 @@ public class PageCreator {
             Map<String, Object> attributes = new HashMap<>();
 
             int PageNum =  Integer.parseInt(request.params(":pagenum"));
-            System.out.print("-------------------------------------------------------------Page Number:"+ PageNum);
             ArrayList<Article> listaArticulosPag = DatabaseManager.GetArticlesOnPage(PageNum);
             List<Article> listaArticulos = DatabaseManager.GetAllArticles();
 
-
-            for (Article ar:listaArticulosPag) {
-                System.out.println("ID: "+ ar.getId());
-                System.out.println("Body: "+ ar.getBody());
-                System.out.println("Title: "+ ar.getTitle());
-                for (Comment com :ar.getComments())
-                {
-                    System.out.println("     Comment ID:"+com.getId());
-                }
-            }
-
             if (request.session().attribute("user")!= null)
             {
-                System.out.println("---------------we are in the IF ------------------");
-
                 String CookieUSER= request.session().attribute("user");
-                System.out.println("CookieUser: "+CookieUSER);
+
                 User user = DatabaseManager.FetchUser(CookieUSER);
                 attributes.put("user", user);
-                //System.out.print("|"+CookieUSER+"|");
-                //User user = DatabaseManager.FetchUser(CookieUSER);
-                //System.out.println("Username: "+user.getUsername());
-                //System.out.println("Name: "+user.getName());
-                //System.out.println("Password: "+user.getPassword());
-
-                //attributes.put("user", user);
             }
             else
             {
                 User user = DatabaseManager.FetchUser("guest");
-                System.out.println("---------------we are in the ELSE ------------------");
-                System.out.println("Username: "+user.getUsername());
-                System.out.println("Name: "+user.getName());
-                System.out.println("Password: "+ user.getPassword());
 
                 attributes.put("user", user);
             }
 
-            if (listaArticulosPag==null)
+            if (listaArticulosPag == null)
             {
-                System.out.print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                 attributes.put("listaArticulos", listaArticulos);
             }else
             {
                 attributes.put("listaArticulos", listaArticulosPag);
             }
-            //attributes.put("listaArticulos", listaArticulos);
+
             attributes.put("message", "Welcome");
             attributes.put("pagenum",PageNum);
             attributes.put("pages", DatabaseManager.totalPage);
@@ -114,7 +88,6 @@ public class PageCreator {
 
 
         get("/login", (request, response) -> {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PROCESING LOGIN GET METHOD XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             Map<String, Object> attributes = new HashMap<>();
 
             attributes.put("message", "Welcome");
@@ -171,7 +144,7 @@ public class PageCreator {
 
     private static void generatePost()
     {
-        System.out.println("Generating POST methods......................");
+
         post("/register", (request, response) -> {
 
             boolean author = false;
@@ -193,12 +166,6 @@ public class PageCreator {
                 author=true;
             }
 
-            System.out.println("Username:"+username);
-            System.out.println("Name:"+name);
-            System.out.println("Pass:"+pass);
-            System.out.println("admin:"+admin);
-            System.out.println("author:"+author);
-
             DatabaseManager.CreateUser(username,name,pass,admin,author);
 
             Session session=request.session(true);
@@ -215,12 +182,8 @@ public class PageCreator {
             String username = request.queryParams("username");
             String pass = request.queryParams("password");
 
-            System.out.println("Username:"+username);
-            System.out.println("pass:"+pass);
-
             if (DatabaseManager.CheckCredentials(username,pass))
             {
-                System.out.print("Login Successfull");
                 Session session=request.session(true);
 
                 request.session().attribute("user", username) ;
@@ -229,18 +192,13 @@ public class PageCreator {
             }
             else
             {
-                System.out.print("The user doesnt exist");
-
                 response.redirect("/login");
             }
 
-            //TODO: Make the login function with cookies and stuff
             return username;
         });
 
         post("/pages/:pagenum", (request, response) -> {
-            //TODO:Make this post work
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX  PROCESING HOMEPAGE POST XXXXXXXXXXXXXXXXXXXXX");
             String formType = request.queryParams("kind");
 
             if (formType.equals("delete"))
@@ -250,12 +208,10 @@ public class PageCreator {
             }
             else if (formType.equals("like"))
             {
-                System.out.println("im liking something");
                 DatabaseManager.LikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else if (formType.equals("dislike"))
             {
-                System.out.println("im disliking something *" + request.queryParams("postID"));
                 DatabaseManager.DislikeArticle(Integer.parseInt(request.queryParams("postID")));
             }
             else
@@ -277,21 +233,12 @@ public class PageCreator {
             String tags = request.queryParams("tags");
             String user = request.queryParams("user");
 
-            System.out.println("Title:"+title);
-            System.out.println("Body:"+body);
-            System.out.println("tags:"+tags);
-            System.out.println("User:"+user);
-            System.out.println();
-
             ArrayList<String> listString = new ArrayList<>(Arrays.asList(tags.split("\\s*,\\s*")));
             ArrayList<Tag> listTags = new ArrayList<>();
 
             for (String st:listString) {
                 listTags.add(new Tag(st));
             }
-
-            System.out.println("Lista Tags:"+ listTags);
-            System.out.println("Salio del for");
 
             Integer ID = DatabaseManager.CreateArticle(title,body, DatabaseManager.FetchUser(user));
             DatabaseManager.ProcessTagsOnArticle(listTags, ID); //DatabaseManager.FetchArticle(ID));
