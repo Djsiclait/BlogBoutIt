@@ -29,6 +29,8 @@ public class PageCreator {
 
     private static void generateGets()
     {
+        Chat chat = new Chat();
+
         System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
             response.redirect("/pages/1");
