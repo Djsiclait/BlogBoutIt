@@ -1,7 +1,7 @@
  <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
-<a class="btn-floating btn-large waves-effect waves-light red custom-float modal-trigger" href="#chatmodal"><i class="material-icons">chat_bubble</i></a>
+<a id="critique" class="btn-floating btn-large waves-effect waves-light red custom-float modal-trigger" href="#chatmodal"><i class="material-icons">chat_bubble</i></a>
 
 
 <div id="index-banner" class="parallax-container">
