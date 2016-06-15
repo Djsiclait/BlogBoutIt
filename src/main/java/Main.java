@@ -1,8 +1,6 @@
 /**
  * Created by Siclait on 30/05/2016.
  */
-import Entity.*;
-import BlogService.*;
 import static spark.Spark.*;
 
 public class Main {
