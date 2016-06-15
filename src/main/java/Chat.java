@@ -1,6 +1,7 @@
 /**
  * Created by Siclait on 14/6/16.
  */
+import Entity.User;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
 
@@ -15,8 +16,12 @@ import java.util.Map;
 
 public class Chat {
 
+    // Used for non registered guest of the website
     static Map<Session, String> userUsernameMap = new HashMap<>();
     static int nextUserNumber = 1; // Used for creating the next username
+
+    // User for registered clients of the website
+    static Map<String, User> authorUsernameMap = new HashMap<>();
 
     public Chat(){
         webSocket("/chat", ChatWebSocketHandler.class);
@@ -37,6 +42,23 @@ public class Chat {
                 exp.printStackTrace();
             }
         });
+    }
+
+    public static void unicastMessage(Session ses, String sender, String message, String reciever){
+
+        userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+
+            if(session.equals(ses))
+                try{
+                    session.getRemote().sendString(String.valueOf(new JSONObject()
+                            .put("userMessage", createHtmlMessageFromSender(sender, message))
+                            .put("user", "PLACEHOLER")));
+
+                } catch (Exception exp){
+                    exp.printStackTrace();
+                }
+        });
+
     }
 
     // Builds a HTML element with a sender-name, message, timmestamp
