@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"  type="text/css" rel="stylesheet" media="screen,projection">
+    <link rel="stylesheet" href="/css/materialize.css"  type="text/css" rel="stylesheet" media="screen,projection">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="/js/materialize.js"></script>
 
     <script type="text/javascript" src="/js/common.js"></script>
     <!-- Place this tag in your head or just before your close body tag. -->

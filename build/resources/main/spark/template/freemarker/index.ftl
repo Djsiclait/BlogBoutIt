@@ -1,6 +1,7 @@
  <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
+<a class="btn-floating btn-large waves-effect waves-light red custom-float modal-trigger" href="#chatmodal"><i class="material-icons">chat_bubble</i></a>
 
 
 <div id="index-banner" class="parallax-container">
@@ -193,6 +194,24 @@
 
 </#list>
 
+<div id="chatmodal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+        <div id="chatControls">
+            <input id="message" placeholder="Type your messsage here" />
+            <button id="send">Send</button>
+        </div>
+        <ul id="userlist"> <!-- Built by JS --> </ul>
+        <div id="chat"> <!-- Built by JS--> </div>
+        <script src="Js/websocketDemo.js"></script>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<!----------END modals-------------->
 
 <br><br>
 
