@@ -40,7 +40,7 @@ public class PageCreator {
 
 
 
-        get("/chate", (request, response) -> {
+        get("/test", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
 
             return new ModelAndView(attributes, "test.ftl");
