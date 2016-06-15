@@ -40,6 +40,7 @@ dependencies {
 
     // Sparkjava and FreeMarker
     compile "com.sparkjava:spark-core:2.4"
+    compile 'com.sparkjava:spark-debug-tools:0.5'
     compile group: 'com.sparkjava', name: 'spark-template-freemarker', version: '2.3'
 
     //Slf4j Library -> Sparkjava extension
@@ -57,7 +58,8 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.2.0.Final"
     compile 'org.hibernate:hibernate-entitymanager:5.1.0.Final'
 
-    // JPA - Spring
-    //compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version: '1.0.0.Final'
-
+    // J2HTML
+    compile group: 'com.j2html', name: 'j2html', version: '0.7'
 }
+
+defaultTasks = ['clean']

@@ -1,33 +1,9 @@
-<#include "/siteHeader.ftl">
+ <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
-<#--
-<div id="index-banner" class="parallax-container">
-    <div class="the-index-header"><#include "/navbar.ftl"></div>
-    <div class="section no-pad-bot">
-        <div class="container ed-container">
+<a class="btn-floating btn-large waves-effect waves-light red custom-float modal-trigger" href="#chatmodal"><i class="material-icons">chat_bubble</i></a>
 
 
-            <br><br>
-            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user.getName()}.</h1>
-            <div class="row center">
-                <h5 class="header col s12 light">The blog about some of the coolest stuff</h5>
-            </div>
-            <div class="row center">
-                <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
-            </div>
-            <div class="row center">
-                <h7 class="header col s12 light grey-text">Scroll Down to view content</h7>
-            </div>
-            <br><br>
-
-
-        </div>
-    </div>
-    <div class="parallax"><img src="http://designninjaz.com/wp-content/uploads/2015/01/Slider-BlackDeskScene.jpg"
-                               alt="Unsplashed background img 1"></div>
-</div>
--->
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
     <div class="section no-pad-bot">
@@ -71,7 +47,6 @@
 
 <!-- End Header -->
 
-
 <div class="row" id="mainContent">
 <#list listaArticulos?reverse as articulo>
 
@@ -82,6 +57,7 @@
                 <a class="modal-trigger" href="#modal${articulo.getId()}">
                     <img class="" src="http://loremflickr.com/800/400">
                 </a>
+                <a class="modal-trigger card-title" href="#modal${articulo.getId()}"><h3>${articulo.getTitle()}</h3></a>
             </div>
             <div class="card-content">
             <span class="activator card-title grey-text text-darken-4">
@@ -158,7 +134,7 @@
 
             <#list articulo.getTags() as tag>
 
-                <div class="chip">
+                <div class="chip">#
                 ${tag.getTag()}
                 </div>
 
@@ -167,18 +143,29 @@
 
             <div class="card-action">
                 <#if user.isAdmin()>
-                    <a class="red-text" href="#">Delete Post</a>
-                    <a href="#">Edit Post</a>
+                    <form class="center" action="" method="post">
+                        <input type="hidden" id="kind" name="kind" value="deleteP">
+                        <input type="hidden" name="postID" value="${articulo.getId()}">
+                        <input class="btn-flat" type="submit" style="color: red;" value="DELETE">
+                    </form><form class="center" action="" method="post">
+                    <input type="hidden" id="kind" name="kind" value="edit">
+                    <input type="hidden" name="postID" value="${articulo.getId()}">
+                    <input class="btn-flat" type="submit" style="color: green;" value="EDIT">
+                </form>
                 </#if>
                 <form class="left" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="like">
                     <input type="hidden" name="postID" value="${articulo.getId()}">
-                    <input class="btn-flat" type="submit" value="Like"> ${articulo.getLikes()}
+                    <button class="btn waves-effect waves-light orange accent-4" type="submit" name="action">${articulo.getLikes()}
+                        <i class="material-icons right">thumb_up</i>
+                    </button>
                 </form>
                 <form class="right" action="" method="post">
                     <input type="hidden" id="kind" name="kind" value="dislike">
                     <input type="hidden" name="postID" value="${articulo.getId()}">
-                    <input class="btn-flat" type="submit" value="Dislike"> ${articulo.getDislikes()}
+                    <button class="btn waves-effect waves-light orange accent-4" type="submit" name="action">${articulo.getDislikes()}
+                        <i class="material-icons right">thumb_down</i>
+                    </button>
                 </form>
 
             </div>
@@ -207,13 +194,34 @@
 
 </#list>
 
+<div id="chatmodal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+
+        <!--THE MAGIC HAPPENS HERE-->
+        <div id="chatControls">
+            <input id="message" placeholder="Type your messsage here" />
+            <button id="send">Send</button>
+        </div>
+        <ul id="userlist"> <!-- Built by JS --> </ul>
+        <div id="chat"> <!-- Built by JS--> </div>
+        <script src="/js/websocketDemo.js"></script>
+        <!--THE MAGIC ENDS HERE-->
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<!----------END modals-------------->
 
 <br><br>
 
 <ul class="pagination center-align">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
 <#list 1..pages as X>
-    <li class="active"><a href="./${X}">${X}</a></li>
+    <li class="active orange accent-4"><a href="./${X}">${X}</a></li>
    <!-- <li class="waves-effect"><a href="./2">2</a></li>
     <li class="waves-effect"><a href="./3">3</a></li>
     <li class="waves-effect"><a href="./4">4</a></li>

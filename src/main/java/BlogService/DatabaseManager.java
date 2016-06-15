@@ -7,7 +7,9 @@ import Entity.*;
 
 import Entity.Comment;
 import Entity.User;
+import org.h2.tools.Server;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class DatabaseManager {
@@ -19,6 +21,13 @@ public class DatabaseManager {
     }
 
     public static void BootUP(){
+        Server server = null;
+        try {
+            server = Server.createTcpServer("-tcpAllowOthers").start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         List<User> Users = UserServices.getInstance().FindAll();
 
@@ -36,15 +45,6 @@ public class DatabaseManager {
         }
         else
             System.out.println("Database already configured");
-
-        /*Article article = ArticleServices.getInstance().Find(21);
-
-        ArrayList<Tag> tags = new ArrayList<>();
-
-        tags.add(TagServices.getInstance().Find(5));
-        tags.add(new Tag("moonstone"));
-
-        ProcessTagsOnArticle(tags, article);*/
 
         int total = ArticleServices.getInstance().FindAll().size();
 
@@ -129,12 +129,6 @@ public class DatabaseManager {
 
         ArticleServices.getInstance().Edit(article);
     }
-
-    // TODO: Modify this function to be able to search by Tag
-    /*public static ArrayList<Article> SearchArchivesBy(Article article, String category){
-
-        return (ArrayList<Article>) ArticleQuery(article, category);
-    }*/
 
     public static List<Article> GetAllArticles(){
 
