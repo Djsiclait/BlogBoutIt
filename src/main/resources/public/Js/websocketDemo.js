@@ -1,11 +1,10 @@
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port);
+var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/chat");
 
 webSocket.onopen = function () {
-    alert("BITCH!");
+    alert("You are now chatting!");
 }
 
 webSocket.onmessage = function(message) {
-    alert("FUCK YOU!");
     updateChat(message);};
 
 webSocket.onclose = function() {alert("WebsSocket connection closed")};
