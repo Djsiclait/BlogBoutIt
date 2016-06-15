@@ -198,13 +198,16 @@
     <div class="modal-content">
         <h4>Modal Header</h4>
         <p>A bunch of text</p>
+
+        <!--THE MAGIC HAPPENS HERE-->
         <div id="chatControls">
             <input id="message" placeholder="Type your messsage here" />
             <button id="send">Send</button>
         </div>
         <ul id="userlist"> <!-- Built by JS --> </ul>
         <div id="chat"> <!-- Built by JS--> </div>
-        <script src="Js/websocketDemo.js"></script>
+        <script src="/js/websocketDemo.js"></script>
+        <!--THE MAGIC ENDS HERE-->
     </div>
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
