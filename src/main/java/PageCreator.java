@@ -41,7 +41,7 @@ public class PageCreator {
 
 
         get("/chat", (request, response) -> {
-            response.redirect("/pages/1");
+            //response.redirect("/pages/1");
             Map<String, Object> attributes = new HashMap<>();
 
             return new ModelAndView(attributes, "test.ftl");
