@@ -10,7 +10,17 @@ socket.onclose = function (e) {
 
 $(document).ready(function(){
 
+    var critic = {
+        name: '',
+        message: ''
+    };
+
     $('#author').click(function(){
+        critic['name'] = $('#critic').val();
+        /*Add chat popup logic*/
+    });
+
+    $('#send').click(function(){
 
     });
 

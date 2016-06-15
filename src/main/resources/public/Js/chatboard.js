@@ -9,9 +9,18 @@ socket.onclose = function (e) {
 }
 
 $(document).ready(function(){
+    
+    var author = {
+        username: '',
+        message: ''
+    };
 
-    $('#author').click(function(){
+    $('#critic').click(function(){
 
+    });
+    
+    $('#send').click(function(){
+        
     });
 
 });
