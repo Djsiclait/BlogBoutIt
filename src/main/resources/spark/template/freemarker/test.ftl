@@ -12,6 +12,5 @@
 </div>
 <ul id="userlist"> <!-- Built by JS --> </ul>
 <div id="chat"> <!-- Built by JS--> </div>
-<script src="Js/websocketDemo.js"></script>
 </body>
 </html>

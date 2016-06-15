@@ -40,8 +40,7 @@ public class PageCreator {
 
 
 
-        get("/chat", (request, response) -> {
-            //response.redirect("/pages/1");
+        get("/chate", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
 
             return new ModelAndView(attributes, "test.ftl");

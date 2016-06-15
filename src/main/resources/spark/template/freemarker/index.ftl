@@ -206,7 +206,6 @@
         </div>
         <ul id="userlist"> <!-- Built by JS --> </ul>
         <div id="chat"> <!-- Built by JS--> </div>
-        <script src="/js/websocketDemo.js"></script>
         <!--THE MAGIC ENDS HERE-->
     </div>
     <div class="modal-footer">
