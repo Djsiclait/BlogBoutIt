@@ -33,9 +33,14 @@ public class PageCreator {
 
         System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
-            response.redirect("/pages/1");
-            return "Hello";
-        });
+            //response.redirect("/pages/1");
+            //chat.broadcastAdminMessage("incognito", request.queryParams("message"));
+            Map<String, Object> attributes = new HashMap<>();
+
+            //return "Hello";
+        //});
+            return new ModelAndView(attributes, "test.ftl");
+        }, new FreeMarkerEngine());
 
         get("/pages", (request, response) -> {
             response.redirect("/pages/1");

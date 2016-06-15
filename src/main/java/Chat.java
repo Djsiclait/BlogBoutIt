@@ -21,6 +21,7 @@ public class Chat {
     public Chat(){
         webSocket("/chat", ChatWebSocketHandler.class);
         init();
+        System.out.println("\n\nWebSoket Initialized\n\n");
     }
 
     // Broadcast function: Admin Only

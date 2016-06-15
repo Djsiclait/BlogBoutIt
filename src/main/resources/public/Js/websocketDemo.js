@@ -1,5 +1,13 @@
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/chat/");
-webSocket.onmessage = function(message) {updateChat(message);};
+var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port);
+
+webSocket.onopen = function () {
+    alert("BITCH!");
+}
+
+webSocket.onmessage = function(message) {
+    alert("FUCK YOU!");
+    updateChat(message);};
+
 webSocket.onclose = function() {alert("WebsSocket connection closed")};
 
 id("send").addEventListener("click", function () {

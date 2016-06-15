@@ -1,33 +1,8 @@
-<#include "/siteHeader.ftl">
+<#-- <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
 <#--
-<div id="index-banner" class="parallax-container">
-    <div class="the-index-header"><#include "/navbar.ftl"></div>
-    <div class="section no-pad-bot">
-        <div class="container ed-container">
 
-
-            <br><br>
-            <h1 class="header center orange-text accent-2 text-lighten-2">${message} ${user.getName()}.</h1>
-            <div class="row center">
-                <h5 class="header col s12 light">The blog about some of the coolest stuff</h5>
-            </div>
-            <div class="row center">
-                <a href="/register" id="download-button" class="btn-large waves-effect waves-light orange accent-2">Register</a>
-            </div>
-            <div class="row center">
-                <h7 class="header col s12 light grey-text">Scroll Down to view content</h7>
-            </div>
-            <br><br>
-
-
-        </div>
-    </div>
-    <div class="parallax"><img src="http://designninjaz.com/wp-content/uploads/2015/01/Slider-BlackDeskScene.jpg"
-                               alt="Unsplashed background img 1"></div>
-</div>
--->
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
     <div class="section no-pad-bot">
@@ -70,7 +45,6 @@
 
 
 <!-- End Header -->
-
 
 <div class="row" id="mainContent">
 <#list listaArticulos?reverse as articulo>
