@@ -1,7 +1,7 @@
-<#-- <#include "/siteHeader.ftl">
+ <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
-<#--
+
 
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
