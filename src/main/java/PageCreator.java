@@ -140,6 +140,17 @@ public class PageCreator {
 
             return new ModelAndView(attributes, "createPost.ftl");
         }, new FreeMarkerEngine());
+
+        get("/:username/chatboard", (request, response) -> {
+
+            Map<String, Object> attributes = new HashMap<>();
+
+            attributes.put("message", "Welcome");
+
+            return new ModelAndView(attributes, "chatboard.ftl");
+        }, new FreeMarkerEngine());
+
+
     }
 
     private static void generatePost()
