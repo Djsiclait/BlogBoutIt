@@ -1,8 +1,8 @@
 /**
  * Created by Siclait on 14/6/16.
  */
+import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONObject;
-import spark.Session;
 
 import static j2html.TagCreator.*;
 import static spark.Spark.init;
