@@ -3,9 +3,13 @@
  */
 import org.json.JSONObject;
 import spark.Session;
+
+import static j2html.TagCreator.*;
 import static spark.Spark.init;
 import static spark.Spark.webSocket;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,5 +38,13 @@ public class Chat {
         });
     }
 
+    // Builds a HTML element with a sender-name, message, timmestamp
+    private static String createHtmlMessageFromSender(String sender, String message){
 
+        return article().with(
+                b(sender + ":"),
+                p(message),
+                span().withClass("timestamp").withText(new SimpleDateFormat("HH:mm:ss").format(new Date()))
+        ).render();
+    }
 }
