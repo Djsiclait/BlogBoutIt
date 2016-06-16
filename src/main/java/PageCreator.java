@@ -31,14 +31,16 @@ public class PageCreator {
     {
         Chat chat = new Chat();
 
+
         System.out.println("Generating get methods............................................");
         get("/", (request, response) -> {
-            //response.redirect("/pages/1");
-            //chat.broadcastAdminMessage("incognito", request.queryParams("message"));
+            response.redirect("/pages/1");
+            return null;
+        });
+
+        get("/test", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
 
-            //return "Hello";
-        //});
             return new ModelAndView(attributes, "test.ftl");
         }, new FreeMarkerEngine());
 

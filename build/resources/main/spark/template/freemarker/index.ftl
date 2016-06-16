@@ -1,7 +1,8 @@
-<#-- <#include "/siteHeader.ftl">
+ <#include "/siteHeader.ftl">
 <body>
 <!-- Header -->
-<#--
+<a id="critique" class="btn-floating btn-large waves-effect waves-light red custom-float modal-trigger" href="#chatmodal"><i class="material-icons">chat_bubble</i></a>
+
 
 <div id="index-banner" class="parallax-container">
     <div class="the-index-header"><#include "/navbar.ftl"></div>
@@ -193,6 +194,26 @@
 
 </#list>
 
+<div id="chatmodal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Chat box</h4>
+        <p>User Name</p>
+
+        <!--THE MAGIC HAPPENS HERE-->
+        <div id="chatControls">
+            <input id="message" placeholder="Type your messsage here" />
+            <button id="send">Send</button>
+        </div>
+        <ul id="userlist"> <!-- Built by JS --> </ul>
+        <div id="chat"> <!-- Built by JS--> </div>
+        <!--THE MAGIC ENDS HERE-->
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<!----------END modals-------------->
 
 <br><br>
 
