@@ -18,6 +18,7 @@ public class ChatWebSocketHandler {
     public void onConnect(Session user) throws Exception{
         String username = Chat.getUsername(); //"User" + Chat.nextUserNumber++;
         Chat.userUsernameMap.put(user, username);
+        Chat.colorUsernameMap.put(username, Chat.getColor());
         Chat.broadcastAdminMessage(sender = "Server",  message = (username + " joined the chat"));
     }
 
@@ -32,7 +33,9 @@ public class ChatWebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session user, String message){
 
-        Chat.unicastMessage(sender = Chat.userUsernameMap.get(user), this.message = message, "admin");
+        Chat.broadcastAdminMessage(sender = Chat.userUsernameMap.get(user), this.message = message);
+        //Chat.unicastMessage(sender = Chat.userUsernameMap.get(user), this.message = message, "admin");
+
     }
 
 }

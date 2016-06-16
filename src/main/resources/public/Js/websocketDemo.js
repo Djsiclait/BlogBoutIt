@@ -37,7 +37,7 @@ $(document).ready(function () {
             insert("chat", data.userMessage);
             id("userlist").innerHTML = "";
             data.userlist.forEach(function (user) {
-                insert("userlist", "<li>" + user + "</li>");
+                insert("userlist", "* <li style='display: inline-block; color: #b45314'>" + user + "</li> * ");
             });
         }
 

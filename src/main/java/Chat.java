@@ -16,10 +16,12 @@ public class Chat {
 
     // Used for non registered guest of the website
     static Map<Session, String> userUsernameMap = new HashMap<>();
+    static Map<String, String> colorUsernameMap = new HashMap<>();
     static int nextUserNumber = 1; // Used for creating the next username
 
     static ArrayList<String> adjectives = new ArrayList<>();
     static ArrayList<String> nouns = new ArrayList<>();
+    static ArrayList<String> colors = new ArrayList<>();
 
     // User for registered clients of the website
     static Map<String, User> authorUsernameMap = new HashMap<>();
@@ -30,6 +32,7 @@ public class Chat {
         System.out.println("\n\nWebSoket Initialized\n\n");
         FillAdjectives();
         FillNouns();
+        FillColors();
     }
 
     // Broadcast function: Admin Only
@@ -71,7 +74,7 @@ public class Chat {
 
         return article().with(
                 b(sender + ":"),
-                p(message),
+                p(message),//colorUsernameMap.get(sender)),
                 span().withClass("timestamp").withText(new SimpleDateFormat("HH:mm:ss").format(new Date()))
         ).render();
     }
@@ -102,8 +105,25 @@ public class Chat {
         nouns.add("Scribe");
     }
 
+    private static void FillColors(){
+        colors.add("red");
+        colors.add("blue");
+        colors.add("green");
+        colors.add("cyan");
+        colors.add("yellow");
+        colors.add("purple");
+        colors.add("orange");
+        colors.add("beige");
+        colors.add("violet");
+        colors.add("pink");
+    }
+
     static Random rand = new Random();
     public static String getUsername(){
         return "The " + adjectives.get(rand.nextInt(adjectives.size())) + nouns.get(rand.nextInt(nouns.size()));
+    }
+
+    public static String getColor(){
+        return colors.get(rand.nextInt(colors.size()));
     }
 }
