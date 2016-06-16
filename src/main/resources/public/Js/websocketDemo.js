@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('#critique').click(function() {
         var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/chat");
-
+        
         webSocket.onopen = function () {
             alert("You are now chatting!");
         }
