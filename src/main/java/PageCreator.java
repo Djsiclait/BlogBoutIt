@@ -38,18 +38,11 @@ public class PageCreator {
             return null;
         });
 
-
-
-        get("/chatter", (request, response) -> {
-            response.redirect("/pages/1");
+        get("/test", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
 
             return new ModelAndView(attributes, "test.ftl");
         }, new FreeMarkerEngine());
-
-
-
-
 
         get("/pages", (request, response) -> {
             response.redirect("/pages/1");

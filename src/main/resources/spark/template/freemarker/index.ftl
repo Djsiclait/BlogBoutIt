@@ -196,8 +196,8 @@
 
 <div id="chatmodal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <h4>Chat box</h4>
+        <p>User Name</p>
 
         <!--THE MAGIC HAPPENS HERE-->
         <div id="chatControls">
@@ -206,7 +206,6 @@
         </div>
         <ul id="userlist"> <!-- Built by JS --> </ul>
         <div id="chat"> <!-- Built by JS--> </div>
-        <script src="/js/websocketDemo.js"></script>
         <!--THE MAGIC ENDS HERE-->
     </div>
     <div class="modal-footer">
