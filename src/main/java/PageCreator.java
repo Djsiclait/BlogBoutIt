@@ -40,7 +40,7 @@ public class PageCreator {
 
 
 
-        get("/chat", (request, response) -> {
+        get("/chatter", (request, response) -> {
             response.redirect("/pages/1");
             Map<String, Object> attributes = new HashMap<>();
 
